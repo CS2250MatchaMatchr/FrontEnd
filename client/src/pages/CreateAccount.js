@@ -45,7 +45,7 @@ export default function CreateAccount() {
 
     return (
         <div className="container mt-5">
-            <div className="border p-4">
+            <div className="box">
                 <h1 className="text-center">Matchr</h1>
                 <h2 className="text-center">Create Account Page</h2>
                 <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
