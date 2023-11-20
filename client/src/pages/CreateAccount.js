@@ -15,9 +15,19 @@ export default function CreateAccount() {
     };
 
     const onSubmit = (data => {
-        axios.post("http://localhost:5000/hackers", data).then((response) => {
-            console.log("It Worked")
+        if (data.hackerPassword != data.passwordConfirmation) {
+            alert("Passwords are not the same.")
+        } else {
+            const newJson = {"email": data.email, "hackerPassword": data.hackerPassword};
+            axios.post("http://localhost:5000/hackers", newJson).then((response) => {
+            if (response === "Fail") {
+                alert("Email already exits.");
+            } else {
+                alert("Email created.")
+            }
         });
+        }
+        
     });
 
     const validationSchema = Yup.object().shape({
