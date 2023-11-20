@@ -4,10 +4,11 @@ const { Hackers, sequelize } = require("../models")
 const { QueryTypes } = require('sequelize');
 
 
-//Returns a JSON of all Hackers
+//Returns a JSON of a hacker given ID
 router.get("/", async (req,res) =>{
-    const listOfPosts = await Hackers.findAll()
-    res.json(listOfPosts)
+    const id = req.query.id
+    const hacker = await sequelize.query("SELECT * FROM `Hackers` WHERE id = " + id)
+    res.json(hacker)
 });
 
 //Gets hacker's password for login authentication (email needed)
@@ -79,14 +80,16 @@ router.post("/", async (req, res) => {
     
 })
 
+//Used to update the second the missing values of Hackers table
 router.put("/", async (req, res) => {
-
-    const sqlStatement = await sequelize.query("UPDATE HACKER SET fullName = :fullName, classStanding = :classStanding, gender = :gender, school = :school," + 
-                                               "frontOrBackEnd = :frontOrBackEnd, github = :github, linkedIn = :linkedIn, biography = :biography, lookingForTeam = :lookingForTeam" +
-                                               "WHERE id = ",
+    const sqlStatement = await sequelize.query("UPDATE `Hackers` SET fullName = :fullName, classStanding = :classStanding, gender = :gender, school = :school," + 
+                                               "frontOrBackEnd = :frontOrBackEnd, github = :github, linkedIn = :linkedIn, biography = :biography, lookingForTeam = :lookingForTeam " +
+                                               "WHERE id = :id",
 
         {
-            replacements: { fullName: req.body.fullName,
+            replacements: { 
+                            id: req.body.id,
+                            fullName: req.body.fullName,
                             classStanding: req.body.classStanding,
                             gender: req.body.gender,
                             school: req.body.school,
@@ -94,10 +97,11 @@ router.put("/", async (req, res) => {
                             github: req.body.github,
                             linkedIn: req.body.linkedIn,
                             biography: req.body.biography,
-                            lookingForTeam: Boolean(req.body.lookingForTeam)},
-            type: QueryTypes.SELECT 
+                            lookingForTeam: req.body.lookingForTeam},
+            type: QueryTypes.INSERT
         });
-
+    res.send("Update Succesful")
+    
 
     
 })
