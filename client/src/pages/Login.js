@@ -10,6 +10,15 @@ import axios from "axios";
 
 export default function Login() {
 
+    //State to allow the localStorage of DB ID
+    const [hackerID, setID] = useState([]);
+    let id = null
+
+    //useEffect Used to store data into localStorage
+    useEffect(() => {
+        localStorage.setItem('hackerID', hackerID);
+    });
+
     const initialValues = {
         email: "",
         hackerPassword: ""
@@ -17,14 +26,12 @@ export default function Login() {
 
     const onSubmit = (data => {
         let url = "http://localhost:5000/hackers/getPassword?email=" + data.email + "&hackerPassword=" + data.hackerPassword
-        console.log(url)
         axios.get(url).then((response) => {
-            if (response.data != true){
+            if (response.data === "Incorrect Password" || response.data === "email does not exist"){
                 console.log(response);
             }
             else{
-                <Navigate to ="/NoPage"/>
-                console.log("HEre");
+                setID(response.data)
             }
         });
     });

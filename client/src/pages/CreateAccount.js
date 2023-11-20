@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from "axios";
@@ -7,29 +7,57 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import "../styles.css";
 
+
 export default function CreateAccount() {
 
+    //State to allow the localStorage of DB ID
+    const [hackerID, setID] = useState([]);
+    let id = null
+
+    //useEffect Used to store data into localStorage
+    useEffect(() => {
+        localStorage.setItem('hackerID', hackerID);
+    });
+
+    //Initial Form Values
     const initialValues = {
         email: "",
         hackerPassword: ""
     };
 
+    //Logic once onSubmit is clicked
     const onSubmit = (data => {
         if (data.hackerPassword != data.passwordConfirmation) {
             alert("Passwords are not the same.")
         } else {
-            const newJson = {"email": data.email, "hackerPassword": data.hackerPassword};
-            axios.post("http://localhost:5000/hackers", newJson).then((response) => {
-            if (response === "Fail") {
-                alert("Email already exits.");
-            } else {
-                alert("Email created.")
-            }
-        });
+            const newHacker = {"email": data.email, 
+                                "hackerPassword": data.hackerPassword,
+                                "fullName": "",
+                                "classStanding": "",
+                                "gender": "",
+                                "school": "",
+                                "frontOrBackEnd": "",
+                                "github": "",
+                                "biography": "",
+                                "lookingForTeam": true
+                                };
+            axios.post("http://localhost:5000/hackers", newHacker).then((response) => {
+                if (response === "Fail") {
+
+                    alert("Email already exits.");
+                    
+                } else {
+                    
+                    id = response.data
+                    setID(id)
+                    
+                }
+            });
         }
         
     });
 
+    //Form Validation: NON DB Related
     const validationSchema = Yup.object().shape({
         email: Yup.string().required("You must enter an email!"),
         hackerPassword: Yup.string().required().min(5)
