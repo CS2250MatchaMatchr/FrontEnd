@@ -25,7 +25,6 @@ export default function CreateAccount() {
         hackerPassword: Yup.string().required().min(5)
     })
 
-
     // return(
     //     <>
     //         <h2>Create Account Page</h2>
