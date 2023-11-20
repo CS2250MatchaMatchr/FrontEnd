@@ -16,10 +16,11 @@ export default function Login() {
     };
 
     const onSubmit = (data => {
-        /*axios.post("http://localhost:5000/hackers", data).then((response) => {
-            console.log(data)
-        });*/
-        console.log(data)
+        axios.post("http://localhost:5000/hackers", data).then((response) => {
+            if (response != true){
+                
+            }
+        });
     });
     const validationSchema = Yup.object().shape({
         email: Yup.string().required("You must enter an email!"),

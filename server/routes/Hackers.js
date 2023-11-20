@@ -4,42 +4,36 @@ const { Hackers, sequelize } = require("../models")
 const { QueryTypes } = require('sequelize');
 
 
-//Returns a JSON of a hacker given ID
-router.get("/", async (req, res) => {
-    const id = req.query.id
-    const hacker = await sequelize.query("SELECT * FROM `Hackers` WHERE id = " + id)
-    res.json(hacker)
+//Returns a JSON of all Hackers
+router.get("/", async (req,res) =>{
+    const listOfPosts = await Hackers.findAll()
+    res.json(listOfPosts)
 });
 
-//Gets hacker's password for login authentication (email needed)
-router.get("/getPassword", async (req, res) => {
-    const inputEmail = req.query.email;
-    const inputPassword = req.query.hackerPassword;
-    const sqlStatement = await sequelize.query("SELECT hackerPassword FROM `Hackers` WHERE email = :email",
-        {
-            replacements: { email: inputEmail },
-            type: QueryTypes.SELECT
+//Gets hacker's password given email for login authentication
+router.get("/getPassword", async (req,res) => {
+    const inputEmail = req.body.email;
+    const inputPassword = req.body.hackerPassword;
+    const sqlStatement = await sequelize.query("SELECT hackerPassword FROM `Hackers` WHERE email = :email" , 
+        { 
+            replacements: {email: inputEmail},
+            type: QueryTypes.SELECT 
         });
 
     try {
         dbPassword = sqlStatement[0].hackerPassword;
-        if (dbPassword != inputPassword) {
+        if (dbPassword != inputPassword){
             res.send("Incorrect Password");
         }
-        else {
-            const hackerID = await sequelize.query("SELECT id FROM `Hackers` WHERE email = :email",
-                {
-                    replacements: { email: inputEmail },
-                    type: QueryTypes.SELECT
-                });
-            res.send(String(hackerID[0].id));
-        }
-    } catch (error) {
+        else{
+            res.send(true);
+        } 
+    } catch (error){
         res.send("Email does not exist");
     }
 });
 
-//Creates the hacker object, email and password only
+// //Creates a Hacker Object if not in table and makes it so that if the email already exists in the database, then it sends an error message
 router.post("/", async (req, res) => {
     const inputEmail = req.body.email;
     const hacker = {
