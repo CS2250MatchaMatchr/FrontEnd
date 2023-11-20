@@ -1,9 +1,9 @@
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import { Container , } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import React, {useEffect,useState} from 'react'
-import {Formik, Form, Field, ErrorMessage} from 'formik'
+import {Formik, Form, Field, ErrorMessage,} from 'formik'
 import * as Yup from 'yup'
 import axios from "axios";
 
@@ -16,9 +16,15 @@ export default function Login() {
     };
 
     const onSubmit = (data => {
-        axios.post("http://localhost:5000/hackers", data).then((response) => {
-            if (response != true){
-                
+        let url = "http://localhost:5000/hackers/getPassword?email=" + data.email + "&hackerPassword=" + data.hackerPassword
+        console.log(url)
+        axios.get(url).then((response) => {
+            if (response.data != true){
+                console.log(response);
+            }
+            else{
+                <Navigate to ="/NoPage"/>
+                console.log("HEre");
             }
         });
     });
