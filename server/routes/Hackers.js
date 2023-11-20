@@ -12,8 +12,8 @@ router.get("/", async (req,res) =>{
 
 //Gets hacker's password given email for login authentication
 router.get("/getPassword", async (req,res) => {
-    const inputEmail = req.body.email;
-    const inputPassword = req.body.hackerPassword;
+    const inputEmail = req.query.email;
+    const inputPassword = req.query.hackerPassword;
     const sqlStatement = await sequelize.query("SELECT hackerPassword FROM `Hackers` WHERE email = :email" , 
         { 
             replacements: {email: inputEmail},
