@@ -36,14 +36,26 @@ router.get("/getPassword", async (req,res) => {
 // //Creates a Hacker Object if not in table and makes it so that if the email already exists in the database, then it sends an error message
 router.post("/", async (req, res) => {
     const inputEmail = req.body.email;
-    const dbEmail = await sequelize.query("SELECT email FROM MatchaMatchr.Hackers WHERE email = :email", { replacements: { email: inputEmail}});
-    if (inputEmail === dbEmail) {
-        res.send("This email already exists.")  ;
-        alert("it's already a thing");
-    } else {
+    const hacker = req.body;
+    const sqlStatement = await sequelize.query("SELECT DISTINCT email FROM `Hackers` WHERE email = :email", 
+    { 
+        replacements: { email: inputEmail}, 
+        type: QueryTypes.SELECT
+    });
+    console.log(sqlStatement);
+    try{
+        const dbEmail = sqlStatement[0].email;
+        // if (inputEmail === dbEmail) {
+        res.send("Fail");
+        
+    } 
+    catch (error) {
         await Hackers.create(hacker);
-        res.json(hacker);
+        res.send("Success");
     }
+    
+    
+    
 })
 
 
