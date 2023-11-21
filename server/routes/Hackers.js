@@ -47,15 +47,22 @@ router.post("/", async (req, res) => {
         const dbEmail = sqlStatement[0].email;
         // if (inputEmail === dbEmail) {
         res.send("Fail");
-        
     } 
     catch (error) {
         await Hackers.create(hacker);
         res.send("Success");
     }
-    
-    
-    
+})
+
+//given userId, delete user from db
+router.delete("/deleteUser", async (req, res) => {
+    const userId = req.body.id;
+    const sqlStatement = await sequelize.query("DELETE FROM `Hackers` WHERE id = :id",
+    {
+        replacements: { id: userId },
+        type: QueryTypes.DELETE
+    });
+    res.send("User has been deleted.")
 })
 
 
