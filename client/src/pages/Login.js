@@ -25,7 +25,7 @@ export default function Login() {
     };
 
     const onSubmit = (data => {
-        let url = "http://localhost:5000/hackers/getPassword?email=" + data.email + "&hackerPassword=" + data.hackerPassword
+        let url = "http://localhost:5001/hackers/getPassword?email=" + data.email + "&hackerPassword=" + data.hackerPassword
         axios.get(url).then((response) => {
             if (response.data === "Incorrect Password" || response.data === "email does not exist"){
                 console.log(response);
