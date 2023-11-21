@@ -6,7 +6,7 @@ import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom'
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-import "../styles.css";
+import "../styles/createAcc.css";
 
 
 export default function CreateAccount() {
