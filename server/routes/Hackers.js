@@ -39,7 +39,7 @@ router.get("/getPassword", async (req,res) => {
     }
 });
 
-// //Creates the hacker object, email and password only
+//Creates the hacker object, email and password only
 router.post("/", async (req, res) => {
     const inputEmail = req.body.email;
     const hacker = {
