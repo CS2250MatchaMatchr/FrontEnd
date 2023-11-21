@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from "axios";
 import { Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom'
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import "../styles.css";
@@ -12,7 +13,8 @@ export default function CreateAccount() {
 
     //State to allow the localStorage of DB ID
     const [hackerID, setID] = useState([]);
-    let id = null
+    let id = null;
+    let navigate = useNavigate()
 
     //useEffect Used to store data into localStorage
     useEffect(() => {
@@ -50,6 +52,7 @@ export default function CreateAccount() {
                     
                     id = response.data
                     setID(id)
+                    navigate("/createTeam");
                     
                 }
             });

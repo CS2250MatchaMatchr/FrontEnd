@@ -18,6 +18,8 @@ app.use(cors())
 const hackerRouter = require('./routes/Hackers')
 app.use("/hackers",hackerRouter);
 
+const teamRouter = require('./routes/Teams')
+app.use("/teams",teamRouter);
 
 //Running the app + db
 db.sequelize.sync().then(() => {
