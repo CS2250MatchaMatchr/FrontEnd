@@ -85,9 +85,12 @@ export default function CreateAccount() {
 
     return (
         <div className="container mt-5">
+            <div className="matchaHeader">
+                <h1>Welcome to Matchr</h1>
+            </div>
+            <br/>
             <div className="box">
-                <h1 className="text-center">Matchr</h1>
-                <h2 className="text-center">Create Account Page</h2>
+                <h2 className="text-center">Create Account</h2>
                 <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
                     <Form>
                         <div className="mb-3">
@@ -105,7 +108,7 @@ export default function CreateAccount() {
                             <ErrorMessage name="passwordConfirmation" component="span" />
                             <Field className="form-control" name="passwordConfirmation" type="password" />
                         </div>
-                        <Button type="submit" className="btn btn-primary">Create Account!</Button>
+                        <Button type="submit" className="btn btn-success">Create Account!</Button>
                     </Form>
                 </Formik>
             </div>
