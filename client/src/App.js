@@ -3,6 +3,7 @@ import Login from './pages/Login'
 import CreateAccount from './pages/CreateAccount'
 import TeamCreation from './pages/TeamCreation'
 import NoPage from './pages/NoPage'
+import Teams from './pages/Teams'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/Login" element={<Login />}/>
           <Route path="/CreateAccount" element={<CreateAccount />}/>
           <Route path="/CreateTeam" element={<TeamCreation />}/>
+          <Route path="/Teams" element={<Teams />}/>
           <Route path="*" element={<NoPage />}/>
         </Routes>
       </BrowserRouter>

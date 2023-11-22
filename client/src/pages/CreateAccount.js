@@ -44,7 +44,7 @@ export default function CreateAccount() {
                                 "lookingForTeam": true
                                 };
             axios.post("http://localhost:5001/hackers", newHacker).then((response) => {
-                if (response === "Fail") {
+                if (response.data === "Fail") {
 
                     alert("Email already exits.");
                     
@@ -65,23 +65,6 @@ export default function CreateAccount() {
         email: Yup.string().required("You must enter an email!"),
         hackerPassword: Yup.string().required().min(5)
     })
-
-    // return(
-    //     <>
-    //         <h2>Create Account Page</h2>
-    //         <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
-    //             <Form>
-    //                 <label>Enter Email:</label>
-    //                 <ErrorMessage name="email" component="span"/>
-    //                 <Field name="email" placeholder="ex: urmom@hotmail.com"/>
-    //                 <label>Enter Password:</label>
-    //                 <ErrorMessage name="hackerPassword" component="span"/>
-    //                 <Field name="hackerPassword" placeholder="ex: ilovemymom1738"/>
-    //                 <button type="submit" component="span">Create Account!</button>
-    //             </Form>
-    //         </Formik>
-    //     </>
-    // )
 
     return (
         <div className="container mt-5">
