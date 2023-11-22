@@ -44,7 +44,7 @@ export default function CreateAccount() {
                                 "lookingForTeam": true
                                 };
             axios.post("http://localhost:5001/hackers", newHacker).then((response) => {
-                if (response === "Fail") {
+                if (response.data === "Fail") {
 
                     alert("Email already exits.");
                     
