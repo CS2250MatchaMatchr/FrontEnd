@@ -1,10 +1,11 @@
+import Header from "../components/Header";
+
 export default function Dashboard() {
     return(
         <>
-            <h1>Welcome to Matchr, user</h1>
-            {/* email they created in user */}
-            <div> 
-
+            <Header />
+            <div>
+                
             </div>
             <div>
 
