@@ -1,0 +1,10 @@
+.matchaHeader {
+    background-color: rgb(144, 175, 131);
+    padding: 20px;
+    color: #fff; 
+}
+
+.removeBlue {
+    text-decoration: none;
+    color: white;
+}
