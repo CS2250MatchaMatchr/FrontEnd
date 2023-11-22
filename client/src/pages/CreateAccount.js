@@ -13,15 +13,20 @@ import "../styles/createAcc.css";
 export default function CreateAccount() {
 
     //State to allow the localStorage of DB ID
-    const [hackerID, setID] = useState([]);
+    const [hackerID, setID] = useState([-1]);
     let id = null;
     let navigate = useNavigate()
 
     //useEffect Used to store data into localStorage
     useEffect(() => {
         localStorage.setItem('hackerID', hackerID);
-        console.log(hackerID);
-        if(hackerID!=null) {
+        let storedID = localStorage.getItem('hackerID');
+        console.log(storedID)
+        if(storedID == -1) {
+            console.log("Page Succesfully Rendered");
+        }
+        else {
+            setID(-1)
             navigate("/Dashboard");
         }
     });

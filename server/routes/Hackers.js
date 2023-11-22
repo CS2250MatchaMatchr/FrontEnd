@@ -20,7 +20,6 @@ router.get("/getPassword", async (req, res) => {
             replacements: { email: inputEmail },
             type: QueryTypes.SELECT
         });
-
     try {
         dbPassword = sqlStatement[0].hackerPassword;
         if (dbPassword != inputPassword) {

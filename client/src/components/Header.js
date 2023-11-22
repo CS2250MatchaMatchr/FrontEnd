@@ -20,7 +20,7 @@ export default function Header() {
     }
 
     function goLogout() {
-        localStorage.setItem("hackerID", null);
+        localStorage.setItem("hackerID", -1);
         navigate("/Login");
     }
 
