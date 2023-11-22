@@ -48,4 +48,15 @@ router.post("/", async (req, res) => {
 
 });
 
+router.get("/HackerFromLanguage", async (req, res) => {
+    const language = req.query.language;
+    const sqlStatementID = await sequelize.query("SELECT hackerID FROM `Technologies` WHERE " + language + " = 1");
+    listOfID = []
+    for (let hacker in sqlStatementID[0]){
+        console.log(sqlStatementID[0][hacker])
+        listOfID.push(sqlStatementID[0][hacker].hackerID)
+    }
+    res.json({listOfID})
+});
+
 module.exports = router
