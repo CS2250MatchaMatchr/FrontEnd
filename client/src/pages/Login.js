@@ -1,14 +1,23 @@
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import { Container , } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import React, {useEffect,useState} from 'react'
-import {Formik, Form, Field, ErrorMessage} from 'formik'
+import {Formik, Form, Field, ErrorMessage,} from 'formik'
 import * as Yup from 'yup'
 import axios from "axios";
 
 
 export default function Login() {
+
+    //State to allow the localStorage of DB ID
+    const [hackerID, setID] = useState([]);
+    let id = null
+
+    //useEffect Used to store data into localStorage
+    useEffect(() => {
+        localStorage.setItem('hackerID', hackerID);
+    });
 
     const initialValues = {
         email: "",
@@ -16,9 +25,13 @@ export default function Login() {
     };
 
     const onSubmit = (data => {
-        axios.post("http://localhost:5000/hackers", data).then((response) => {
-            if (response != true){
-                
+        let url = "http://localhost:5001/hackers/getPassword?email=" + data.email + "&hackerPassword=" + data.hackerPassword
+        axios.get(url).then((response) => {
+            if (response.data === "Incorrect Password" || response.data === "email does not exist"){
+                console.log(response);
+            }
+            else{
+                setID(response.data)
             }
         });
     });
