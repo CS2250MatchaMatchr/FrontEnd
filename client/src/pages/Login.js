@@ -1,9 +1,9 @@
 import { Link, Navigate } from 'react-router-dom'
-import { Container , } from 'react-bootstrap'
+import { Container, Button} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-import React, {useEffect,useState} from 'react'
-import {Formik, Form, Field, ErrorMessage,} from 'formik'
+import React, { useEffect, useState } from 'react'
+import { Formik, Form, Field, ErrorMessage, } from 'formik'
 import * as Yup from 'yup'
 import axios from "axios";
 
@@ -27,10 +27,10 @@ export default function Login() {
     const onSubmit = (data => {
         let url = "http://localhost:5001/hackers/getPassword?email=" + data.email + "&hackerPassword=" + data.hackerPassword
         axios.get(url).then((response) => {
-            if (response.data === "Incorrect Password" || response.data === "email does not exist"){
-                console.log(response);
+            if (response.data === "Incorrect Password" || response.data === "email does not exist") {
+                alert(response.data);
             }
-            else{
+            else {
                 setID(response.data)
             }
         });
@@ -41,26 +41,40 @@ export default function Login() {
     })
 
 
-    return(
-        <>
-            <h1>Matchr</h1>
-            <Container>
-            <h2>Sign In</h2>
-            <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
-                <Form>
-                    <ErrorMessage name="email" component="span"/>
-                    <Field name="email" placeholder="Email"/>
+    return (
+            <div className="container mt-5">
+                <div className="matchaHeader">
+                    <h1>Welcome to Matchr</h1>
+                </div>
+                <br></br>
+                <div className="box">
+                    <h2 className="text-center">Sign In</h2>
+                    <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
+                        <Form>
+                            <div className="mb-3">
+                                <ErrorMessage name="email" component="span" />
+                                <Field className="form-control" name="email" placeholder="Email" />
+                            </div>
+                            <div className="mb-3">
+                                <ErrorMessage name="hackerPassword" component="span" />
+                                <Field className="form-control" name="hackerPassword" type="password" placeholder="Password" />
+                            </div>
+                            <Button type="submit" className="btn btn-success">Sign in!</Button>
+                        </Form>
+                    </Formik>
                     <br></br>
-                    <ErrorMessage name="hackerPassword" component="span"/>
-                    <Field name="hackerPassword" placeholder="Password"/>
-                    <br></br>
-                    <button type="submit" component="span">Sign in!</button>
-                </Form>
-            </Formik>
-            Don't have an account? ur mom
-            <br></br>
-            <Link to="/CreateAccount">Create one here!</Link>
-            </Container>
-        </>
-    )
+                    <div className="mb-3">
+                        ---------- or ----------
+                    </div>
+
+                    <div className="mb-3">
+                        Don't have an account?
+                    </div>
+                    <div>
+                        <Link to="/CreateAccount">Create one here!</Link>
+                    </div>
+                    
+                </div>
+            </div>
+    );
 }
