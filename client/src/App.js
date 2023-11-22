@@ -5,6 +5,7 @@ import TeamCreation from './pages/TeamCreation'
 import Dashboard from './pages/Dashboard'
 import Profile from './pages/Profile'
 import NoPage from './pages/NoPage'
+import HackerSearch from './pages/HackerSearch'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/CreateTeam" element={<TeamCreation />}/>
           <Route path="/Dashboard" element={<Dashboard />}/>
           <Route path="/Profile" element={<Profile />}/>
+          <Route path="/HackerSearch" element={<HackerSearch/>}/>
           <Route path="*" element={<NoPage />}/>
         </Routes>
       </BrowserRouter>
