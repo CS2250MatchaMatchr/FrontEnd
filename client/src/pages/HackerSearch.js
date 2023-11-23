@@ -17,23 +17,42 @@ export default function HackerSearch() {
     const onSubmit1 = (data => {
         let url = "http://localhost:5001/hackers/fullName?fullName=" + data.fullName
         axios.get(url).then((response) => {
-            console.log(response.data)
             if (response.data.length == 0) {
                 alert("Couldn't find users");
                 setListOfHackers([])
             }
             else {
+                console.log(response.data)
                 setListOfHackers(response.data);
             }
         });
     });
 
     const onSubmit2 = (data => {
-        console.log("HI")
-        let url = "http://localhost:5001/technologies/HackerFromLanguage?language=" + data.language
-        console.log(url)
+        let url = "http://localhost:5001/technologies/HackerIDFromLanguage?language=" + data.language
+        let hackerPromises = []
         axios.get(url).then((response) => {
-            console.log(response.data)
+            // Response.data is an array of ID's
+            for (let id in response.data.listOfID){
+                let url = "http://localhost:5001/hackers/fullNameFromID?id=" + response.data.listOfID[id];
+                
+                // Push the axios.get promise to the array
+                hackerPromises.push(axios.get(url));
+            }
+    
+            // Wait for all promises to be resolved
+            Promise.all(hackerPromises)
+                .then((values) => {
+                    let hackerArray = values.map((value) => value.data[0][0]);
+                    console.log(hackerArray);
+                    
+                    // Update the state after all promises are resolved
+                    setListOfHackers(hackerArray);
+                })
+                .catch((error) => {
+                    // Handle errors here
+                    console.error(error);
+                });
         });
     });
 
@@ -57,44 +76,42 @@ export default function HackerSearch() {
                 onSubmit={onSubmit2}
             >
                 {({ values, setFieldValue }) => (
-                <div>
-                    <pre>{JSON.stringify(values, undefined, 2)}</pre>
-
-                    <Dropdown
-                    selection
-                    placeholder="Select language desired"
-                    options={[
-                        {value: "Javascript", text: "Javascript"},
-                        {value: "Python", text: "Python"},
-                        {value: "Go", text: "Go"},
-                        {value: "Java", text: "Java"},
-                        {value: "Kotlin", text: "Kotlin"},
-                        {value: "PHP", text: "PHP"},
-                        {value: "CSharp", text: "C#"},
-                        {value: "R", text: "R"},
-                        {value: "Ruby", text: "Ruby"},
-                        {value: "CPP", text: "C++"},
-                        {value: "C", text: "C"},
-                        {value: "Matlab", text: "Matlab"},
-                        {value: "Typescript", text: "Typescript"},
-                        {value: "SQL", text: "SQL"},
-                        {value: "Scala", text: "Scala"},
-                        {value: "HTML", text: "HTML"},
-                        {value: "CSS", text: "CSS"},
-                        {value: "NoSQL", text: "NoSQL"},
-                        {value: "Rust", text: "Rust"},
-                        {value: "Perl", text: "Perl"},
-                    ]}
-                    value={values.language}
-                    onChange={(_, { value }) => setFieldValue("language", value)}
-                    />
-                    <Button type="submit">Search by language</Button>
-                </div>
+                    <Form>
+                        <Dropdown
+                        selection
+                        placeholder="Select language desired"
+                        options={[
+                            {value: "Javascript", text: "Javascript"},
+                            {value: "Python", text: "Python"},
+                            {value: "Go", text: "Go"},
+                            {value: "Java", text: "Java"},
+                            {value: "Kotlin", text: "Kotlin"},
+                            {value: "PHP", text: "PHP"},
+                            {value: "CSharp", text: "C#"},
+                            {value: "R", text: "R"},
+                            {value: "Ruby", text: "Ruby"},
+                            {value: "CPP", text: "C++"},
+                            {value: "C", text: "C"},
+                            {value: "Matlab", text: "Matlab"},
+                            {value: "Typescript", text: "Typescript"},
+                            {value: "SQL", text: "SQL"},
+                            {value: "Scala", text: "Scala"},
+                            {value: "HTML", text: "HTML"},
+                            {value: "CSS", text: "CSS"},
+                            {value: "NoSQL", text: "NoSQL"},
+                            {value: "Rust", text: "Rust"},
+                            {value: "Perl", text: "Perl"},
+                        ]}
+                        value={values.language}
+                        onChange={(_, { value }) => setFieldValue("language", value)}
+                        />
+                        <Button type="submit">Search by language</Button>
+                    </Form>
                 )}
             </Formik>
             <div className="results">
                 {listOfHackers.map((value,key) => {
-                    return <div> {value.fullName}{value.hackerPassword} </div>
+                    return (<div> {value.fullName}{value.email} </div>)
                 })}
             </div>
         </>

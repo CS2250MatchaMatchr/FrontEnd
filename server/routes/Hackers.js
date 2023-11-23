@@ -22,6 +22,13 @@ router.get("/fullName", async (req, res) => {
     res.json(hacker)
 });
 
+//Returns a JSON of a hacker given fullName given ID
+router.get("/fullNameFromID", async (req, res) => {
+    const id = req.query.id
+    const hacker = await sequelize.query("SELECT * FROM `Hackers` WHERE id = " + id);
+    res.json(hacker)
+});
+
 //Gets hacker's password for login authentication (email needed)
 router.get("/getPassword", async (req, res) => {
     const inputEmail = req.query.email;
