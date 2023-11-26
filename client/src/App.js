@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import Login from './pages/Login'
 import CreateAccount from './pages/CreateAccount'
 import NoPage from './pages/NoPage'
+import User from './pages/User'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route index element={<Login />}/>
           <Route path="/Login" element={<Login />}/>
           <Route path="/CreateAccount" element={<CreateAccount />}/>
+          <Route path="/User" element={<User />}/>
           <Route path="*" element={<NoPage />}/>
         </Routes>
       </BrowserRouter>
