@@ -10,7 +10,8 @@ router.post("/", async (req, res) => {
         owner: req.body.owner,
         member1: null,
         member2: null,
-        member3: null
+        member3: null,
+        passcode: req.body.passcode
     }
 
     const sqlStatement1 =  await sequelize.query("SELECT DISTINCT teamName FROM `Teams` WHERE teamName = :teamName", 
@@ -69,6 +70,22 @@ router.post("/", async (req, res) => {
             }
         }
     }
+});
+
+//Returns all columns 
+router.get("/fromUserID", async (req, res) => {
+    const hackerID = req.query.ID
+    try{
+        const sqlStatement = await sequelize.query("SELECT * FROM Teams WHERE member1 = :hackerID OR owner = :hackerID OR member2 = :hackerID OR member3 = :hackerID", 
+        { 
+            replacements: { hackerID: hackerID}, 
+            type: QueryTypes.SELECT
+        });;
+        res.send(sqlStatement)
+    } catch{
+        res.send("Error")
+    }
+    
 });
 
 module.exports = router

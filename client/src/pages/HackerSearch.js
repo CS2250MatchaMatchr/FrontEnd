@@ -14,7 +14,7 @@ export default function HackerSearch() {
         fullName: ""
     }
 
-    const onSubmit1 = (data => {
+    const onSubmitByName = (data => {
         let url = "http://localhost:5001/hackers/fullName?fullName=" + data.fullName
         axios.get(url).then((response) => {
             if (response.data.length == 0) {
@@ -28,7 +28,7 @@ export default function HackerSearch() {
         });
     });
 
-    const onSubmit2 = (data => {
+    const onSubmitByLanguage = (data => {
         let url = "http://localhost:5001/technologies/HackerIDFromLanguage?language=" + data.language
         let hackerPromises = []
         axios.get(url).then((response) => {
@@ -44,7 +44,6 @@ export default function HackerSearch() {
             Promise.all(hackerPromises)
                 .then((values) => {
                     let hackerArray = values.map((value) => value.data[0][0]);
-                    console.log(hackerArray);
                     
                     // Update the state after all promises are resolved
                     setListOfHackers(hackerArray);
@@ -56,12 +55,16 @@ export default function HackerSearch() {
         });
     });
 
+    function viewProfile(){
+        console.log("viewProfile");
+    }
+
     return(
         <>
         <Header></Header>
             <h1>Search for Hackers</h1>
             <div>Search by Name:</div>
-            <Formik initialValues={initialValues1} onSubmit={onSubmit1}>
+            <Formik initialValues={initialValues1} onSubmit={onSubmitByName}>
                 <Form>
                         <Field name="fullName" placeholder="Search by Name" />
                         <Button type="submit" className="btn btn-success">Search!</Button>
@@ -73,7 +76,7 @@ export default function HackerSearch() {
                 initialValues={{
                 language: ""
                 }}
-                onSubmit={onSubmit2}
+                onSubmit={onSubmitByLanguage}
             >
                 {({ values, setFieldValue }) => (
                     <Form>
@@ -111,7 +114,13 @@ export default function HackerSearch() {
             </Formik>
             <div className="results">
                 {listOfHackers.map((value,key) => {
-                    return (<div> {value.fullName}{value.email} </div>)
+                    return (<div>
+                                <div> {value.fullName}{value.email} </div>
+                                <Button type="button" onClick = {viewProfile}>View Profile</Button>
+                                <br></br>
+                                <br></br>
+                            </div>
+                            )
                 })}
             </div>
         </>

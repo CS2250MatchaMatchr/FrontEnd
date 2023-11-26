@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard'
 import Profile from './pages/Profile'
 import NoPage from './pages/NoPage'
 import HackerSearch from './pages/HackerSearch'
+import TeamManagement from './pages/TeamManagement'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/Dashboard" element={<Dashboard />}/>
           <Route path="/Profile" element={<Profile />}/>
           <Route path="/HackerSearch" element={<HackerSearch/>}/>
+          <Route path="TeamManagement" element={<TeamManagement/>}/>
           <Route path="*" element={<NoPage />}/>
         </Routes>
       </BrowserRouter>
