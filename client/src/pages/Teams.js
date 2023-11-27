@@ -37,6 +37,7 @@ function findTeam() {
 
 export default function Teams() {
     const [goToTeamCreation, setGoToTeamCreation] = React.useState(false);
+    const [goToHackerSearch, setGoToHackerSearch] = React.useState(false);
     let hackerID = -1;
 
     useEffect(() => {
@@ -55,8 +56,15 @@ export default function Teams() {
                 if (teamId === "Cannot find team") {
                     alert("Team Does Not Exist");
                 } else {
-                    const newUrl = ""
-                    axios.put()
+                    const joinJSON = {
+                        hackerID: hackerID,
+                        passcode: datas
+                    }
+                    const newUrl = "http://localhost:5001/teams/usePasscodeToJoinTeam";
+                    axios.put(newUrl, joinJSON)
+                        .then(res => {
+                            <Navigate to="/Teams"/>
+                        })
                 }
             })
     })
@@ -71,6 +79,9 @@ export default function Teams() {
     // function from left panel that sends user to Team Creation page
     if (goToTeamCreation) {
         return <Navigate to="/CreateTeam"/>;
+    }
+    if (goToHackerSearch) {
+        return <Navigate to="/HackerSearch"/>;
     }
 
     return (
@@ -106,9 +117,9 @@ export default function Teams() {
 
             {/* FORM THAT CAN SEARCH FOR OTHER TEAMS IN DB */}
             <div className='searchPanel'>
-                {/* <button name="btn3" className="btn" >Search for Teams</button> */}
-                <h3>Search For Teams</h3>
-                <input type="text" placeholder='Search...' onSubmit={searchTeams}></input>
+                <button name="btn3" className="btn" onClick={() => {setGoToHackerSearch(true);}}>Search for Teams</button>
+                {/* <h3>Search For Teams</h3>
+                <input type="text" placeholder='Search...' onSubmit={searchTeams}></input> */}
             </div>
         </>
     );

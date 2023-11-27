@@ -4,14 +4,11 @@
     color: #fff;
 }
 
-.removeBlue {
-    text-decoration: none;
-    color: white;
-}
 
-.container {
+.containerD {
     display: flex;
     justify-content: space-between;
+    margin: 10px;
 }
 
 .column {

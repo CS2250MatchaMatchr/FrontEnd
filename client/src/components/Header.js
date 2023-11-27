@@ -12,7 +12,7 @@ export default function Header() {
     }
 
     function goTeam() {
-        navigate("/CreateTeam");
+        navigate("/Teams");
     }
 
     function goProfile() {
