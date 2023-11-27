@@ -43,7 +43,7 @@ router.post("/", async (req, res) => {
 
     }
     catch {
-        res.send("Technology already exists");
+        res.send("Error: Please Create a different account");
     }
 
 });

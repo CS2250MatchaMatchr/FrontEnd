@@ -14,6 +14,7 @@ export default function TeamManagement() {
         const hackerID = localStorage.getItem(localStorage.key("hackerID"));
         let url = "http://localhost:5001/teams/fromUserID?ID=" + hackerID
         let urmom = []
+        console.log(url);
         axios.get(url).then(async (response) => {
             /*Array Index Meaning 
               0: teamName
@@ -23,7 +24,6 @@ export default function TeamManagement() {
               4: member3
               5: passcode
               */
-            
             let teamName = response.data[0].teamName;
             let owner = await axios.get("http://localhost:5001/hackers/fullNameFromID?id=" + response.data[0].owner)
             let member1 = await axios.get("http://localhost:5001/hackers/fullNameFromID?id=" + response.data[0].member1)
