@@ -72,6 +72,20 @@ router.post("/", async (req, res) => {
     }
 });
 
+router.get("/fromUserID", async (req, res) => {
+    const hackerID = req.query.ID
+    try{
+        const sqlStatement = await sequelize.query("SELECT * FROM Teams WHERE member1 = :hackerID OR owner = :hackerID OR member2 = :hackerID OR member3 = :hackerID", 
+        { 
+            replacements: { hackerID: hackerID}, 
+            type: QueryTypes.SELECT
+        });
+        res.send(sqlStatement)
+    } catch{
+        res.send("Error")
+    }
+});
+
 router.get("/findTeamByPasscode", async (req, res) => {
     const passcode = req.query.passcode;
     
