@@ -5,7 +5,9 @@ import TeamCreation from './pages/TeamCreation'
 import Dashboard from './pages/Dashboard'
 import Profile from './pages/Profile'
 import NoPage from './pages/NoPage'
-import Teams from './pages/Teams'
+import HackerSearch from './pages/HackerSearch'
+import TeamManagement from './pages/TeamManagement'
+import Technologies from './pages/Technologies'
 
 function App() {
   return (
@@ -18,7 +20,11 @@ function App() {
           <Route path="/Login" element={<Login />}/>
           <Route path="/CreateAccount" element={<CreateAccount />}/>
           <Route path="/CreateTeam" element={<TeamCreation />}/>
-          <Route path="/Teams" element={<Teams />}/>
+          <Route path="/Dashboard" element={<Dashboard />}/>
+          <Route path="/Profile" element={<Profile />}/>
+          <Route path="/HackerSearch" element={<HackerSearch/>}/>
+          <Route path="TeamManagement" element={<TeamManagement/>}/>
+          <Route path="/Technologies" element={<Technologies/>}/>
           <Route path="*" element={<NoPage />}/>
         </Routes>
       </BrowserRouter>
