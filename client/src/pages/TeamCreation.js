@@ -40,7 +40,7 @@ export default function TeamCreation() {
             <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
                 <Form>
                     <label>Enter desired team name: </label>
-                    <Field name="teamName" />
+                    <Field name="teamName"/>
                     <br></br>
                     <button>Create new team!</button>
                 </Form>

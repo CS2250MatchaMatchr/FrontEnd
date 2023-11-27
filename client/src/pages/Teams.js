@@ -30,8 +30,43 @@ function searchTeams() {
     //TODO: make it perform a query to locate teams of certain parameters
 }
 
+function findTeam() {
+    const data = document.getElementById('txtbox').value;
+    console.log(data);
+}
+
 export default function Teams() {
     const [goToTeamCreation, setGoToTeamCreation] = React.useState(false);
+    let hackerID = -1;
+
+    useEffect(() => {
+        hackerID = localStorage.getItem(localStorage.key("hackerID"));
+    }, []);
+    
+    const onSubmit = (data => {
+        const datas = document.getElementById('txtbox').value;
+        console.log(datas);
+        const url = "http://localhost:5001/teams/findTeamByPasscode?passcode=" + datas;
+        axios.get(url)
+            .then(res => {
+                console.log(res);
+                const teamId = res.data.teamId;
+                console.log(teamId);
+                if (teamId === "Cannot find team") {
+                    alert("Team Does Not Exist");
+                } else {
+                    const newUrl = ""
+                    axios.put()
+                }
+            })
+    })
+
+    const initialValue = {
+        passcode: ""
+    };
+
+    
+
 
     // function from left panel that sends user to Team Creation page
     if (goToTeamCreation) {
@@ -48,16 +83,25 @@ export default function Teams() {
                 <button name="btn1" className="btn" onClick={() => {setGoToTeamCreation(true);}}>Create Team</button>
             </div>
 
-            {/* DISPLAYS TEAM INFO / MANAGE TEAM */}
-            <div className='teamPanel'>
-                <h3>Manage Team</h3>
-                <div className='teamMember-container'>
-                    <TeamMember />
-                    <TeamMember />
-                    <TeamMember />
-                    <TeamMember />
+            
+            <div className='middlePanel'>
+                {/* DISPLAYS TEAM INFO / MANAGE TEAM */}
+                <div className='teamPanel'>
+                    <h3>Manage Team</h3>
+                    <div className='teamMember-container'>
+                        
+                    </div>
                 </div>
-                
+                {/* JOIN PARTY WITH CODE BOX */}
+                <div className='joinPanel'>
+                    <h5>Join Team via Code</h5>
+                        <Formik initialValues={initialValue} onSubmit={onSubmit}>
+                        <Form>
+                            <Field name='passcode' id='txtbox' placeholder='ex. as72Df9G'></Field><br/><br/>
+                            <button>Join</button>
+                        </Form> 
+                        </Formik>   
+                </div>
             </div>
 
             {/* FORM THAT CAN SEARCH FOR OTHER TEAMS IN DB */}
@@ -66,7 +110,6 @@ export default function Teams() {
                 <h3>Search For Teams</h3>
                 <input type="text" placeholder='Search...' onSubmit={searchTeams}></input>
             </div>
-            
         </>
     );
 

@@ -71,4 +71,41 @@ router.post("/", async (req, res) => {
     }
 });
 
+router.get("/findTeamByPasscode", async (req, res) => {
+    const passcode = req.query.passcode;
+    
+    try {
+        const sqlStatement = await sequelize.query("SELECT * FROM Teams WHERE passcode = :passcode",
+            { 
+                replacements: { passcode: passcode}, 
+                type: QueryTypes.SELECT
+            });
+        const teamId = sqlStatement[0].id;
+        res.send({teamId});
+    }
+    catch (error) {
+        res.send("Cannot find team");
+    }
+});
+
+router.put("/usePasscodeToJoinTeam", async (req, res) => {
+    const passcode = req.body.passcode;
+    const sqlStatement = await sequelize.query("SELECT * FROM Teams WHERE passcode = :passcode",
+            { 
+                replacements: { passcode: passcode}, 
+                type: QueryTypes.SELECT
+            });
+    const mem1 = sqlStatement[0].member1;
+    const mem2 = sqlStatement[0].member2;
+    const mem3 = sqlStatement[0].member3;
+    if (mem1 == null) {
+        
+    } else if (mem2 == null) {
+
+    } else if (mem3 == null) {
+
+    }
+    res.send(sqlStatement);
+})
+
 module.exports = router
