@@ -82,47 +82,15 @@ router.post("/", async (req, res) => {
     try {
         const dbEmail = sqlStatement[0].email;
         res.send("Fail");
-
-    }
+        
+    } 
     catch (error) {
         await Hackers.create(hacker);
-        const hackerID = await sequelize.query("SELECT id FROM `Hackers` WHERE email = :email",
-            {
-                replacements: { email: inputEmail },
-                type: QueryTypes.SELECT
-            });
-        res.send(String(hackerID[0].id));
+        res.send("Success");
     }
-
-
-
-})
-
-//Used to update the second the missing values of Hackers table
-router.put("/", async (req, res) => {
-    const sqlStatement = await sequelize.query("UPDATE `Hackers` SET fullName = :fullName, classStanding = :classStanding, gender = :gender, school = :school," +
-        "frontOrBackEnd = :frontOrBackEnd, github = :github, linkedIn = :linkedIn, biography = :biography, lookingForTeam = :lookingForTeam " +
-        "WHERE id = :id",
-
-        {
-            replacements: {
-                id: req.body.id,
-                fullName: req.body.fullName,
-                classStanding: req.body.classStanding,
-                gender: req.body.gender,
-                school: req.body.school,
-                frontOrBackEnd: req.body.frontOrBackEnd,
-                github: req.body.github,
-                linkedIn: req.body.linkedIn,
-                biography: req.body.biography,
-                lookingForTeam: req.body.lookingForTeam
-            },
-            type: QueryTypes.INSERT
-        });
-    res.send("Update Succesful")
-
-
-
+    
+    
+    
 })
 
 
