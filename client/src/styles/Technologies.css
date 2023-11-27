@@ -1,0 +1,21 @@
+.techText {
+    font-size: 20pt;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.checkbox-label {
+    width: 30%;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    font-size: large;
+}
+
+.checkbox-label input {
+    margin-right: 15px;
+}
