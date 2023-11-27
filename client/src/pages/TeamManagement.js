@@ -13,26 +13,50 @@ export default function TeamManagement() {
     useEffect(() => {
         const hackerID = localStorage.getItem(localStorage.key("hackerID"));
         let url = "http://localhost:5001/teams/fromUserID?ID=" + hackerID
-        axios.get(url).then((response) => {
-            //Array Index Meaning 0: teamName
-            /*1: userName
-              2: userRole
-              3: member1Name
-              4: member1Role
-              5: member2Name
-              6: member2Role
-              7: member3Name
-              8: member3Role
+        let urmom = []
+        axios.get(url).then(async (response) => {
+            /*Array Index Meaning 
+              0: teamName
+              1: owner
+              2: member1
+              3: member2
+              4: member3
+              5: passcode
               */
+            
+            let teamName = response.data[0].teamName;
+            let owner = await axios.get("http://localhost:5001/hackers/fullNameFromID?id=" + response.data[0].owner)
+            let member1 = await axios.get("http://localhost:5001/hackers/fullNameFromID?id=" + response.data[0].member1)
+            let member2 = await axios.get("http://localhost:5001/hackers/fullNameFromID?id=" + response.data[0].member2)
+            let member3 = await axios.get("http://localhost:5001/hackers/fullNameFromID?id=" + response.data[0].member3)
+            let passcode = response.data[0].passcode;
 
-            let urmom = [response.data[0].teamName,
-            ]
+            try{
+                owner = owner.data[0][0].email; 
+            } catch {
+                owner = "None"
+            }
 
-            Promise.all(urmom).then((values) => {
-                console.log(values)
-                setTeamData(values[0])
-                console.log(teamData)
-            });
+            try{
+                member1 = member1.data[0][0].email; 
+            } catch {
+                member1 = "None"
+            }
+
+            try{
+                member2 = member2.data[0][0].email; 
+            } catch {
+                member2 = "None"
+            }
+
+            try{
+                member3 = member3.data[0][0].email; 
+            } catch {
+                member3 = "None"
+            }
+
+            urmom = [teamName,owner,member1,member2,member3,passcode]
+            setTeamData(urmom);
 
         });
     }, []);
@@ -40,11 +64,12 @@ export default function TeamManagement() {
 
     return(
         <>
-            {/*<h1>Home Page For Team: {teamData.teamName}</h1>
-            <div>You're Role in team: {teamData.userRole}</div>
-            <div>Teammate 1: {teamData.member1} - {teamData.member1role}</div>
-            <div>Teammate 2: {teamData.member2} - {teamData.member2role}</div>
-            <div>Teammate 3: {teamData.member3} - {teamData.member3role}</div>*/}
+            <h1>Home Page For Team: {teamData[0]}</h1>
+            <div>Owner: {teamData[1]}</div>
+            <div>Teammate 1: {teamData[2]}</div>
+            <div>Teammate 2: {teamData[3]}</div>
+            <div>Teammate 3: {teamData[4]}</div>
+            <div>Invite Code: {teamData[5]}</div>
         </>
     )
 }
