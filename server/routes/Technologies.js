@@ -48,4 +48,31 @@ router.post("/", async (req, res) => {
 
 });
 
+//Gets HackerID given language
+router.get("/HackerIDFromLanguage", async (req, res) => {
+    const language = req.query.language;
+    if (language=="SQL"){
+        const sqlStatementID = await sequelize.query("SELECT hackerID FROM `Technologies` WHERE :language = 1",
+        {
+            replacements: { language: language },
+            type: QueryTypes.SELECT
+        });
+        listOfID = []
+        for (let hacker in sqlStatementID[0]){
+            console.log(sqlStatementID[0][hacker])
+            listOfID.push(sqlStatementID[0][hacker].hackerID)
+        }
+        res.json({listOfID})
+    }
+    else{
+        const sqlStatementID = await sequelize.query("SELECT hackerID FROM `Technologies` WHERE " + language + " = 1");
+            listOfID = []
+        for (let hacker in sqlStatementID[0]){
+            console.log(sqlStatementID[0][hacker])
+            listOfID.push(sqlStatementID[0][hacker].hackerID)
+        }
+        res.json({listOfID})
+    }
+});
+
 module.exports = router

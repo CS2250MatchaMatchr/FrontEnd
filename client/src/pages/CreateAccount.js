@@ -3,22 +3,32 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from "axios";
 import { Button } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import "../styles/createAcc.css";
 
 
+
 export default function CreateAccount() {
 
     //State to allow the localStorage of DB ID
-    const [hackerID, setID] = useState([]);
+    const [hackerID, setID] = useState([-1]);
     let id = null;
     let navigate = useNavigate()
 
     //useEffect Used to store data into localStorage
     useEffect(() => {
         localStorage.setItem('hackerID', hackerID);
+        let storedID = localStorage.getItem('hackerID');
+        console.log(storedID)
+        if(storedID == -1) {
+            console.log("Page Succesfully Rendered");
+        }
+        else {
+            setID(-1)
+            navigate("/Dashboard");
+        }
     });
 
     //Initial Form Values
@@ -52,7 +62,7 @@ export default function CreateAccount() {
                     
                     id = response.data
                     setID(id)
-                    navigate("/createTeam");
+                    // navigate("/Dashboard");
                     
                 }
             });
@@ -65,23 +75,6 @@ export default function CreateAccount() {
         email: Yup.string().required("You must enter an email!"),
         hackerPassword: Yup.string().required().min(5)
     })
-
-    // return(
-    //     <>
-    //         <h2>Create Account Page</h2>
-    //         <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
-    //             <Form>
-    //                 <label>Enter Email:</label>
-    //                 <ErrorMessage name="email" component="span"/>
-    //                 <Field name="email" placeholder="ex: urmom@hotmail.com"/>
-    //                 <label>Enter Password:</label>
-    //                 <ErrorMessage name="hackerPassword" component="span"/>
-    //                 <Field name="hackerPassword" placeholder="ex: ilovemymom1738"/>
-    //                 <button type="submit" component="span">Create Account!</button>
-    //             </Form>
-    //         </Formik>
-    //     </>
-    // )
 
     return (
         <div className="container mt-5">
@@ -111,6 +104,10 @@ export default function CreateAccount() {
                         <Button type="submit" className="btn btn-success">Create Account!</Button>
                     </Form>
                 </Formik>
+                <br/>
+                Already have an account?
+                <br/>
+                <Link to="/Login">Login here!</Link>
             </div>
         </div>
     );

@@ -21,6 +21,11 @@ module.exports = (sequelize, DataTypes) => {
 
         member3: {
             type: DataTypes.INTEGER,
+        },
+
+        passcode: {
+            type: DataTypes.STRING,
+            allowNull: false
         }
     });
 
