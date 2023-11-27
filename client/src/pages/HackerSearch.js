@@ -59,6 +59,7 @@ export default function HackerSearch() {
         console.log("viewProfile");
     }
 
+
     return(
         <>
         <Header></Header>

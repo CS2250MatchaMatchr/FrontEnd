@@ -80,7 +80,7 @@ router.get("/fromUserID", async (req, res) => {
         { 
             replacements: { hackerID: hackerID}, 
             type: QueryTypes.SELECT
-        });;
+        });
         res.send(sqlStatement)
     } catch{
         res.send("Error")
