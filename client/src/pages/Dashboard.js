@@ -6,18 +6,30 @@ export default function Dashboard() {
         <>
             <Header />
             <br />
-            <div class="container">
+            <div class="containerD">
                 <div class="column">
                     <h2>Profile</h2>
-                    <p> This is first column of our grid system</p>
+                    <p>First and last name:</p>
+                    <p>Email:</p>
+                    <p>School:</p>
+                    <p>Class standing:</p>
+                    <p>Github:</p>
+                    <p>LinkedIn:</p>
+                    <p>Biography:</p>
                 </div>
                 <div class="column">
                     <h2>Team</h2>
-                    <p> This is second column of our grid system</p>
+                    <h3>Team name</h3>
+                    <p>Team member 1</p>
+                    <p>Team member 2</p>
+                    <p>Team member 3</p>
+                    <p>Team member 4</p>
                 </div>
                 <div class="column">
                     <h2>Countdown</h2>
-                    <p> This is third column of our grid system</p>
+                    <p>There are</p>
+                    <h1>ur mom</h1>
+                    <p>days until the hackaton.</p>
                 </div>
             </div>
         </>
