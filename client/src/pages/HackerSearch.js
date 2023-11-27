@@ -5,6 +5,7 @@ import React, { useState } from 'react'
 import { Button } from 'react-bootstrap'
 import { Dropdown } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
+import { useNavigate, Link } from 'react-router-dom'
 
 export default function HackerSearch() {
 
@@ -114,6 +115,7 @@ export default function HackerSearch() {
                         </Form>
                     )}
                 </Formik>
+                <Link to="/Teams">Back</Link>
                 <div className="results">
                     {listOfHackers.map((value, key) => {
                         return (<div>

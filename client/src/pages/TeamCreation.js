@@ -75,7 +75,7 @@ export default function TeamCreation() {
                 </Form>
             </Formik>
             <div>Passcode used to invite hackers to your team: <b>{passcodeTeam}</b></div>
-            <Link to="/Dashboard">Back</Link>
+            <Link to="/Teams">Back</Link>
         </>
     )
 }
