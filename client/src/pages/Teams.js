@@ -55,8 +55,15 @@ export default function Teams() {
                 if (teamId === "Cannot find team") {
                     alert("Team Does Not Exist");
                 } else {
-                    const newUrl = ""
-                    axios.put()
+                    const joinJSON = {
+                        hackerID: hackerID,
+                        passcode: datas
+                    }
+                    const newUrl = "http://localhost:5001/teams/usePasscodeToJoinTeam";
+                    axios.put(newUrl, joinJSON)
+                        .then(res => {
+                            <Navigate to="/Teams"/>
+                        })
                 }
             })
     })
