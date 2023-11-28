@@ -8,6 +8,7 @@ export default function OtherProfile() {
 
     const [userJson,setUserJson] = useState([]);
     const [searchParams, setSearchParams] = useSearchParams();
+    
 
     useEffect(() => {
         const hackerID = searchParams.get("id");
