@@ -6,7 +6,7 @@ import React, {useEffect,useState} from 'react'
 export default function TeamManagement() {
 
     //Creating all the variables
-
+    const navigate = useNavigate();
     const [teamData, setTeamData] = useState([])
 
     //Fetching all the variables from the DB
@@ -31,49 +31,88 @@ export default function TeamManagement() {
             let member3 = await axios.get("http://localhost:5001/hackers/fullNameFromID?id=" + response.data[0].member3)
             let passcode = response.data[0].passcode;
 
+            let [ownerID, member1ID, member2ID, member3ID] = "noid"
             try{
-                owner = owner.data[0][0].email; 
+                owner = owner.data[0][0].email;
+                ownerID = response.data[0].owner
             } catch {
                 owner = "None"
             }
 
             try{
                 member1 = member1.data[0][0].email; 
+                member1ID = response.data[0].member1
             } catch {
                 member1 = "None"
             }
 
             try{
                 member2 = member2.data[0][0].email; 
+                member2ID = response.data[0].member2
             } catch {
                 member2 = "None"
             }
 
             try{
                 member3 = member3.data[0][0].email; 
+                member3ID = response.data[0].member3
             } catch {
                 member3 = "None"
             }
 
-            urmom = [teamName,owner,member1,member2,member3,passcode]
+            urmom = [teamName,owner,member1,member2,member3,passcode,ownerID,member1ID,member2ID,member3ID]
             setTeamData(urmom);
 
         });
     }, []);
 
+    function removeMember1(){
+        console.log("removeMember");
+    }
+
+    function removeMember2(){
+        console.log("removeMember");
+    }
+    function removeMember3(){
+        console.log("removeMember");
+    }
+    function makeOwner1(){
+        console.log("makeOwner");
+    }
+
+    function makeOwner2(){
+        console.log("makeOwner");
+    }
+
+    function makeOwner3(){
+        console.log("makeOwner");
+    }
+
+    function viewProfile(hackerID){
+        navigate("/TeammateProfile?id=" + hackerID)
+    }
+
+    function leaveTeam(){
+        console.log("leaveTeam");
+    }
+
+    function deleteTeam(){
+        console.log("deleteTeam");
+    }
 
     return(
         <>
             <h1>Home Page For Team: {teamData[0]}</h1>
-            <div>Owner: {teamData[1]}</div>
-            <div>Teammate 1: {teamData[2]}<button>Remove Member</button><button>Make Owner</button><button>View Profile</button></div>
-            <div>Teammate 2: {teamData[3]}<button>Remove Member</button><button>Make Owner</button><button>View Profile</button></div>
-            <div>Teammate 3: {teamData[4]}<button>Remove Member</button><button>Make Owner</button><button>View Profile</button></div>
+            <div>Owner: {teamData[1]} <button type="button" onClick={() => {viewProfile(teamData[6])}}>View Profile</button></div>
+            <div>Teammate 1: {teamData[2]}<button type="button" onClick={removeMember1}>Remove Member</button><button type="button" onClick={makeOwner1}>Make Owner</button><button type="button" onClick={() => {viewProfile(teamData[7])}}>View Profile</button></div>
+            <div>Teammate 2: {teamData[3]}<button type="button" onClick={removeMember2}>Remove Member</button><button type="button" onClick={makeOwner2}>Make Owner</button><button type="button" onClick={() => {viewProfile(teamData[8])}}>View Profile</button></div>
+            <div>Teammate 3: {teamData[4]}<button type="button" onClick={removeMember3}>Remove Member</button><button type="button" onClick={makeOwner3}>Make Owner</button><button type="button" onClick={() => {viewProfile(teamData[9])}}>View Profile</button></div>
             <div>Invite Code: {teamData[5]}</div>
             <br></br>
             <br></br>
             <br></br>
-            <button>Leave Team</button><button>Delete Team</button>
+            <button type="button" onClick={leaveTeam}>Leave Team</button><button button="type" onclick={deleteTeam}>Delete Team</button>
+            <Link to="/Teams">Back</Link>
         </>
     )
 }

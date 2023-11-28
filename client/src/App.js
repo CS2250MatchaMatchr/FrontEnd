@@ -9,6 +9,8 @@ import HackerSearch from './pages/HackerSearch'
 import TeamManagement from './pages/TeamManagement'
 import Technologies from './pages/Technologies'
 import Teams from './pages/Teams'
+import OtherProfile from './pages/OtherProfile'
+import TeammateProfile from './pages/TeammateProfile'
 
 function App() {
   return (
@@ -27,6 +29,8 @@ function App() {
           <Route path="TeamManagement" element={<TeamManagement/>}/>
           <Route path="/Technologies" element={<Technologies/>}/>
           <Route path="/Teams" element={<Teams/>}/>
+          <Route path="/OtherProfile" element={<OtherProfile/>}/>
+          <Route path="/TeammateProfile" element={<TeammateProfile/>}/>
           <Route path="*" element={<NoPage />}/>
         </Routes>
       </BrowserRouter>

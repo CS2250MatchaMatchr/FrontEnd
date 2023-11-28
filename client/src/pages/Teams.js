@@ -38,6 +38,7 @@ function findTeam() {
 export default function Teams() {
     const [goToTeamCreation, setGoToTeamCreation] = React.useState(false);
     const [goToHackerSearch, setGoToHackerSearch] = React.useState(false);
+    const [goToTeamManagement, setGoToTeamManagement] = React.useState(false);
     let hackerID = -1;
 
     useEffect(() => {
@@ -63,6 +64,7 @@ export default function Teams() {
                     const newUrl = "http://localhost:5001/teams/usePasscodeToJoinTeam";
                     axios.put(newUrl, joinJSON)
                         .then(res => {
+                            console.log(res);
                             <Navigate to="/Teams"/>
                         })
                 }
@@ -83,6 +85,9 @@ export default function Teams() {
     if (goToHackerSearch) {
         return <Navigate to="/HackerSearch"/>;
     }
+    if (goToTeamManagement){
+        return <Navigate to="/TeamManagement"/>;
+    }
 
     return (
         <>
@@ -97,7 +102,7 @@ export default function Teams() {
             
             <div className='middlePanel'>
                 {/* DISPLAYS TEAM INFO / MANAGE TEAM */}
-                <div className='teamPanel'>
+                <div className='teamPanel' onClick={() => {setGoToTeamManagement(true);}}>
                     <h3>Manage Team</h3>
                     <div className='teamMember-container'>
                         

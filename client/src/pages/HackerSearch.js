@@ -10,6 +10,7 @@ import { useNavigate, Link } from 'react-router-dom'
 export default function HackerSearch() {
 
     const [listOfHackers, setListOfHackers] = useState([]);
+    const navigate = useNavigate();
 
     const initialValues1 = {
         fullName: ""
@@ -23,7 +24,6 @@ export default function HackerSearch() {
                 setListOfHackers([])
             }
             else {
-                console.log(response.data)
                 setListOfHackers(response.data);
             }
         });
@@ -56,8 +56,8 @@ export default function HackerSearch() {
         });
     });
 
-    function viewProfile() {
-        console.log("viewProfile");
+    function viewProfile(hackerID) {
+        navigate("/OtherProfile?id=" + hackerID)
     }
 
 
@@ -120,7 +120,7 @@ export default function HackerSearch() {
                     {listOfHackers.map((value, key) => {
                         return (<div>
                             <div> {value.fullName}{value.email} </div>
-                            <Button type="button" onClick={viewProfile}>View Profile</Button>
+                            <Button type="button" onClick={() =>{viewProfile(value.id)}}>View Profile</Button>
                             <br></br>
                             <br></br>
                         </div>
