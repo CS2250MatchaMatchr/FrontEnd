@@ -64,68 +64,74 @@ export default function HackerSearch() {
     return (
         <>
             <Header />
-            <div className="box mt-5">
-                <h1>Search for Hackers</h1>
-                <div>Search by Name:</div>
-                <Formik initialValues={initialValues1} onSubmit={onSubmitByName}>
-                    <Form>
-                        <Field name="fullName" placeholder="Search by Name" />
-                        <Button type="submit" className="btn btn-success">Search!</Button>
-                    </Form>
-                </Formik>
-                <div>---OR---</div>
-                <div>Search by Skills:</div>
-                <Formik
-                    initialValues={{
-                        language: ""
-                    }}
-                    onSubmit={onSubmitByLanguage}
-                >
-                    {({ values, setFieldValue }) => (
+            <div className="container mt-5">
+                <div className="box">
+                    <h1>Search for Hackers</h1>
+                    <div>Search by Name:</div>
+                    <Formik initialValues={initialValues1} onSubmit={onSubmitByName}>
                         <Form>
-                            <Dropdown
-                                selection
-                                placeholder="Select language desired"
-                                options={[
-                                    { value: "Javascript", text: "Javascript" },
-                                    { value: "Python", text: "Python" },
-                                    { value: "Go", text: "Go" },
-                                    { value: "Java", text: "Java" },
-                                    { value: "Kotlin", text: "Kotlin" },
-                                    { value: "PHP", text: "PHP" },
-                                    { value: "CSharp", text: "C#" },
-                                    { value: "R", text: "R" },
-                                    { value: "Ruby", text: "Ruby" },
-                                    { value: "CPP", text: "C++" },
-                                    { value: "C", text: "C" },
-                                    { value: "Matlab", text: "Matlab" },
-                                    { value: "Typescript", text: "Typescript" },
-                                    { value: "SQL", text: "SQL" },
-                                    { value: "Scala", text: "Scala" },
-                                    { value: "HTML", text: "HTML" },
-                                    { value: "CSS", text: "CSS" },
-                                    { value: "NoSQL", text: "NoSQL" },
-                                    { value: "Rust", text: "Rust" },
-                                    { value: "Perl", text: "Perl" },
-                                ]}
-                                value={values.language}
-                                onChange={(_, { value }) => setFieldValue("language", value)}
-                            />
-                            <Button type="submit">Search by language</Button>
+                            <Field className="form-control" name="fullName" placeholder="Search by Name" />
+                            <br />
+                            <Button type="submit" className="btn btn-success">Search!</Button>
                         </Form>
-                    )}
-                </Formik>
-                <Link to="/Teams">Back</Link>
-                <div className="results">
-                    {listOfHackers.map((value, key) => {
-                        return (<div>
-                            <div> {value.fullName}{value.email} </div>
-                            <Button type="button" onClick={() =>{viewProfile(value.id)}}>View Profile</Button>
-                            <br></br>
-                            <br></br>
-                        </div>
-                        )
-                    })}
+                    </Formik>
+                    <br />
+                    <div>---OR---</div>
+                    <br />
+                    <div>Search by Skills:</div>
+                    <Formik
+                        initialValues={{
+                            language: ""
+                        }}
+                        onSubmit={onSubmitByLanguage}
+                    >
+                        {({ values, setFieldValue }) => (
+                            <Form>
+                                <Dropdown
+                                    selection
+                                    placeholder="Select language desired"
+                                    options={[
+                                        { value: "Javascript", text: "Javascript" },
+                                        { value: "Python", text: "Python" },
+                                        { value: "Go", text: "Go" },
+                                        { value: "Java", text: "Java" },
+                                        { value: "Kotlin", text: "Kotlin" },
+                                        { value: "PHP", text: "PHP" },
+                                        { value: "CSharp", text: "C#" },
+                                        { value: "R", text: "R" },
+                                        { value: "Ruby", text: "Ruby" },
+                                        { value: "CPP", text: "C++" },
+                                        { value: "C", text: "C" },
+                                        { value: "Matlab", text: "Matlab" },
+                                        { value: "Typescript", text: "Typescript" },
+                                        { value: "SQL", text: "SQL" },
+                                        { value: "Scala", text: "Scala" },
+                                        { value: "HTML", text: "HTML" },
+                                        { value: "CSS", text: "CSS" },
+                                        { value: "NoSQL", text: "NoSQL" },
+                                        { value: "Rust", text: "Rust" },
+                                        { value: "Perl", text: "Perl" },
+                                    ]}
+                                    value={values.language}
+                                    onChange={(_, { value }) => setFieldValue("language", value)}
+                                />
+                                <br /><br />
+                                <Button type="submit" className="btn btn-success">Search by language</Button>
+                            </Form>
+                        )}
+                    </Formik>
+                    <div className="results">
+                        {listOfHackers.map((value, key) => {
+                            return (<div>
+                                <br />
+                                <div> {value.fullName}{value.email} </div>
+                                <Button type="button" onClick={viewProfile}>View Profile</Button>
+                                <br></br>
+                                <br></br>
+                            </div>
+                            )
+                        })}
+                    </div>
                 </div>
             </div>
         </>
