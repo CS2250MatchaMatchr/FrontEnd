@@ -1,0 +1,25 @@
+.profile {
+    width: 80%;
+    height: 500px;
+    border: 5px solid rgb(144, 175, 131);
+    border-radius: 30px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-top: 20px;
+
+
+}
+
+.button {
+    height: 40px;
+    width: 70px;
+    background-color: rgb(144, 175, 131);
+    border: none;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: 15px;
+    color: white;
+    vertical-align: bottom;
+}
