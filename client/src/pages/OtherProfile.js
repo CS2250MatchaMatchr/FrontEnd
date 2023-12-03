@@ -2,13 +2,16 @@ import Header from "../components/Header";
 import "../styles/profile.css";
 import axios from "axios";
 import React, {useEffect,useState} from 'react'
+import { useSearchParams, Link, useNavigate} from 'react-router-dom'
 
-export default function Profile() {
+export default function OtherProfile() {
 
     const [userJson,setUserJson] = useState([]);
+    const [searchParams, setSearchParams] = useSearchParams();
+    
 
     useEffect(() => {
-        const hackerID = localStorage.getItem(localStorage.key("hackerID"));
+        const hackerID = searchParams.get("id");
         console.log(hackerID)
         let url = "http://localhost:5001/hackers?id=" + hackerID
         axios.get(url).then(async (response) => {
@@ -37,8 +40,10 @@ export default function Profile() {
                     <p>linkedin: {userJson.linkedin}</p>
                     <p>biography: {userJson.biography}</p>
                 </div>
+                <br></br>
+                <br></br>
+                <Link to="/HackerSearch">Back to Hacker Search</Link>
                 <br />
-                <button className="editButton">Edit</button>
             </div>
         </>
     )
