@@ -5,10 +5,7 @@ import TeamCreation from './pages/TeamCreation'
 import Dashboard from './pages/Dashboard'
 import Profile from './pages/Profile'
 import NoPage from './pages/NoPage'
-<<<<<<< HEAD
-=======
 import User from './pages/User'
->>>>>>> 57878d329495b69a768769db08ecc7214cd03f05
 import HackerSearch from './pages/HackerSearch'
 import TeamManagement from './pages/TeamManagement'
 import Technologies from './pages/Technologies'
@@ -35,10 +32,7 @@ function App() {
           <Route path="/Teams" element={<Teams/>}/>
           <Route path="/OtherProfile" element={<OtherProfile/>}/>
           <Route path="/TeammateProfile" element={<TeammateProfile/>}/>
-<<<<<<< HEAD
-=======
           <Route path="/User" element={<User/>}/>
->>>>>>> 57878d329495b69a768769db08ecc7214cd03f05
           <Route path="*" element={<NoPage />}/>
         </Routes>
       </BrowserRouter>
