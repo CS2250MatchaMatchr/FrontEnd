@@ -67,25 +67,17 @@ export default function TeamCreation() {
     return (
         <>
             <Header></Header>
-            <br />
-            <div className="urmom">
-                <h2 className="createTeam">Create Your Team!</h2>
-                <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
-                    <Form className="teamForm">
-                        <label>Enter desired team name: </label>
-                        <Field className="teamName" name="teamName" />
-                        <br></br>
-                        <button>Create new team!</button>
-                        <br></br>
-                    </Form>
-                </Formik>
-                <div className="password">
-                    Passcode used to invite hackers to your team: <b>{passcodeTeam}</b>
-                </div>
-                <div className="link">
-                    <Link to="/Dashboard" >Back</Link>
-                </div>
-            </div>
+            <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
+                <Form>
+                    <label>Enter desired team name: </label>
+                    <Field name="teamName"/>
+                    <br></br>
+                    <button>Create new team!</button>
+                    <br></br>
+                </Form>
+            </Formik>
+            <div>Passcode used to invite hackers to your team: <b>{passcodeTeam}</b></div>
+            <Link to="/Dashboard">Back</Link>
         </>
     )
 }

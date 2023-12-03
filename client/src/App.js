@@ -7,6 +7,7 @@ import Profile from './pages/Profile'
 import NoPage from './pages/NoPage'
 import HackerSearch from './pages/HackerSearch'
 import TeamManagement from './pages/TeamManagement'
+import Technologies from './pages/Technologies'
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/Profile" element={<Profile />}/>
           <Route path="/HackerSearch" element={<HackerSearch/>}/>
           <Route path="TeamManagement" element={<TeamManagement/>}/>
+          <Route path="/Technologies" element={<Technologies/>}/>
           <Route path="*" element={<NoPage />}/>
         </Routes>
       </BrowserRouter>

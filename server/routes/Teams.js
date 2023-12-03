@@ -10,8 +10,7 @@ router.post("/", async (req, res) => {
         owner: req.body.owner,
         member1: null,
         member2: null,
-        member3: null,
-        passcode: req.body.passcode
+        member3: null
     }
 
     const sqlStatement1 =  await sequelize.query("SELECT DISTINCT teamName FROM `Teams` WHERE teamName = :teamName", 
@@ -72,7 +71,6 @@ router.post("/", async (req, res) => {
     }
 });
 
-//Returns all columns 
 router.get("/fromUserID", async (req, res) => {
     const hackerID = req.query.ID
     try{
@@ -85,7 +83,76 @@ router.get("/fromUserID", async (req, res) => {
     } catch{
         res.send("Error")
     }
-    
 });
+
+router.get("/findTeamByPasscode", async (req, res) => {
+    const passcode = req.query.passcode;
+    
+    try {
+        const sqlStatement = await sequelize.query("SELECT * FROM Teams WHERE passcode = :passcode",
+            { 
+                replacements: { passcode: passcode}, 
+                type: QueryTypes.SELECT
+            });
+        const teamId = sqlStatement[0].id;
+        res.send({teamId});
+    }
+    catch (error) {
+        res.send("Cannot find team");
+    }
+});
+
+router.put("/usePasscodeToJoinTeam", async (req, res) => {
+    const passcode = req.body.passcode;
+    const hackerID = req.body.hackerID;
+    let sqlStatement = await sequelize.query("SELECT * FROM Teams WHERE passcode = :passcode",
+            { 
+                replacements: { passcode: passcode}, 
+                type: QueryTypes.SELECT
+            });
+    const mem1 = sqlStatement[0].member1;
+    const mem2 = sqlStatement[0].member2;
+    const mem3 = sqlStatement[0].member3;
+    if (mem1 == null) {
+        const sqlUpdate = await sequelize.query("UPDATE `Teams` SET member1 = :member1 WHERE passcode = :passcode", {
+            replacements: { member1: hackerID, passcode: passcode},
+            type: QueryTypes.UPDATE
+        });
+    } else if (mem2 == null) {
+        const sqlUpdate = await sequelize.query("UPDATE `Teams` SET member2 = :member2 WHERE passcode = :passcode", {
+            replacements: { member2: hackerID, passcode: passcode},
+            type: QueryTypes.UPDATE
+        });
+    } else if (mem3 == null) {
+        const sqlUpdate = await sequelize.query("UPDATE `Teams` SET member3 = :member3 WHERE passcode = :passcode", {
+            replacements: { member3: hackerID, passcode: passcode},
+            type: QueryTypes.UPDATE
+        });
+    } else {
+        res.send("Team is full");
+    }
+    sqlStatement = await sequelize.query("SELECT * FROM Teams WHERE passcode = :passcode",
+            { 
+                replacements: { passcode: passcode}, 
+                type: QueryTypes.SELECT
+            });
+    res.send(sqlStatement);
+})
+
+router.put('/switchLookingForTeamStatus', async (req, res) => {
+    const hackerID = req.body.hackerID;
+    const lftStatus = req.body.lookingForTeam;
+    let sqlStatement = await sequelize.query("UPDATE Hackers SET lookingForTeam = :lft WHERE id = :id", 
+        {
+            replacements: { lft: lftStatus, id: hackerID },
+            type: QueryTypes.UPDATE
+        });
+        sqlStatement = await sequelize.query("SELECT lookingForTeam FROM Hackers WHERE id = :id",
+        { 
+            replacements: { id: hackerID}, 
+            type: QueryTypes.SELECT
+        }); 
+    res.send(sqlStatement);
+})
 
 module.exports = router

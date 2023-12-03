@@ -82,8 +82,8 @@ router.post("/", async (req, res) => {
     try {
         const dbEmail = sqlStatement[0].email;
         res.send("Fail");
-
-    }
+        
+    } 
     catch (error) {
         await Hackers.create(hacker);
         const hackerID = await sequelize.query("SELECT id FROM `Hackers` WHERE email = :email",
@@ -93,9 +93,9 @@ router.post("/", async (req, res) => {
             });
         res.send(String(hackerID[0].id));
     }
-
-
-
+    
+    
+    
 })
 
 //Used to update the second the missing values of Hackers table
@@ -120,10 +120,7 @@ router.put("/", async (req, res) => {
             type: QueryTypes.INSERT
         });
     res.send("Update Succesful")
-
-
-
-})
+});
 
 
 module.exports = router
