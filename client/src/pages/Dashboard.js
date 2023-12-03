@@ -1,5 +1,6 @@
 import Header from "../components/Header";
 import "../styles/dashboard.css";
+import sponsor from "../images/sponsor.png"
 
 export default function Dashboard() {
     return (
@@ -31,6 +32,9 @@ export default function Dashboard() {
                     <h1>ur mom</h1>
                     <p>days until the hackaton.</p>
                 </div>
+            </div>
+            <div className="body">
+                <img className="sponsors" src={sponsor} />
             </div>
         </>
     )
