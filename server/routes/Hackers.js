@@ -15,10 +15,10 @@ router.get("/", async (req, res) => {
 router.get("/fullName", async (req, res) => {
     const fullName = req.query.fullName
     const hacker = await sequelize.query("SELECT * FROM `Hackers` WHERE fullName = :fullName",
-    {
-        replacements: { fullName: fullName },
-        type: QueryTypes.SELECT
-    });
+        {
+            replacements: { fullName: fullName },
+            type: QueryTypes.SELECT
+        });
     res.json(hacker)
 });
 
@@ -82,8 +82,8 @@ router.post("/", async (req, res) => {
     try {
         const dbEmail = sqlStatement[0].email;
         res.send("Fail");
-        
-    } 
+
+    }
     catch (error) {
         await Hackers.create(hacker);
         const hackerID = await sequelize.query("SELECT id FROM `Hackers` WHERE email = :email",
@@ -93,9 +93,9 @@ router.post("/", async (req, res) => {
             });
         res.send(String(hackerID[0].id));
     }
-    
-    
-    
+
+
+
 })
 
 //Used to update the second the missing values of Hackers table
