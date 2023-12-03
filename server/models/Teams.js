@@ -5,16 +5,16 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        
+
         owner: {
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        
+
         member1: {
             type: DataTypes.INTEGER,
         },
-        
+
         member2: {
             type: DataTypes.INTEGER,
         },
