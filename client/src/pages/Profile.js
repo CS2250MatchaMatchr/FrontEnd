@@ -21,7 +21,7 @@ export default function Profile() {
                     <p>biography</p>
                 </div>
                 <br />
-                <button className="button">Edit</button>
+                <button className="editButton">Edit</button>
             </div>
         </>
     )
