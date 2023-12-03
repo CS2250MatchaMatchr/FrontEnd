@@ -27,7 +27,7 @@ export default function CreateAccount() {
         }
         else {
             setID(-1)
-            navigate("/Technologies");
+            navigate("/User");
         }
     });
 

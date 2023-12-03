@@ -101,24 +101,24 @@ router.post("/", async (req, res) => {
 //Used to update the second the missing values of Hackers table
 router.put("/", async (req, res) => {
     const sqlStatement = await sequelize.query("UPDATE `Hackers` SET fullName = :fullName, classStanding = :classStanding, gender = :gender, school = :school," +
-        "frontOrBackEnd = :frontOrBackEnd, github = :github, linkedIn = :linkedIn, biography = :biography, lookingForTeam = :lookingForTeam " +
-        "WHERE id = :id",
+    "frontOrBackEnd = :frontOrBackEnd, github = :github, linkedIn = :linkedIn, biography = :biography, lookingForTeam = :lookingForTeam " +
+    "WHERE id = :id",
 
-        {
-            replacements: {
-                id: req.body.id,
-                fullName: req.body.fullName,
-                classStanding: req.body.classStanding,
-                gender: req.body.gender,
-                school: req.body.school,
-                frontOrBackEnd: req.body.frontOrBackEnd,
-                github: req.body.github,
-                linkedIn: req.body.linkedIn,
-                biography: req.body.biography,
-                lookingForTeam: req.body.lookingForTeam
-            },
-            type: QueryTypes.INSERT
-        });
+    {
+        replacements: {
+            id: req.body.id,
+            fullName: req.body.fullName,
+            classStanding: req.body.classStanding,
+            gender: req.body.gender,
+            school: req.body.school,
+            frontOrBackEnd: req.body.frontOrBackEnd,
+            github: req.body.github,
+            linkedIn: req.body.linkedIn,
+            biography: req.body.biography,
+            lookingForTeam: req.body.lookingForTeam
+        },
+        type: QueryTypes.INSERT
+    });
     res.send("Update Succesful")
 });
 
