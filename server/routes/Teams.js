@@ -155,4 +155,26 @@ router.put('/switchLookingForTeamStatus', async (req, res) => {
     res.send(sqlStatement);
 })
 
+router.get('/checkAlreadyInTeam', async (req, res) => {
+    const hackerID = req.body.hackerID;
+    let teamName = "";
+    const sqlStatement = await sequelize.query("SELECT DISTINCT teamName FROM Teams WHERE member1 = :m1 OR member2 = :m2 OR member3 = :m3 OR owner = :o",
+        {
+            replacements: { m1: hackerID, m2: hackerID, m3: hackerID, o: hackerID },
+            types: QueryTypes.SELECT
+        })
+    if (sqlStatement[0].length < 1) {
+        teamName = "NONE"
+    } else {
+        teamName = sqlStatement[0][0].teamName;
+    }
+    
+
+    if (teamName === "NONE") {
+        res.send("NOT YET IN TEAM");
+    } else {
+        res.send("ALREADY IN TEAM");
+    }
+})
+
 module.exports = router

@@ -38,6 +38,7 @@ function findTeam() {
 export default function Teams() {
     const [goToTeamCreation, setGoToTeamCreation] = React.useState(false);
     const [goToHackerSearch, setGoToHackerSearch] = React.useState(false);
+    const [goToTeamManagement, setGoToTeamManagement] = React.useState(false);
     let hackerID = -1;
 
     useEffect(() => {
@@ -63,7 +64,15 @@ export default function Teams() {
                     const newUrl = "http://localhost:5001/teams/usePasscodeToJoinTeam";
                     axios.put(newUrl, joinJSON)
                         .then(res => {
-                            <Navigate to="/Teams"/>
+                            const response = res.data;
+                            if (response === "Team is full") {
+                                alert("Team is already full!");
+                                <Navigate to="/Teams"/>
+                            } else {
+                                alert("You have been added to the team!");
+                                <Navigate to="/Teams"/>
+                            }
+                            
                         })
                 }
             })
@@ -78,10 +87,32 @@ export default function Teams() {
 
     // function from left panel that sends user to Team Creation page
     if (goToTeamCreation) {
+        const url3 = "http://localhost:5001/teams/checkAlreadyInTeam";
+        axios.get(url3)
+            .then(res => {
+                if (res === "ALREADY IN TEAM") {
+                    alert("You are already in a team! Leave team first before creating a new team.");
+                    <Navigate to="/Teams"/>;
+                } else {
+                    <Navigate to="/CreateTeam"/>;
+                }
+            })
         return <Navigate to="/CreateTeam"/>;
     }
     if (goToHackerSearch) {
         return <Navigate to="/HackerSearch"/>;
+    }
+    if (goToTeamManagement) {
+        const url2 = "http://localhost:5001/teams/checkAlreadyInTeam";
+        axios.get(url2) 
+            .then(res => {
+                if (res === "NOT YET IN TEAM") {
+                    alert("You are not in a team yet! Join one to access this page.");
+                    return <Navigate to="/Teams"/>;
+                } else {
+                    return <Navigate to="/TeamManagement"/>;
+                }
+            })
     }
 
     return (
@@ -98,10 +129,8 @@ export default function Teams() {
             <div className='middlePanel'>
                 {/* DISPLAYS TEAM INFO / MANAGE TEAM */}
                 <div className='teamPanel'>
-                    <h3>Manage Team</h3>
-                    <div className='teamMember-container'>
-                        
-                    </div>
+                    {/* <h3>Manage Team</h3> */}
+                    <button name="btn2" className='btn' onClick={() => {setGoToTeamManagement(true)}}>Manage Team</button>
                 </div>
                 {/* JOIN PARTY WITH CODE BOX */}
                 <div className='joinPanel'>
@@ -118,8 +147,6 @@ export default function Teams() {
             {/* FORM THAT CAN SEARCH FOR OTHER TEAMS IN DB */}
             <div className='searchPanel'>
                 <button name="btn3" className="btn" onClick={() => {setGoToHackerSearch(true);}}>Search for Teams</button>
-                {/* <h3>Search For Teams</h3>
-                <input type="text" placeholder='Search...' onSubmit={searchTeams}></input> */}
             </div>
         </>
     );
