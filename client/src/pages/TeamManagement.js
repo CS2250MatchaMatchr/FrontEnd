@@ -1,7 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { Container , } from 'react-bootstrap'
+import { Container, } from 'react-bootstrap'
 import axios from "axios";
-import React, {useEffect,useState} from 'react'
+import React, { useEffect, useState } from 'react'
+import "../styles/TeamManagement.css";
+
 
 export default function TeamManagement() {
 
@@ -35,84 +37,86 @@ export default function TeamManagement() {
             let passcode = response.data[0].passcode;
 
             let [ownerID, member1ID, member2ID, member3ID] = "noid"
-            try{
+            try {
                 owner = owner.data[0][0].email;
                 ownerID = response.data[0].owner
             } catch {
                 owner = "None"
             }
 
-            try{
-                member1 = member1.data[0][0].email; 
+            try {
+                member1 = member1.data[0][0].email;
                 member1ID = response.data[0].member1
             } catch {
                 member1 = "None"
             }
 
-            try{
-                member2 = member2.data[0][0].email; 
+            try {
+                member2 = member2.data[0][0].email;
                 member2ID = response.data[0].member2
             } catch {
                 member2 = "None"
             }
 
-            try{
-                member3 = member3.data[0][0].email; 
+            try {
+                member3 = member3.data[0][0].email;
                 member3ID = response.data[0].member3
             } catch {
                 member3 = "None"
             }
 
-            urmom = [teamName,owner,member1,member2,member3,passcode,ownerID,member1ID,member2ID,member3ID]
+            urmom = [teamName, owner, member1, member2, member3, passcode, ownerID, member1ID, member2ID, member3ID]
             setTeamData(urmom);
 
         });
     }, []);
 
-    function removeMember(memberID,ownerID){
+    function removeMember(memberID, ownerID) {
         console.log("removeMember");
     }
-    function makeOwner(memberID,ownerID,memberNumber){
-        if (hackerID != ownerID){
+    function makeOwner(memberID, ownerID, memberNumber) {
+        if (hackerID != ownerID) {
             alert("What yo bitch ass think you doing you not the owner you dont run shit for this team");
         }
-        else{
+        else {
             const id = {
                 memberID: memberID,
                 ownerID: ownerID,
                 teamID: teamID,
                 memberNumber: memberNumber
             }
-            axios.put("http://localhost:5001/teams/switchOwnerAndMember",id);
+            axios.put("http://localhost:5001/teams/switchOwnerAndMember", id);
             alert("Ownership changed");
         }
     }
 
-    function viewProfile(hackerID){
+    function viewProfile(hackerID) {
         navigate("/TeammateProfile?id=" + hackerID)
     }
 
-    function leaveTeam(ownerID){
+    function leaveTeam(ownerID) {
         console.log("leaveTeam");
     }
 
-    function deleteTeam(ownerID){
+    function deleteTeam(ownerID) {
         console.log("deleteTeam");
     }
 
-    return(
+    return (
         <>
-            <h1>Home Page For Team: {teamData[0]}</h1>
-            <div>Owner: {teamData[1]} <button type="button" onClick={() => {viewProfile(teamData[6])}}>View Profile</button></div>
-            <div>Teammate 1: {teamData[2]}<button type="button" onClick={removeMember}>Remove Member</button><button type="button" onClick={makeOwner}>Make Owner</button><button type="button" onClick={() => {viewProfile(teamData[7])}}>View Profile</button></div>
-            <div>Teammate 2: {teamData[3]}<button type="button" onClick={removeMember}>Remove Member</button><button type="button" onClick={makeOwner}>Make Owner</button><button type="button" onClick={() => {viewProfile(teamData[8])}}>View Profile</button></div>
-            <div>Teammate 3: {teamData[4]}<button type="button" onClick={removeMember}>Remove Member</button><button type="button" onClick={() => {makeOwner(teamData[7],teamData[6],"member3")}}>Make Owner</button><button type="button" onClick={() => {viewProfile(teamData[9])}}>View Profile</button></div>
-            <div>Invite Code: {teamData[5]}</div>
-            <br></br>
-            <br></br>
-            <br></br>
-            <button type="button" onClick={leaveTeam}>Leave Team</button><button button="type" onclick={deleteTeam}>Delete Team</button>
-            <Link to="/Teams">Back</Link>
+            <div className='teamManage'>
+                <h1>Home Page For Team: {teamData[0]}</h1>
+                <div>Owner: {teamData[1]} <button type="button" onClick={() => { viewProfile(teamData[6]) }}>View Profile</button></div>
+                <div>Teammate 1: {teamData[2]}<button type="button" onClick={removeMember}>Remove Member</button><button type="button" onClick={makeOwner}>Make Owner</button><button type="button" onClick={() => { viewProfile(teamData[7]) }}>View Profile</button></div>
+                <div>Teammate 2: {teamData[3]}<button type="button" onClick={removeMember}>Remove Member</button><button type="button" onClick={makeOwner}>Make Owner</button><button type="button" onClick={() => { viewProfile(teamData[8]) }}>View Profile</button></div>
+                <div>Teammate 3: {teamData[4]}<button type="button" onClick={removeMember}>Remove Member</button><button type="button" onClick={() => { makeOwner(teamData[7], teamData[6], "member3") }}>Make Owner</button><button type="button" onClick={() => { viewProfile(teamData[9]) }}>View Profile</button></div>
+                <div>Invite Code: {teamData[5]}</div>
+                <br></br>
+                <br></br>
+                <br></br>
+                <button type="button" onClick={leaveTeam}>Leave Team</button><button button="type" onclick={deleteTeam}>Delete Team</button>
+                <Link to="/Teams">Back</Link>
+            </div>
         </>
     )
 }

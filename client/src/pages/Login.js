@@ -5,6 +5,8 @@ import React, { useEffect, useState } from 'react'
 import { Formik, Form, Field, ErrorMessage, } from 'formik'
 import * as Yup from 'yup'
 import axios from "axios";
+import "../styles/createAcc.css";
+import "../styles/login.css";
 
 
 export default function Login() {
@@ -70,7 +72,7 @@ export default function Login() {
                                 <ErrorMessage name="hackerPassword" component="span" />
                                 <Field className="form-control" name="hackerPassword" type="password" placeholder="Password" />
                             </div>
-                            <Button type="submit" className="btn btn-success">Sign in!</Button>
+                            <button type="submit" className="loginButton">Sign in!</button>
                         </Form>
                     </Formik>
                     <br></br>

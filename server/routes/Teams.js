@@ -11,7 +11,8 @@ router.post("/", async (req, res) => {
         passcode: req.body.passcode,
         member1: null,
         member2: null,
-        member3: null
+        member3: null,
+        passcode: req.body.passcode
     }
 
     const sqlStatement1 = await sequelize.query("SELECT DISTINCT teamName FROM `Teams` WHERE teamName = :teamName",
