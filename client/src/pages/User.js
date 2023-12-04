@@ -11,13 +11,11 @@ import "../styles/user.css";
   export function User() {
      //State to allow the localStorage of DB ID
     const [hackerID, setID] = useState([-1]);
-    let id = null
     let navigate = useNavigate()
 
     //useEffect Used to store data into localStorage
     useEffect(() => {
-        let currentID = localStorage.getItem('hackerID');
-        console.log("CurrentId:" + currentID)
+        setID(localStorage.getItem('hackerID'));
     });
 
       const initialValues = {
@@ -26,13 +24,24 @@ import "../styles/user.css";
       gender: '',
       school: '',
       lookingForTeam: true,
-      frontOrBackend: "",
+      frontOrBackEnd: "",
       github: '',
       linkedIn: '',
     };
 
     const onSubmit = (data => {
+      data["lookingForTeam"] = true
+      data["id"] = hackerID
       console.log(data);
+      axios.put("http://localhost:5001/hackers",data).then((response) => {
+        if (response.data == "Update Succesful"){
+          navigate("/Technologies")
+        }
+        else{
+          alert("An error has occured, please try again with a different email")
+          navigate("/")
+        }
+      })
     });
 
     const validationSchema = Yup.object().shape({
@@ -41,9 +50,9 @@ import "../styles/user.css";
     gender: Yup.string().required('Gender is required'),
     school: Yup.string().required('School is required'),
     lookingForTeam: Yup.boolean().required('Looking for Team is required'),
-    frontOrBackend: Yup.string().required('Frontend/Backend selection is required'),
+    frontOrBackEnd: Yup.string().required('Frontend/Backend selection is required'),
     github: Yup.string().required('Github link is required'),
-    linkedIn: Yup.string().url('Invalid LinkedIn URL'),
+    linkedIn: Yup.string()
 });
   return (
     <div className="container mt-5">
@@ -106,18 +115,18 @@ import "../styles/user.css";
                 <Field className="form-control" name="school" placeholder="ex: Cal Poly Pomona" />
 
                 <label className="form-label">Frontend or Backend?</label>
-                <ErrorMessage name="frontOrBackend" component="span" />
+                <ErrorMessage name="frontOrBackEnd" component="span" />
                 <div role="group" aria-labelledby="front-back-label">
                   <label id="front-back-label">
-                    <Field type="radio" name="frontOrBackend" value="frontend" />
+                    <Field type="radio" name="frontOrBackEnd" value="frontend" />
                     Frontend
                   </label>
                   <label>
-                    <Field type="radio" name="frontOrBackend" value="backend" />
+                    <Field type="radio" name="frontOrBackEnd" value="backend" />
                     Backend
                   </label>
                   <label>
-                    <Field type="radio" name="frontOrBackend" value="fullstack" />
+                    <Field type="radio" name="frontOrBackEnd" value="fullstack" />
                     Fullstack
                   </label>
                 </div>
@@ -129,6 +138,9 @@ import "../styles/user.css";
             <label className="form-label">LinkedIn Profile:</label>
             <ErrorMessage name="linkedIn" component="span" />
             <Field className="form-control" name="linkedIn" placeholder="ex: https://www.linkedin.com/in/yourprofile" />
+            <label className="form-label">Tell us about yourself:</label>
+            <ErrorMessage name="linkedIn" component="span" />
+            <Field className="form-control" name="biography" placeholder="ex: https://www.linkedin.com/in/yourprofile" />
     
             <Button type="submit" className="button-success">Create User Profile!</Button>
           </Form>

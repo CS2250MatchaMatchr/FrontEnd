@@ -75,4 +75,31 @@ router.get("/HackerIDFromLanguage", async (req, res) => {
     }
 });
 
+// Update user data based on hackerID
+router.put("/:hackerID", async (req, res) => {
+    const hackerID = req.params.hackerID; // Extract hackerID from the URL params
+
+    try {
+        // Find the existing record by hackerID
+        const existingTechnology = await Technologies.findOne({ where: { hackerID } });
+
+        if (existingTechnology) {
+            // Update the existing record with the new data
+            await existingTechnology.update({
+                Javascript: req.body.Javascript,
+                Python: req.body.Python,
+                // Add other fields you want to update
+            });
+
+            res.send("User data updated successfully");
+        } else {
+            res.status(404).send("User data not found");
+        }
+    } catch (error) {
+        console.error("Error updating user data:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+
 module.exports = router

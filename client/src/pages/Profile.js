@@ -1,4 +1,5 @@
 import Header from "../components/Header";
+import { Link } from 'react-router-dom';
 import "../styles/profile.css";
 import axios from "axios";
 import React, {useEffect,useState} from 'react'
@@ -38,7 +39,8 @@ export default function Profile() {
                     <p>biography: {userJson.biography}</p>
                 </div>
                 <br />
-                <button className="button">Edit</button>
+                <Link to="/editUser" className="button">Edit</Link>
+
             </div>
         </>
     )
