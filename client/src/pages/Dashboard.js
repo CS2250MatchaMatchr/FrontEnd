@@ -13,13 +13,10 @@ export default function Dashboard() {
     })
     const [teamHook, setTeamHook] = useState()
     const [refresh, setRefresh] = useState(true)
+    const [countdown,setCountdown] = useState('');
     useEffect(() => {
         const hackerID = localStorage.getItem(localStorage.key("hackerID"));
         let url = "http://localhost:5001/hackers?id=" + hackerID
-        let url3 = "http://localhost:5001/teams/fromUserID?ID=" + hackerID
-        let promise3 = axios.get(url3).then((response) => {
-            setTeamJson(response.data[0]);
-        })
         let promise1 = axios.get(url).then(async (response) => {
             const data = await response.data[0][0]
             setUserJson(data)
@@ -31,7 +28,28 @@ export default function Dashboard() {
             console.log(data)
             setTeamOr(data)
         })
+        
+        let url3 = "http://localhost:5001/teams/fromUserID?ID=" + hackerID
+        let promise3 = axios.get(url3).then((response) => {
+            setTeamJson(response.data[0]);
+        })
 
+        if (teamJson == "NOT YET IN TEAM" || teamJson == undefined){
+            setTeamHook(<div class="column">
+            <h1>Join a Team You bitch ass loser</h1>
+            </div>)
+        } 
+        else{
+            setTeamHook(
+                <div class="column">
+                    <h2>Team: {teamJson.teamName}</h2>
+                </div>
+                ); 
+        }
+        
+    },[teamJson,teamOr]);
+
+    useEffect(() => {
         const countDownDate = new Date("Feb 29, 2024 00:00:00").getTime();
 
         const interval = setInterval(function() {
@@ -52,25 +70,8 @@ export default function Dashboard() {
                 setCountdown("NOW");
             }
         }, 1000);
-
-        if (teamOr === "NOT YET IN TEAM"){
-            setTeamHook(<div class="column">
-             <h1>Join a Team You bitch ass loser</h1>
-            </div>)
-        }
-        else{
-            setTeamHook(
-                <div class="column">
-                  <h2>Team: {teamJson.teamName}</h2>
-                </div>
-              );
-            }
         return () => clearInterval(interval);
-        
-    },[teamJson,teamOr]);
-
-    const [countdown,setCountdown] = useState('');
-
+    },[])
     return (
         <>
             <Header />

@@ -11,7 +11,10 @@ export default function TeamManagement() {
     //Creating all the variables
     const navigate = useNavigate();
     const [teamData, setTeamData] = useState([])
-    let teamID = null;
+    const [teamID, setTeamID] = useState()
+    const [isOwner1, setIsOwner1] = useState()
+    const [isOwner2, setIsOwner2] = useState()
+    const [isOwner3, setIsOwner3] = useState()
     const hackerID = localStorage.getItem(localStorage.key("hackerID"));
 
     //Fetching all the variables from the DB
@@ -19,7 +22,6 @@ export default function TeamManagement() {
         const hackerID = localStorage.getItem(localStorage.key("hackerID"));
         let url = "http://localhost:5001/teams/fromUserID?ID=" + hackerID
         let urmom = []
-        console.log(url);
         axios.get(url).then(async (response) => {
             /*Array Index Meaning 
               0: teamName
@@ -29,8 +31,8 @@ export default function TeamManagement() {
               4: member3
               5: passcode
               */
+            setTeamID(response.data[0].id)
             let teamName = response.data[0].teamName;
-            teamID = response.data[0].id
             let owner = await axios.get("http://localhost:5001/hackers/fullNameFromID?id=" + response.data[0].owner)
             let member1 = await axios.get("http://localhost:5001/hackers/fullNameFromID?id=" + response.data[0].member1)
             let member2 = await axios.get("http://localhost:5001/hackers/fullNameFromID?id=" + response.data[0].member2)
@@ -66,6 +68,23 @@ export default function TeamManagement() {
                 member3 = "None"
             }
 
+            console.log([ownerID,hackerID])
+            if (ownerID==Number(hackerID)){
+                setIsOwner1(<><button className= "removeButton" type="button" onClick={removeMember}>Remove Member</button><button className= "manButton" type="button" onClick={ ()=> {makeOwner(teamData[7], teamData[6], "member1")} }>Make Owner</button><button className= "manButton" type="button" onClick={() => { viewProfile(teamData[7]) }}>View Profile</button></>);
+                setIsOwner2(<><button className= "removeButton" type="button" onClick={removeMember}>Remove Member</button><button className= "manButton" type="button" onClick={ ()=> {makeOwner(teamData[8], teamData[6], "member2")} }>Make Owner</button><button className= "manButton" type="button" onClick={() => { viewProfile(teamData[7]) }}>View Profile</button></>);
+                setIsOwner3(<><button className= "removeButton" type="button" onClick={removeMember}>Remove Member</button><button className= "manButton" type="button" onClick={ ()=> {makeOwner(teamData[9], teamData[6], "member3")} }>Make Owner</button><button className= "manButton" type="button" onClick={() => { viewProfile(teamData[7]) }}>View Profile</button></>);
+            }
+            if (member1ID == "None"){
+                setIsOwner1()
+            }
+            if (member2ID == "None"){
+                setIsOwner2()
+            }
+            if (member3ID == "None"){
+                setIsOwner3()
+            }
+            
+
             urmom = [teamName, owner, member1, member2, member3, passcode, ownerID, member1ID, member2ID, member3ID]
             setTeamData(urmom);
 
@@ -75,6 +94,7 @@ export default function TeamManagement() {
     function removeMember(memberID, ownerID) {
         console.log("removeMember");
     }
+
     function makeOwner(memberID, ownerID, memberNumber) {
         if (hackerID != ownerID) {
             alert("What yo bitch ass think you doing you not the owner you dont run shit for this team");
@@ -86,8 +106,12 @@ export default function TeamManagement() {
                 teamID: teamID,
                 memberNumber: memberNumber
             }
-            axios.put("http://localhost:5001/teams/switchOwnerAndMember", id);
-            alert("Ownership changed");
+            
+            axios.put("http://localhost:5001/teams/switchOwnerAndMember", id).then((response) => {
+                alert("Ownership changed");
+            }).catch ((error) => {
+                console.log(error);
+            });
         }
     }
 
@@ -110,9 +134,9 @@ export default function TeamManagement() {
             <div className='teamManage'>
                 <h1>Home Page For Team: {teamData[0]}</h1>
                 <div>Owner: {teamData[1]} <button className= "manButton" type="button" onClick={() => { viewProfile(teamData[6]) }}>View Profile</button></div>
-                <div>Teammate 1: {teamData[2]}<button className= "removeButton" type="button" onClick={removeMember}>Remove Member</button><button className= "manButton" type="button" onClick={makeOwner}>Make Owner</button><button className= "manButton" type="button" onClick={() => { viewProfile(teamData[7]) }}>View Profile</button></div>
-                <div>Teammate 2: {teamData[3]}<button className= "removeButton" type="button" onClick={removeMember}>Remove Member</button><button className= "manButton" type="button" onClick={makeOwner}>Make Owner</button><button className= "manButton" type="button" onClick={() => { viewProfile(teamData[8]) }}>View Profile</button></div>
-                <div>Teammate 3: {teamData[4]}<button className= "removeButton" type="button" onClick={removeMember}>Remove Member</button><button className= "manButton" type="button" onClick={() => { makeOwner(teamData[7], teamData[6], "member3") }}>Make Owner</button><button className= "manButton" type="button" onClick={() => { viewProfile(teamData[9]) }}>View Profile</button></div>
+                <div>Teammate 1: {teamData[2]}{isOwner1}</div>
+                <div>Teammate 2: {teamData[3]}{isOwner2}</div>
+                <div>Teammate 3: {teamData[4]}{isOwner3}</div>
                 <div>Invite Code: {teamData[5]}</div>
                 <br></br>
                 <br></br>
