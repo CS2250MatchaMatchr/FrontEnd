@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from "axios";
@@ -26,7 +26,7 @@ export default function Teams() {
                 }
             })
     }, []);
-    
+
     const onSubmit = (data => {
         const datas = document.getElementById('txtbox').value;
         console.log(datas);
@@ -49,7 +49,7 @@ export default function Teams() {
                             const response = res.data;
                             if (response === "Team is full") {
                                 alert("Team is already full!");
-                                <Navigate to="/Teams"/>
+                                <Navigate to="/Teams" />
                             } else {
                                 const changeStatus = {
                                     lookingForTeam: 0,
@@ -60,73 +60,72 @@ export default function Teams() {
                                     .then(res => {
                                         console.log("switched status to " + res);
                                     })
-                                
+
                                 alert("You have been added to the team!");
-                                <Navigate to="/Teams"/>
+                                <Navigate to="/Teams" />
                             }
-                            
+
                         })
                 }
             })
-        return <Navigate to="/Teams"/>
+        return <Navigate to="/Teams" />
     })
 
     const initialValue = {
         passcode: ""
     };
 
-    
+
 
 
     if (goToTeamCreation && lftStatus === true) {
-        return <Navigate to="/CreateTeam"/>;
+        return <Navigate to="/CreateTeam" />;
     } else if (goToTeamCreation && lftStatus === false) {
         alert("You are already in a team! Leave your team before creating a new one.");
     }
 
     if (goToHackerSearch) {
-        return <Navigate to="/HackerSearch"/>;
+        return <Navigate to="/HackerSearch" />;
     }
-    
+
     if (goToTeamManagement && lftStatus === true) {
         alert("You are not yet in a team. Join one first before managing one.");
     } else if (goToTeamManagement && lftStatus === false) {
-        return <Navigate to="/TeamManagement"/>;
+        return <Navigate to="/TeamManagement" />;
     }
 
     return (
         <>
             <Header />
+            <br />
+            <div className='teams'>
+                {/* Should LEAD TO A DIFF PAGE where you can create a team */}
+                    {/* onClick sends user to "/TeamCreation" page */}
+                    <button name="btn1" className="createTeam" onClick={() => { setGoToTeamCreation(true); }}>Create Team</button>
 
-            {/* Should LEAD TO A DIFF PAGE where you can create a team */}
-            <div className='leftPanel'>
-                {/* onClick sends user to "/TeamCreation" page */}
-                <button name="btn1" className="btn" onClick={() => {setGoToTeamCreation(true);}}>Create Team</button>
-            </div>
-
-            
-            <div className='middlePanel'>
                 {/* DISPLAYS TEAM INFO / MANAGE TEAM */}
-                <div className='teamPanel'>
                     {/* <h3>Manage Team</h3> */}
-                    <button name="btn2" className='btn' onClick={() => {setGoToTeamManagement(true)}}>Manage Team</button>
-                </div>
-                {/* JOIN PARTY WITH CODE BOX */}
-                <div className='joinPanel'>
-                    <h5>Join Team via Code</h5>
-                        <Formik initialValues={initialValue} onSubmit={onSubmit}>
-                        <Form>
-                            <Field name='passcode' id='txtbox' placeholder='ex. as72Df9G'></Field><br/><br/>
-                            <button>Join</button>
-                        </Form> 
-                        </Formik>   
-                </div>
+                    <button name="btn2" className='manageButton' onClick={() => { setGoToTeamManagement(true) }}>Manage Team</button>
+
+                {/* FORM THAT CAN SEARCH FOR OTHER TEAMS IN DB */}
+                    <button name="btn3" className="searchButton" onClick={() => { setGoToHackerSearch(true); }}>Search for Teams</button>
+
             </div>
 
-            {/* FORM THAT CAN SEARCH FOR OTHER TEAMS IN DB */}
-            <div className='searchPanel'>
-                <button name="btn3" className="btn" onClick={() => {setGoToHackerSearch(true);}}>Search for Teams</button>
+            {/* JOIN PARTY WITH CODE BOX */}
+            
+            <br />
+
+            <div className='joinPanel'>
+                <h5>Join Team via Code</h5>
+                <Formik initialValues={initialValue} onSubmit={onSubmit}>
+                    <Form>
+                        <Field name='passcode' id='txtbox' placeholder='ex. as72Df9G'></Field><br /><br />
+                        <button className='joinButton' >Join</button>
+                    </Form>
+                </Formik>
             </div>
+
         </>
     );
 

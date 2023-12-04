@@ -21,9 +21,11 @@ export default function TeamManagement() {
     //Fetching all the variables from the DB
     useEffect(() => {
         const hackerID = localStorage.getItem(localStorage.key("hackerID"));
-        let url = "http://localhost:5001/teams/fromUserID?ID=" + hackerID
-        let urmom = []
+        let url = "http://localhost:5001/teams/fromUserID?ID=" + hackerID;
+        let urmom = [];
+        console.log(url);
         axios.get(url).then(async (response) => {
+            console.log(response);
             /*Array Index Meaning 
               0: teamName
               1: owner
@@ -65,7 +67,7 @@ export default function TeamManagement() {
             try {
                 member3 = member3.data[0][0].fullName;
                 member3ID = response.data[0].member3
-            } catch {
+            }  catch {
                 member3 = "None"
             }
             
@@ -88,13 +90,59 @@ export default function TeamManagement() {
             if (member3ID == "None"){
                 setIsOwner3()
             }
+            
+
+            console.log([ownerID,hackerID])
+            if (ownerID==Number(hackerID)){
+                setIsOwner1(<><button className= "removeButton" type="button" onClick={removeMember}>Remove Member</button><button className= "manButton" type="button" onClick={ ()=> {makeOwner(teamData[7], teamData[6], "member1")} }>Make Owner</button><button className= "manButton" type="button" onClick={() => { viewProfile(teamData[7]) }}>View Profile</button></>);
+                setIsOwner2(<><button className= "removeButton" type="button" onClick={removeMember}>Remove Member</button><button className= "manButton" type="button" onClick={ ()=> {makeOwner(teamData[8], teamData[6], "member2")} }>Make Owner</button><button className= "manButton" type="button" onClick={() => { viewProfile(teamData[7]) }}>View Profile</button></>);
+                setIsOwner3(<><button className= "removeButton" type="button" onClick={removeMember}>Remove Member</button><button className= "manButton" type="button" onClick={ ()=> {makeOwner(teamData[9], teamData[6], "member3")} }>Make Owner</button><button className= "manButton" type="button" onClick={() => { viewProfile(teamData[7]) }}>View Profile</button></>);
+            }
+            if (member1ID == "None"){
+                setIsOwner1()
+            }
+            if (member2ID == "None"){
+                setIsOwner2()
+            }
+            if (member3ID == "None"){
+                setIsOwner3()
+            }
+            
+
+            urmom = [teamName, owner, member1, member2, member3, passcode, ownerID, member1ID, member2ID, member3ID];
+            console.log(urmom);
+            console.log("RAHHH");
+            setTeamData(urmom);
+            console.log(teamData);
+
         });
     }, []);
-
-    function removeMember(memberID, ownerID) {
+    
+    function removeMember(memberID, ownerID, teamName) {
         console.log("removeMember");
+        console.log(hackerID);
+        console.log(ownerID);
+        console.log(memberID);
+        // if a person who isnt an owner 
+        if (hackerID != ownerID) {
+            alert("You are not the owner of this team. Come back when you have attained such power.");
+        } 
+        // if they try to click on a remove member button when that member doesnt fuckin exist
+        else if (memberID == 'n' || memberID == 'o' || memberID == 'i' || memberID == 'd') {
+            alert("There's no member here, you moron.");
+        } 
+        //actually doing the removing
+        else {
+            const info = {
+                memberToRemove: memberID,
+                teamName: teamName
+            }
+            axios.put("http://localhost:5001/teams/removeTeamMember", info)
+                .then(res => {
+                    alert("You have removed this member!")
+                })
+        }
     }
-
     function makeOwner(memberID, ownerID, memberNumber) {
         if (hackerID != ownerID) {
             alert("What yo bitch ass think you doing you not the owner you dont run shit for this team");
@@ -134,15 +182,17 @@ export default function TeamManagement() {
             <div className='teamManage'>
                 <h1>Home Page For Team: {teamData[0]}</h1>
                 <div>Owner: {teamData[1]} <button className= "manButton" type="button" onClick={() => { viewProfile(teamData[6]) }}>View Profile</button></div>
-                <div>Teammate 1: {teamData[2]}{isOwner1}<button className= "manButton" type="button" onClick={() => { viewProfile(teamData[7]) }}>View Profile</button></div>
-                <div>Teammate 2: {teamData[3]}{isOwner2}<button className= "manButton" type="button" onClick={() => { viewProfile(teamData[8]) }}>View Profile</button></div>
-                <div>Teammate 3: {teamData[4]}{isOwner3}<button className= "manButton" type="button" onClick={() => { viewProfile(teamData[9]) }}>View Profile</button></div>
-                <div>Invite Code: {teamData[5]}</div>
+                <div>Teammate 1: {teamData[2]}<button className= "removeButton" type="button" onClick={() => {removeMember(teamData[7], teamData[6], teamData[0])}}>Remove Member</button><button className= "manButton" type="button" onClick={makeOwner}>Make Owner</button><button className= "manButton" type="button" onClick={() => { viewProfile(teamData[7]) }}>View Profile</button></div>
+                <div>Teammate 2: {teamData[3]}<button className= "removeButton" type="button" onClick={() => {removeMember(teamData[8], teamData[6], teamData[0])}}>Remove Member</button><button className= "manButton" type="button" onClick={makeOwner}>Make Owner</button><button className= "manButton" type="button" onClick={() => { viewProfile(teamData[8]) }}>View Profile</button></div>
+                <div>Teammate 3: {teamData[4]}<button className= "removeButton" type="button" onClick={() => {removeMember(teamData[9], teamData[6], teamData[0])}}>Remove Member</button><button className= "manButton" type="button" onClick={() => { makeOwner(teamData[7], teamData[6], "member3") }}>Make Owner</button><button className= "manButton" type="button" onClick={() => { viewProfile(teamData[9]) }}>View Profile</button></div>
+                <br />
+                <div className='inviteCode'>Invite Code: {teamData[5]}</div>
                 <br></br>
-                <br></br>
-                <br></br>
-                {theButton}
-                <Link to="/Teams">Back</Link>
+                <button className= "leaveButton" type="button" onClick={leaveTeam}>Leave Team</button><button className= "deleteButton" button="type" onClick={deleteTeam}>Delete Team</button>
+                <br />
+                <div className='backLink'>
+                    <Link to="/Teams">Back</Link>
+                </div>
             </div>
         </>
     )
