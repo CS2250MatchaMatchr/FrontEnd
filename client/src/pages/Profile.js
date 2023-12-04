@@ -6,17 +6,38 @@ import React, {useEffect,useState} from 'react'
 export default function Profile() {
 
     const [userJson,setUserJson] = useState([]);
+    const [hackersLanguage,setHackersLanguage] = useState()
+    const [languageList, setLanguageList] = useState([])
+    const [refresh, setRefresh] = useState(false)
 
     useEffect(() => {
         const hackerID = localStorage.getItem(localStorage.key("hackerID"));
         console.log(hackerID)
         let url = "http://localhost:5001/hackers?id=" + hackerID
         axios.get(url).then(async (response) => {
-            console.log(response);
             setUserJson(response.data[0][0])
-            console.log(userJson)
         });
-    },[]);
+
+        let url2 = "http://localhost:5001/Technologies?hackerID=" + hackerID
+        axios.get(url2).then(async (response) => {
+            setHackersLanguage(response.data[0][0])
+            let ihatemylife = []
+            for (let term in hackersLanguage){
+                if (hackersLanguage[term] == 1){
+                    console.log("hi")
+                    ihatemylife.push(term);
+                    ihatemylife.push(", ")
+                }
+            }
+            Promise.all(ihatemylife).then(function(values) {
+                console.log(values);
+                setRefresh(true)
+                setLanguageList(values)
+              });
+        });
+
+
+    },[refresh]);
 
     
 
@@ -36,6 +57,7 @@ export default function Profile() {
                     <p>github: {userJson.github}</p>
                     <p>linkedin: {userJson.linkedin}</p>
                     <p>biography: {userJson.biography}</p>
+                    <p>Languages: {languageList}</p>
                 </div>
                 <br />
                 <button className="editButton">Edit</button>

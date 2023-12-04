@@ -8,6 +8,7 @@ router.post("/", async (req, res) => {
     const team = {
         teamName: req.body.teamName,
         owner: req.body.owner,
+        passcode: req.body.passcode,
         member1: null,
         member2: null,
         member3: null
