@@ -75,11 +75,11 @@ router.get("/HackerIDFromLanguage", async (req, res) => {
     }
 });
 
-//Create - post
-//Read - get
-///Update - put
-//Delete - Delete
-//fortnite: isFun
+router.get("/", async (req, res) => {
+    const hackerID = req.query.hackerID;
+    const sqlStatementID = await sequelize.query("SELECT * FROM Technologies WHERE hackerID = " + hackerID)
+    res.send(sqlStatementID)
+});
 
 //Returns techonogloy given hackerID
 router.get("/", async (req, res) => {
@@ -123,5 +123,7 @@ router.put("/", async (req, res) => {
         });
     res.send("Update Succesful")
 });
+
+
 
 module.exports = router

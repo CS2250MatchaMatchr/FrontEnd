@@ -149,12 +149,46 @@ router.put('/switchLookingForTeamStatus', async (req, res) => {
             replacements: { lft: lftStatus, id: hackerID },
             type: QueryTypes.UPDATE
         });
-    sqlStatement = await sequelize.query("SELECT lookingForTeam FROM Hackers WHERE id = :id",
-        {
-            replacements: { id: hackerID },
+        sqlStatement = await sequelize.query("SELECT lookingForTeam FROM Hackers WHERE id = :id",
+        { 
+            replacements: { id: hackerID }, 
             type: QueryTypes.SELECT
         });
     res.send(sqlStatement);
+})
+
+router.get('/getLFTStatus', async (req, res) => {
+    const hackerID = req.query.hackerID;
+    let sqlStatement = await sequelize.query("SELECT lookingForTeam FROM Hackers WHERE id = :id",
+        {
+            replacements: { id: hackerID },
+            type: QueryTypes.SELECT
+        }
+    );
+    res.send(sqlStatement[0]);
+
+})
+
+
+router.get('/checkAlreadyInTeam', async (req, res) => {
+    const hackerID = req.query.hackerID;
+    let teamName = "";
+    const sqlStatement = await sequelize.query("SELECT DISTINCT * FROM Teams WHERE member1 = :m1 OR member2 = :m2 OR member3 = :m3 OR owner = :o",
+        {
+            replacements: { m1: hackerID, m2: hackerID, m3: hackerID, o: hackerID },
+            types: QueryTypes.SELECT
+        })
+    if (sqlStatement[0].length < 1) {
+        teamName = "NONE"
+    } else {
+        teamName = sqlStatement[0][0].id;
+    }
+    
+    if (teamName === "NONE") {
+        res.send(["NOT YET IN TEAM"]);
+    } else {
+        res.send([teamName]);
+    }
 })
 
 router.put('/switchOwnerAndMember'), async (req, res) => {

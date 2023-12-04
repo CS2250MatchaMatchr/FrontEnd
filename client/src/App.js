@@ -29,7 +29,8 @@ function App() {
           <Route path="/Dashboard" element={<Dashboard />}/>
           <Route path="/Profile" element={<Profile />}/>
           <Route path="/HackerSearch" element={<HackerSearch/>}/>
-          <Route path="TeamManagement" element={<TeamManagement/>}/>
+          <Route path="/Teams" element={<Teams/>}/>
+          <Route path="/TeamManagement" element={<TeamManagement/>}/>
           <Route path="/Technologies" element={<Technologies/>}/>
           <Route path="/Teams" element={<Teams/>}/>
           <Route path="/OtherProfile" element={<OtherProfile/>}/>

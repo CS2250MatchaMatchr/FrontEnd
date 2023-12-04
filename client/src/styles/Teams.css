@@ -96,6 +96,7 @@
     height: 100%;
     border-radius: 25px;
     font-size: 45px;
+    overflow: hidden;
 }
 
 .memManage button {
@@ -134,4 +135,9 @@
     float: left;
     position: relative;
 }
+
+.teamPanel h3 {
+    z-index: -69;
+}
+
 
