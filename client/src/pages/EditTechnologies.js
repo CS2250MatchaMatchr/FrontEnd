@@ -57,10 +57,10 @@ export default function Technologies() {
 
             technologies.Other = values.Other
 
-            axios.post("http://localhost:5001/technologies", technologies).then((response) => {
+            axios.put("http://localhost:5001/technologies", technologies).then((response) => {
                 console.log(response.data)
                 if (response.data == "Successfully Created") {
-                    navigate("/Dashboard");
+                    navigate("/Profile");
                 }
                 else {
                     alert(response.data);

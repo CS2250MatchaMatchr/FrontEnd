@@ -51,28 +51,55 @@ router.post("/", async (req, res) => {
 //Gets HackerID given language
 router.get("/HackerIDFromLanguage", async (req, res) => {
     const language = req.query.language;
-    if (language=="SQL"){
+    if (language == "SQL") {
         const sqlStatementID = await sequelize.query("SELECT hackerID FROM `Technologies` WHERE :language = 1",
-        {
-            replacements: { language: language },
-            type: QueryTypes.SELECT
-        });
+            {
+                replacements: { language: language },
+                type: QueryTypes.SELECT
+            });
         listOfID = []
-        for (let hacker in sqlStatementID[0]){
+        for (let hacker in sqlStatementID[0]) {
             console.log(sqlStatementID[0][hacker])
             listOfID.push(sqlStatementID[0][hacker].hackerID)
         }
-        res.json({listOfID})
+        res.json({ listOfID })
     }
-    else{
+    else {
         const sqlStatementID = await sequelize.query("SELECT hackerID FROM `Technologies` WHERE " + language + " = 1");
-            listOfID = []
-        for (let hacker in sqlStatementID[0]){
+        listOfID = []
+        for (let hacker in sqlStatementID[0]) {
             console.log(sqlStatementID[0][hacker])
             listOfID.push(sqlStatementID[0][hacker].hackerID)
         }
-        res.json({listOfID})
+        res.json({ listOfID })
     }
 });
+
+// Update user data based on hackerID
+router.put("/:hackerID", async (req, res) => {
+    const hackerID = req.params.hackerID; // Extract hackerID from the URL params
+
+    try {
+        // Find the existing record by hackerID
+        const existingTechnology = await Technologies.findOne({ where: { hackerID } });
+
+        if (existingTechnology) {
+            // Update the existing record with the new data
+            await existingTechnology.update({
+                Javascript: req.body.Javascript,
+                Python: req.body.Python,
+                // Add other fields you want to update
+            });
+
+            res.send("User data updated successfully");
+        } else {
+            res.status(404).send("User data not found");
+        }
+    } catch (error) {
+        console.error("Error updating user data:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
 
 module.exports = router

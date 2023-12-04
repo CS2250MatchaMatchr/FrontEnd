@@ -1,44 +1,25 @@
 import Header from "../components/Header";
-import { Link } from 'react-router-dom';
 import "../styles/profile.css";
 import axios from "axios";
 import React, {useEffect,useState} from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useSearchParams, Link, useNavigate} from 'react-router-dom'
 
-
-export default function Profile() {
+export default function OtherProfile() {
 
     const [userJson,setUserJson] = useState([]);
-    const navigate = useNavigate();
+    const [searchParams, setSearchParams] = useSearchParams();
+    
 
     useEffect(() => {
-        const hackerID = localStorage.getItem(localStorage.key("hackerID"));
+        const hackerID = searchParams.get("id");
         console.log(hackerID)
         let url = "http://localhost:5001/hackers?id=" + hackerID
         axios.get(url).then(async (response) => {
+            console.log(response);
             setUserJson(response.data[0][0])
+            console.log(userJson)
         });
-
-        let url2 = "http://localhost:5001/Technologies?hackerID=" + hackerID
-        axios.get(url2).then(async (response) => {
-            setHackersLanguage(response.data[0][0])
-            let ihatemylife = []
-            for (let term in hackersLanguage){
-                if (hackersLanguage[term] == 1){
-                    console.log("hi")
-                    ihatemylife.push(term);
-                    ihatemylife.push(", ")
-                }
-            }
-            Promise.all(ihatemylife).then(function(values) {
-                console.log(values);
-                setRefresh(true)
-                setLanguageList(values)
-              });
-        });
-
-
-    },[refresh]);
+    },[]);
 
     
 
@@ -58,11 +39,11 @@ export default function Profile() {
                     <p>github: {userJson.github}</p>
                     <p>linkedin: {userJson.linkedin}</p>
                     <p>biography: {userJson.biography}</p>
-                    <p>Languages: {languageList}</p>
                 </div>
+                <br></br>
+                <br></br>
+                <Link to="/HackerSearch">Back to Hacker Search</Link>
                 <br />
-                <Link to="/editUser" className="button">Edit</Link>
-
             </div>
         </>
     )

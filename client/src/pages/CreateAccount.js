@@ -27,7 +27,7 @@ export default function CreateAccount() {
         }
         else {
             setID(-1)
-            navigate("/Technologies");
+            navigate("/User");
         }
     });
 
@@ -101,7 +101,7 @@ export default function CreateAccount() {
                             <ErrorMessage name="passwordConfirmation" component="span" />
                             <Field className="form-control" name="passwordConfirmation" type="password" />
                         </div>
-                        <Button type="submit" className="btn btn-success">Create Account!</Button>
+                        <button type="submit" className="createAccButton">Create Account!</button>
                     </Form>
                 </Formik>
                 <br/>

@@ -5,9 +5,15 @@ import TeamCreation from './pages/TeamCreation'
 import Dashboard from './pages/Dashboard'
 import Profile from './pages/Profile'
 import NoPage from './pages/NoPage'
+import User from './pages/User'
 import HackerSearch from './pages/HackerSearch'
 import TeamManagement from './pages/TeamManagement'
 import Technologies from './pages/Technologies'
+import Teams from './pages/Teams'
+import OtherProfile from './pages/OtherProfile'
+import TeammateProfile from './pages/TeammateProfile'
+import EditUser from './pages/EditUser'
+import EditTechnologies from './pages/EditTechnologies'
 import Teams from './pages/Teams'
 
 function App() {
@@ -27,6 +33,12 @@ function App() {
           <Route path="/Teams" element={<Teams/>}/>
           <Route path="/TeamManagement" element={<TeamManagement/>}/>
           <Route path="/Technologies" element={<Technologies/>}/>
+          <Route path="/Teams" element={<Teams/>}/>
+          <Route path="/OtherProfile" element={<OtherProfile/>}/>
+          <Route path="/TeammateProfile" element={<TeammateProfile/>}/>
+          <Route path="/User" element={<User/>}/>
+          <Route path="/EditUser" element={<EditUser/>}/>
+          <Route path="/EditTechnologies" element={<EditTechnologies/>}/>
           <Route path="*" element={<NoPage />}/>
         </Routes>
       </BrowserRouter>
