@@ -68,6 +68,7 @@ export default function Teams() {
                         })
                 }
             })
+        return <Navigate to="/Teams"/>
     })
 
     const initialValue = {

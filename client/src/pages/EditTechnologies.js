@@ -57,10 +57,10 @@ export default function Technologies() {
 
             technologies.Other = values.Other
 
-            axios.put("http://localhost:5001/technologies/checkAlreadyInTeam", technologies).then((response) => {
+            axios.put("http://localhost:5001/technologies", technologies).then((response) => {
                 console.log(response.data)
-                if (response.data == "Update Succesful") {
-                    navigate("/Profile");
+                if (response.data == "Update Successful") {
+                    navigate("/Dashboard");
                 }
                 else {
                     alert(response.data);
