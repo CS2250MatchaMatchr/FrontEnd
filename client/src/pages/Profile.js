@@ -2,6 +2,7 @@ import Header from "../components/Header";
 import "../styles/profile.css";
 import axios from "axios";
 import React, {useEffect,useState} from 'react'
+import { Link } from 'react-router-dom'
 
 export default function Profile() {
 
@@ -60,7 +61,7 @@ export default function Profile() {
                     <p>Languages: {languageList}</p>
                 </div>
                 <br />
-                <button className="editButton">Edit</button>
+                <Link className="editButton" to="/EditUser">Edit Profile</Link>
             </div>
         </>
     )

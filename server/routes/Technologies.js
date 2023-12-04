@@ -81,31 +81,49 @@ router.get("/", async (req, res) => {
     res.send(sqlStatementID)
 });
 
-// Update user data based on hackerID
-router.put("/:hackerID", async (req, res) => {
-    const hackerID = req.params.hackerID; // Extract hackerID from the URL params
+//Returns techonogloy given hackerID
+router.get("/", async (req, res) => {
+    const hackerID = req.query.hackerID;
+    const sqlStatementID = await sequelize.query("SELECT * FROM Technologies WHERE hackerID = " + hackerID)
+    res.send(sqlStatementID)
+});
 
-    try {
-        // Find the existing record by hackerID
-        const existingTechnology = await Technologies.findOne({ where: { hackerID } });
+router.put("/", async (req, res) => {
+    const sqlStatement = await sequelize.query("UPDATE Technologies SET Javascript = :Javascript, Python = :Python, Go = :Go, Java = :Java, Kotlin = :Kotlin, PHP = :PHP, CSharp = :CSharp, Swift = :Swift, R = :R, Ruby = :Ruby, CPP = :CPP, C = :C, Matlab = :Matlab, Typescript = :Typescript, `SQL` = :SQL, Scala = :Scala, HTML = :HTML, CSS = :CSS, NoSQL = :NoSQL, Rust = :Rust, Perl = :Perl, Other = :Other WHERE hackerID = :hackerID",
 
-        if (existingTechnology) {
-            // Update the existing record with the new data
-            await existingTechnology.update({
+        {
+            replacements: {
+                hackerID: req.body.hackerID,
                 Javascript: req.body.Javascript,
                 Python: req.body.Python,
-                // Add other fields you want to update
-            });
+                Go: req.body.Go,
+                Java: req.body.Java,
+                Kotlin: req.body.Kotlin,
+                PHP: req.body.PHP,
+                CSharp: req.body.CSharp,
+                Swift: req.body.Swift,
+                R: req.body.R,
+                Ruby: req.body.Ruby,
+                CPP: req.body.CPP,
+                C: req.body.C,
+                Matlab: req.body.Matlab,
+                Typescript: req.body.Typescript,
+                SQL: req.body.SQL,
+                Scala: req.body.Scala,
+                HTML: req.body.HTML,
+                CSS: req.body.CSS,
+                NoSQL: req.body.NoSQL,
+                Rust: req.body.Rust,
+                Perl: req.body.Perl,
+                Other: req.body.Other,
+            },
 
-            res.send("User data updated successfully");
-        } else {
-            res.status(404).send("User data not found");
-        }
-    } catch (error) {
-        console.error("Error updating user data:", error);
-        res.status(500).send("Internal Server Error");
-    }
+
+            type: QueryTypes.INSERT
+        });
+    res.send("Update Succesful")
 });
+
 
 
 module.exports = router
