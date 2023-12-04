@@ -1,0 +1,23 @@
+.searchButton, .profileButton {
+    height: 30px;
+    width: 100px;
+    background-color: rgb(144, 175, 131);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    margin: 10px;
+}
+
+.langButton {
+    height: 30px;
+    width: 150px;
+    background-color: rgb(144, 175, 131);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    margin: 10px;
+}
+
+.searchButton:hover, .profileButton:hover, .langButton:hover {
+    background-color: rgb(203, 201, 201);
+}
