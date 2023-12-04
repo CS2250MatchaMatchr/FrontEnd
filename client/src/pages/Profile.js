@@ -2,10 +2,13 @@ import Header from "../components/Header";
 import "../styles/profile.css";
 import axios from "axios";
 import React, {useEffect,useState} from 'react'
+import { useNavigate } from 'react-router-dom';
+
 
 export default function Profile() {
 
     const [userJson,setUserJson] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const hackerID = localStorage.getItem(localStorage.key("hackerID"));
@@ -38,7 +41,7 @@ export default function Profile() {
                     <p>biography: {userJson.biography}</p>
                 </div>
                 <br />
-                <button className="editButton">Edit</button>
+                <button className="editButton" onClick={() => navigate("/EditUser")}>Edit</button>
             </div>
         </>
     )
