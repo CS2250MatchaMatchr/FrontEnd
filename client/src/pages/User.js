@@ -8,41 +8,41 @@ import { Button } from 'react-bootstrap';
 import { useNavigate, Link } from 'react-router-dom'
 import "../styles/user.css";
 
-export function User() {
-  //State to allow the localStorage of DB ID
-  const [hackerID, setID] = useState([-1]);
-  let navigate = useNavigate()
+  export function User() {
+     //State to allow the localStorage of DB ID
+    const [hackerID, setID] = useState([-1]);
+    let navigate = useNavigate()
 
-  //useEffect Used to store data into localStorage
-  useEffect(() => {
-    setID(localStorage.getItem('hackerID'));
-  });
+    //useEffect Used to store data into localStorage
+    useEffect(() => {
+        setID(localStorage.getItem('hackerID'));
+    });
 
-  const initialValues = {
-    fullName: '',
-    classStanding: '',
-    gender: '',
-    school: '',
-    lookingForTeam: true,
-    frontOrBackEnd: "",
-    github: '',
-    linkedIn: '',
-  };
+      const initialValues = {
+      fullName: '',
+      classStanding: '',
+      gender: '',
+      school: '',
+      lookingForTeam: true,
+      frontOrBackEnd: "",
+      github: '',
+      linkedIn: '',
+    };
 
-  const onSubmit = (data => {
-    data["lookingForTeam"] = true
-    data["id"] = hackerID
-    console.log(data);
-    axios.put("http://localhost:5001/hackers", data).then((response) => {
-      if (response.data == "Update Succesful") {
-        navigate("/Technologies")
-      }
-      else {
-        alert("An error has occured, please try again with a different email")
-        navigate("/")
-      }
-    })
-  });
+    const onSubmit = (data => {
+      data["lookingForTeam"] = true
+      data["id"] = hackerID
+      console.log(data);
+      axios.put("http://localhost:5001/hackers",data).then((response) => {
+        if (response.data == "Update Succesful"){
+          navigate("/Technologies")
+        }
+        else{
+          alert("An error has occured, please try again with a different email")
+          navigate("/")
+        }
+      })
+    });
 
   const validationSchema = Yup.object().shape({
     fullName: Yup.string().required('Full Name is required'),
@@ -53,7 +53,7 @@ export function User() {
     frontOrBackEnd: Yup.string().required('Frontend/Backend selection is required'),
     github: Yup.string().required('Github link is required'),
     linkedIn: Yup.string()
-  });
+});
   return (
     <div className="container mt-5">
       <div className="matchaHeader">
@@ -114,24 +114,24 @@ export function User() {
               <ErrorMessage name="school" component="span" />
               <Field className="form-control" name="school" placeholder="ex: Cal Poly Pomona" />
 
-              <label className="form-label">Frontend or Backend?</label>
-              <ErrorMessage name="frontOrBackEnd" component="span" />
-              <div role="group" aria-labelledby="front-back-label">
-                <label id="front-back-label">
-                  <Field type="radio" name="frontOrBackEnd" value="frontend" />
-                  Frontend
-                </label>
-                <label>
-                  <Field type="radio" name="frontOrBackEnd" value="backend" />
-                  Backend
-                </label>
-                <label>
-                  <Field type="radio" name="frontOrBackEnd" value="fullstack" />
-                  Fullstack
-                </label>
-              </div>
-            </div>
-            <label className="form-label">Github Link:</label>
+                <label className="form-label">Frontend or Backend?</label>
+                <ErrorMessage name="frontOrBackEnd" component="span" />
+                <div role="group" aria-labelledby="front-back-label">
+                  <label id="front-back-label">
+                    <Field type="radio" name="frontOrBackEnd" value="frontend" />
+                    Frontend
+                  </label>
+                  <label>
+                    <Field type="radio" name="frontOrBackEnd" value="backend" />
+                    Backend
+                  </label>
+                  <label>
+                    <Field type="radio" name="frontOrBackEnd" value="fullstack" />
+                    Fullstack
+                  </label>
+                </div>
+            </div> 
+            <label className="form-label">Github Link:</label> 
             <ErrorMessage name="Github" component="span" />
             <Field className="form-control" name="github" placeholder="ex: https://github.com/username" />
 
@@ -141,7 +141,7 @@ export function User() {
             <label className="form-label">Tell us about yourself:</label>
             <ErrorMessage name="linkedIn" component="span" />
             <Field className="form-control" name="biography" placeholder="ex: https://www.linkedin.com/in/yourprofile" />
-
+    
             <Button type="submit" className="button-success">Create User Profile!</Button>
           </Form>
         </Formik>

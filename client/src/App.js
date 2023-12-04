@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard'
 import Profile from './pages/Profile'
 import NoPage from './pages/NoPage'
 import User from './pages/User'
+import editUser from './pages/editUser'
 import HackerSearch from './pages/HackerSearch'
 import TeamManagement from './pages/TeamManagement'
 import Technologies from './pages/Technologies'
@@ -35,8 +36,6 @@ function App() {
           <Route path="/OtherProfile" element={<OtherProfile/>}/>
           <Route path="/TeammateProfile" element={<TeammateProfile/>}/>
           <Route path="/User" element={<User/>}/>
-          <Route path="/EditUser" element={<EditUser/>}/>
-          <Route path="/EditTechnologies" element={<EditTechnologies/>}/>
           <Route path="*" element={<NoPage />}/>
         </Routes>
       </BrowserRouter>
