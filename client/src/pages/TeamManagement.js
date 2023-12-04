@@ -15,6 +15,7 @@ export default function TeamManagement() {
     const [isOwner1, setIsOwner1] = useState()
     const [isOwner2, setIsOwner2] = useState()
     const [isOwner3, setIsOwner3] = useState()
+    const [theButton, setTheButton] = useState(<button className="leaveButton" type="button" onClick={leaveTeam}>Leave Team</button>)
     const hackerID = localStorage.getItem(localStorage.key("hackerID"));
 
     //Fetching all the variables from the DB
@@ -41,38 +42,42 @@ export default function TeamManagement() {
 
             let [ownerID, member1ID, member2ID, member3ID] = "noid"
             try {
-                owner = owner.data[0][0].email;
+                owner = owner.data[0][0].fullName;
                 ownerID = response.data[0].owner
             } catch {
                 owner = "None"
             }
 
             try {
-                member1 = member1.data[0][0].email;
+                member1 = member1.data[0][0].fullName;
                 member1ID = response.data[0].member1
             } catch {
                 member1 = "None"
             }
 
             try {
-                member2 = member2.data[0][0].email;
+                member2 = member2.data[0][0].fullName;
                 member2ID = response.data[0].member2
             } catch {
                 member2 = "None"
             }
 
             try {
-                member3 = member3.data[0][0].email;
+                member3 = member3.data[0][0].fullName;
                 member3ID = response.data[0].member3
             } catch {
                 member3 = "None"
             }
+            
 
-            console.log([ownerID,hackerID])
+            urmom = [teamName, owner, member1, member2, member3, passcode, ownerID, member1ID, member2ID, member3ID]
+            setTeamData(urmom);
+            
             if (ownerID==Number(hackerID)){
-                setIsOwner1(<><button className= "removeButton" type="button" onClick={removeMember}>Remove Member</button><button className= "manButton" type="button" onClick={ ()=> {makeOwner(teamData[7], teamData[6], "member1")} }>Make Owner</button><button className= "manButton" type="button" onClick={() => { viewProfile(teamData[7]) }}>View Profile</button></>);
-                setIsOwner2(<><button className= "removeButton" type="button" onClick={removeMember}>Remove Member</button><button className= "manButton" type="button" onClick={ ()=> {makeOwner(teamData[8], teamData[6], "member2")} }>Make Owner</button><button className= "manButton" type="button" onClick={() => { viewProfile(teamData[7]) }}>View Profile</button></>);
-                setIsOwner3(<><button className= "removeButton" type="button" onClick={removeMember}>Remove Member</button><button className= "manButton" type="button" onClick={ ()=> {makeOwner(teamData[9], teamData[6], "member3")} }>Make Owner</button><button className= "manButton" type="button" onClick={() => { viewProfile(teamData[7]) }}>View Profile</button></>);
+                setIsOwner1(<><button className= "removeButton" type="button" onClick={removeMember}>Remove Member</button><button className= "manButton" type="button" onClick={ ()=> {makeOwner(teamData[7], teamData[6], "member1")} }>Make Owner</button></>);
+                setIsOwner2(<><button className= "removeButton" type="button" onClick={removeMember}>Remove Member</button><button className= "manButton" type="button" onClick={ ()=> {makeOwner(teamData[8], teamData[6], "member2")} }>Make Owner</button></>);
+                setIsOwner3(<><button className= "removeButton" type="button" onClick={removeMember}>Remove Member</button><button className= "manButton" type="button" onClick={ ()=> {makeOwner(teamData[9], teamData[6], "member3")} }>Make Owner</button></>);
+                setTheButton(<button className="deleteButton" button="type" onclick={deleteTeam}>Delete Team</button>)
             }
             if (member1ID == "None"){
                 setIsOwner1()
@@ -83,11 +88,6 @@ export default function TeamManagement() {
             if (member3ID == "None"){
                 setIsOwner3()
             }
-            
-
-            urmom = [teamName, owner, member1, member2, member3, passcode, ownerID, member1ID, member2ID, member3ID]
-            setTeamData(urmom);
-
         });
     }, []);
 
@@ -134,14 +134,14 @@ export default function TeamManagement() {
             <div className='teamManage'>
                 <h1>Home Page For Team: {teamData[0]}</h1>
                 <div>Owner: {teamData[1]} <button className= "manButton" type="button" onClick={() => { viewProfile(teamData[6]) }}>View Profile</button></div>
-                <div>Teammate 1: {teamData[2]}{isOwner1}</div>
-                <div>Teammate 2: {teamData[3]}{isOwner2}</div>
-                <div>Teammate 3: {teamData[4]}{isOwner3}</div>
+                <div>Teammate 1: {teamData[2]}{isOwner1}<button className= "manButton" type="button" onClick={() => { viewProfile(teamData[7]) }}>View Profile</button></div>
+                <div>Teammate 2: {teamData[3]}{isOwner2}<button className= "manButton" type="button" onClick={() => { viewProfile(teamData[8]) }}>View Profile</button></div>
+                <div>Teammate 3: {teamData[4]}{isOwner3}<button className= "manButton" type="button" onClick={() => { viewProfile(teamData[9]) }}>View Profile</button></div>
                 <div>Invite Code: {teamData[5]}</div>
                 <br></br>
                 <br></br>
                 <br></br>
-                <button type="button" onClick={leaveTeam}>Leave Team</button><button button="type" onclick={deleteTeam}>Delete Team</button>
+                {theButton}
                 <Link to="/Teams">Back</Link>
             </div>
         </>

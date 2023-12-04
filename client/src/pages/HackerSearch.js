@@ -125,8 +125,8 @@ export default function HackerSearch() {
                         {listOfHackers.map((value, key) => {
                             return (<div>
                                 <br />
-                                <div> {value.fullName}{value.email} </div>
-                                <button className="profileButton" type="button" onClick={viewProfile}>View Profile</button>
+                                <div> {value.fullName}</div>
+                                <button className="profileButton" type="button" onClick={()=>{viewProfile(value.id)}}>View Profile</button>
                                 <br></br>
                                 <br></br>
                             </div>
