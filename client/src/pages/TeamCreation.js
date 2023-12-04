@@ -13,6 +13,7 @@ export default function TeamCreation() {
 
     const [hackerID, setID] = useState([]);
     const [passcodeTeam, setpasscodeTeam] = useState('null, a passcode to join the team will be created once you create a new team');
+    const navigate = useNavigate()
 
     useEffect(() => {
         setID(localStorage.getItem(localStorage.key("hackerID")));
@@ -23,8 +24,6 @@ export default function TeamCreation() {
     };
 
     const onSubmit = (data => {
-        setID()
-
         //Creating Passcode For Team
         let passcode = '';
         let str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' +
@@ -46,7 +45,7 @@ export default function TeamCreation() {
         }
 
         axios.post("http://localhost:5001/teams", team).then((response) => {
-            if (response.data === "You can not create an account whilst a member of a team") {
+            if (response.data === "You can not create an account whilst a member of a team" || response.data === "Error: Team Name Already Exists") {
 
                 alert(response.data);
 
@@ -54,6 +53,13 @@ export default function TeamCreation() {
 
                 alert(response.data)
                 setpasscodeTeam(passcode)
+                const changeStatus = {
+                    lookingForTeam: 0,
+                    hackerID: hackerID
+                }
+                axios.put("http://localhost:5001/teams/switchLookingForTeamStatus", changeStatus).then((response) => {
+                    console.log(response.data)
+                });
 
 
             }

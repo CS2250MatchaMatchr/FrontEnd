@@ -35,7 +35,7 @@ export function User() {
     console.log(data);
     axios.put("http://localhost:5001/hackers", data).then((response) => {
       if (response.data == "Update Succesful") {
-        navigate("/Technologies")
+        navigate("/EditTechnologies")
       }
       else {
         alert("An error has occured, please try again with a different email")
@@ -142,7 +142,7 @@ export function User() {
             <ErrorMessage name="linkedIn" component="span" />
             <Field className="form-control" name="biography" placeholder="ex: https://www.linkedin.com/in/yourprofile" />
 
-            <Button type="submit" className="button-success">Create User Profile!</Button>
+            <Button type="submit" className="button-success">Publish Changes</Button>
           </Form>
         </Formik>
       </div>
