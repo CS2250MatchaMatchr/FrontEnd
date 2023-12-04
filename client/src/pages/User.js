@@ -52,7 +52,7 @@ import "../styles/user.css";
     lookingForTeam: Yup.boolean().required('Looking for Team is required'),
     frontOrBackEnd: Yup.string().required('Frontend/Backend selection is required'),
     github: Yup.string().required('Github link is required'),
-    linkedIn: Yup.string()
+    linkedIn: Yup.string().email('Invalid link')
 });
   return (
     <div className="container mt-5">

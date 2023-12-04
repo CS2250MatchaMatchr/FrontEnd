@@ -6,7 +6,7 @@ import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import '../styles/user.css';
 
-export function editUser() {
+export function EditUser() {
   const [userData, setUserData] = useState({
     fullName: '',
     classStanding: '',
@@ -96,4 +96,4 @@ export function editUser() {
     </div>
   );
 };
-export default editUser;
+export default EditUser;
