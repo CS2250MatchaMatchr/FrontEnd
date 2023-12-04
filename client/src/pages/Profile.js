@@ -56,7 +56,7 @@ export default function Profile() {
                     <p>gender: {userJson.gender}</p>
                     <p>frontOrBackEnd: {userJson.frontOrBackEnd}</p>
                     <p>github: {userJson.github}</p>
-                    <p>linkedin: {userJson.linkedin}</p>
+                    <p>linkedin: {userJson.linkedIn}</p>
                     <p>biography: {userJson.biography}</p>
                     <p>Languages: {languageList}</p>
                 </div>

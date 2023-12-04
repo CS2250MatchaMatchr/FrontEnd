@@ -39,7 +39,7 @@ router.post("/", async (req, res) => {
     try {
         const sql = sqlStatement[0].hackerID;
         await Technologies.create(technology);
-        res.send("Successfully Created");
+        res.send("Update Succesful");
 
     }
     catch {
@@ -115,13 +115,13 @@ router.put("/", async (req, res) => {
                 NoSQL: req.body.NoSQL,
                 Rust: req.body.Rust,
                 Perl: req.body.Perl,
-                Other: req.body.Other,
+                Other: req.body.Other
             },
 
 
             type: QueryTypes.INSERT
         });
-    res.send("Update Succesful")
+    res.send("Update Successful")
 });
 
 
