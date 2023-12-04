@@ -3,6 +3,7 @@ import axios from 'axios';
 import Header from "../components/Header";
 import "../styles/dashboard.css";
 import sponsor from "../images/sponsor.png"
+import { ref } from 'yup';
 
 export default function Dashboard() {
     const [userJson,setUserJson] = useState([]);
@@ -11,40 +12,26 @@ export default function Dashboard() {
         teamName: ""
     })
     const [teamHook, setTeamHook] = useState()
-
+    const [refresh, setRefresh] = useState(true)
     useEffect(() => {
         const hackerID = localStorage.getItem(localStorage.key("hackerID"));
         let url = "http://localhost:5001/hackers?id=" + hackerID
-        axios.get(url).then((response) => {
-            setUserJson(response.data[0][0])
+        let url3 = "http://localhost:5001/teams/fromUserID?ID=" + hackerID
+        let promise3 = axios.get(url3).then((response) => {
+            setTeamJson(response.data[0]);
+        })
+        let promise1 = axios.get(url).then(async (response) => {
+            const data = await response.data[0][0]
+            setUserJson(data)
     
         });
         let url2 = "http://localhost:5001/teams/checkAlreadyInTeam?hackerID=" + hackerID
-        axios.get(url2).then((response) => {
-            setTeamOr(response.data[0])
+        let promise2 = axios.get(url2).then(async (response) => {
+            const data = await response.data[0]
+            console.log(data)
+            setTeamOr(data)
         })
 
-        if (teamOr === "NOT YET IN TEAM"){
-            setTeamHook(<div class="column">
-             <h1>Join Team You bitch ass loser</h1>
-            </div>)
-        }
-        else{
-            let url3 = "http://localhost:5001/teams/fromUserID?ID=" + hackerID
-            axios.get(url3).then((response) => {
-                setTeamJson(response.data[0])
-            });
-            setTeamHook((<div class="column">
-            <h2>Team: {teamJson.teamName}</h2>
-            </div>))
-              
-        }
-    },[]);
-
-    const [countdown,setCountdown] = useState('');
-
-
-    useEffect(() => {
         const countDownDate = new Date("Feb 29, 2024 00:00:00").getTime();
 
         const interval = setInterval(function() {
@@ -66,17 +53,24 @@ export default function Dashboard() {
             }
         }, 1000);
 
+        if (teamOr === "NOT YET IN TEAM"){
+            setTeamHook(<div class="column">
+             <h1>Join a Team You bitch ass loser</h1>
+            </div>)
+        }
+        else{
+            setTeamHook(
+                <div class="column">
+                  <h2>Team: {teamJson.teamName}</h2>
+                </div>
+              );
+            }
         return () => clearInterval(interval);
-    }, []);
+        
+    },[teamJson,teamOr]);
 
-    const teamOrNah = (<div class="column">
-    <h2>Team</h2>
-    <h3>Team name</h3>
-    <p>Team member 1</p>
-    <p>Team member 2</p>
-    <p>Team member 3</p>
-    <p>Team member 4</p>
-    </div>)
+    const [countdown,setCountdown] = useState('');
+
     return (
         <>
             <Header />
@@ -89,7 +83,7 @@ export default function Dashboard() {
                     <p>gender: {userJson.gender}</p>
                     <p>frontOrBackEnd: {userJson.frontOrBackEnd}</p>
                     <p>github: {userJson.github}</p>
-                    <p>linkedin: {userJson.linkedin}</p>
+                    <p>linkedin: {userJson.linkedIn}</p>
                     <p>biography: {userJson.biography}</p>
                 </div>
                 {teamHook}
@@ -97,7 +91,7 @@ export default function Dashboard() {
                     <h2>Countdown</h2>
                     <p>There are</p>
                     <h1>{countdown}</h1>
-                    <p>days until the hackaton.</p>
+                    <p>until the hackaton.</p>
                 </div>
             </div>
             <div className="body">
