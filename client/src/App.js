@@ -14,7 +14,6 @@ import OtherProfile from './pages/OtherProfile'
 import TeammateProfile from './pages/TeammateProfile'
 import EditUser from './pages/EditUser'
 import EditTechnologies from './pages/EditTechnologies'
-import Teams from './pages/Teams'
 
 function App() {
   return (

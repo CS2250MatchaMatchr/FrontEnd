@@ -75,6 +75,12 @@ router.get("/HackerIDFromLanguage", async (req, res) => {
     }
 });
 
+router.get("/", async (req, res) => {
+    const hackerID = req.query.hackerID;
+    const sqlStatementID = await sequelize.query("SELECT * FROM Technologies WHERE hackerID = " + hackerID)
+    res.send(sqlStatementID)
+});
+
 // Update user data based on hackerID
 router.put("/:hackerID", async (req, res) => {
     const hackerID = req.params.hackerID; // Extract hackerID from the URL params

@@ -132,6 +132,7 @@ export default function HackerSearch() {
                             )
                         })}
                     </div>
+                    <Link to="/Teams">Back to Teams</Link>
                 </div>
             </div>
         </>
