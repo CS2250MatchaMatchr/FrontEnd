@@ -97,7 +97,7 @@ export default function Dashboard() {
                     <h2>Countdown</h2>
                     <p>There are</p>
                     <h1>{countdown}</h1>
-                    <p>days until the hackaton.</p>
+                    <p>days until the hackathon.</p>
                 </div>
             </div>
             <div className="body">
