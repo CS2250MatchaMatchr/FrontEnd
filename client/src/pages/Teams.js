@@ -10,39 +10,21 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 import Header from "../components/Header"
 import "../styles/Teams.css";
 
-function TeamMember() {
-    return (
-        <div className='teamMember'>
-            {/* idk what we're doing, a pfp? */}
-            <div className='pfp'>*put image here*</div>
-            {/* display hacker member or owner status */}
-            <div className='memStatus'>Member</div>
-            {/* make it expand into a dropdown */}
-            <div className='memManage'>
-                <button>Options</button>
-            </div>
-            
-        </div>
-    );
-}
-
-function searchTeams() {
-    //TODO: make it perform a query to locate teams of certain parameters
-}
-
-function findTeam() {
-    const data = document.getElementById('txtbox').value;
-    console.log(data);
-}
-
 export default function Teams() {
     const [goToTeamCreation, setGoToTeamCreation] = React.useState(false);
     const [goToHackerSearch, setGoToHackerSearch] = React.useState(false);
     const [goToTeamManagement, setGoToTeamManagement] = React.useState(false);
-    let hackerID = -1;
+    const [lftStatus, setLFTStatus] = React.useState(false);
+    let hackerID = localStorage.getItem(localStorage.key("hackerID"));
 
     useEffect(() => {
         hackerID = localStorage.getItem(localStorage.key("hackerID"));
+        axios.get("http://localhost:5001/teams/getLFTStatus?hackerID=" + hackerID)
+            .then(res => {
+                if (res.data.lookingForTeam === 1) {
+                    setLFTStatus(true);
+                }
+            })
     }, []);
     
     const onSubmit = (data => {
@@ -69,6 +51,16 @@ export default function Teams() {
                                 alert("Team is already full!");
                                 <Navigate to="/Teams"/>
                             } else {
+                                const changeStatus = {
+                                    lookingForTeam: 0,
+                                    hackerID: hackerID
+                                }
+                                const url4 = "http://localhost:5001/teams/swtichLookingForTeamStatus";
+                                axios.put(url4, changeStatus)
+                                    .then(res => {
+                                        console.log("switched status to " + res);
+                                    })
+                                
                                 alert("You have been added to the team!");
                                 <Navigate to="/Teams"/>
                             }
@@ -85,34 +77,20 @@ export default function Teams() {
     
 
 
-    // function from left panel that sends user to Team Creation page
-    if (goToTeamCreation) {
-        const url3 = "http://localhost:5001/teams/checkAlreadyInTeam";
-        axios.get(url3)
-            .then(res => {
-                if (res === "ALREADY IN TEAM") {
-                    alert("You are already in a team! Leave team first before creating a new team.");
-                    <Navigate to="/Teams"/>;
-                } else {
-                    <Navigate to="/CreateTeam"/>;
-                }
-            })
+    if (goToTeamCreation && lftStatus === true) {
         return <Navigate to="/CreateTeam"/>;
+    } else if (goToTeamCreation && lftStatus === false) {
+        alert("You are already in a team! Leave your team before creating a new one.");
     }
+
     if (goToHackerSearch) {
         return <Navigate to="/HackerSearch"/>;
     }
-    if (goToTeamManagement) {
-        const url2 = "http://localhost:5001/teams/checkAlreadyInTeam";
-        axios.get(url2) 
-            .then(res => {
-                if (res === "NOT YET IN TEAM") {
-                    alert("You are not in a team yet! Join one to access this page.");
-                    return <Navigate to="/Teams"/>;
-                } else {
-                    return <Navigate to="/TeamManagement"/>;
-                }
-            })
+    
+    if (goToTeamManagement && lftStatus === true) {
+        alert("You are not yet in a team. Join one first before managing one.");
+    } else if (goToTeamManagement && lftStatus === false) {
+        return <Navigate to="/TeamManagement"/>;
     }
 
     return (

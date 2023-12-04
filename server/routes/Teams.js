@@ -149,14 +149,27 @@ router.put('/switchLookingForTeamStatus', async (req, res) => {
         });
         sqlStatement = await sequelize.query("SELECT lookingForTeam FROM Hackers WHERE id = :id",
         { 
-            replacements: { id: hackerID}, 
+            replacements: { id: hackerID }, 
             type: QueryTypes.SELECT
         }); 
     res.send(sqlStatement);
 })
 
+router.get('/getLFTStatus', async (req, res) => {
+    const hackerID = req.query.hackerID;
+    let sqlStatement = await sequelize.query("SELECT lookingForTeam FROM Hackers WHERE id = :id",
+        {
+            replacements: { id: hackerID },
+            type: QueryTypes.SELECT
+        }
+    );
+    res.send(sqlStatement[0]);
+
+})
+
+
 router.get('/checkAlreadyInTeam', async (req, res) => {
-    const hackerID = req.body.hackerID;
+    const hackerID = req.query.hackerID;
     let teamName = "";
     const sqlStatement = await sequelize.query("SELECT DISTINCT teamName FROM Teams WHERE member1 = :m1 OR member2 = :m2 OR member3 = :m3 OR owner = :o",
         {
