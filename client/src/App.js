@@ -12,6 +12,8 @@ import Technologies from './pages/Technologies'
 import Teams from './pages/Teams'
 import OtherProfile from './pages/OtherProfile'
 import TeammateProfile from './pages/TeammateProfile'
+import EditUser from './pages/EditUser'
+import EditTechnologies from './pages/EditTechnologies'
 
 function App() {
   return (
@@ -33,6 +35,8 @@ function App() {
           <Route path="/OtherProfile" element={<OtherProfile/>}/>
           <Route path="/TeammateProfile" element={<TeammateProfile/>}/>
           <Route path="/User" element={<User/>}/>
+          <Route path="/EditUser" element={<EditUser/>}/>
+          <Route path="/EditTechnologies" element={<EditTechnologies/>}/>
           <Route path="*" element={<NoPage />}/>
         </Routes>
       </BrowserRouter>
