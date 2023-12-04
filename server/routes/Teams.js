@@ -191,34 +191,22 @@ router.get('/checkAlreadyInTeam', async (req, res) => {
     }
 })
 
-router.put('/switchOwnerAndMember'), async (req, res) => {
+router.put('/switchOwnerAndMember', async (req, res) => {
     const owner = req.body.ownerID
     const member = req.body.memberID
     const teamID = req.body.teamID
     const memberNumber = req.body.memberNumber
 
-    try {
-        let sqlStatement = await sequelize.query("UPDATE Teams SET owner = :member WHERE id = :teamID",
-            {
-                replacements: {
-                    member: member,
-                    teamID: teamID
-                },
-                type: QueryTypes.UPDATE
-            });
-        sqlStatement = await sequelize.query("UPDATE Teams SET :memberNumber = :owner WHERE id = :teamID",
-            {
-                replacements: {
-                    memberNumber: memberNumber,
-                    teamID: teamID,
-                    owner: owner
-                },
-                type: QueryTypes.UPDATE
-            });
-        res.send("Success: Restarting Page")
-    } catch (error) {
-        res.send("Error")
-    }
-}
+    let sqlStatement = await sequelize.query("UPDATE Teams SET owner = :member WHERE id = :teamID",
+    {
+        replacements: {
+            member: member,
+            teamID: teamID
+        },
+        type: QueryTypes.UPDATE
+    });
+    sqlStatement = await sequelize.query("UPDATE Teams SET " + memberNumber + " = " + owner + " WHERE id = " + teamID);
+    res.send("Success: Restarting Page")
+});
 
 module.exports = router
