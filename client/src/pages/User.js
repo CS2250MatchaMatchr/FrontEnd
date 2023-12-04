@@ -142,7 +142,7 @@ import "../styles/user.css";
             <ErrorMessage name="linkedIn" component="span" />
             <Field className="form-control" name="biography" placeholder="ex: https://www.linkedin.com/in/yourprofile" />
     
-            <Button type="submit" className="button-success">Create User Profile!</Button>
+            <button type="submit" className="createButton">Create User Profile!</button>
           </Form>
         </Formik>
       </div>

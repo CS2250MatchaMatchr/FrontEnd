@@ -1,15 +1,15 @@
 import Header from "../components/Header";
-import { Link } from 'react-router-dom';
 import "../styles/profile.css";
 import axios from "axios";
 import React, {useEffect,useState} from 'react'
-import { useNavigate } from 'react-router-dom';
-
+import { Link } from 'react-router-dom'
 
 export default function Profile() {
 
     const [userJson,setUserJson] = useState([]);
-    const navigate = useNavigate();
+    const [hackersLanguage,setHackersLanguage] = useState()
+    const [languageList, setLanguageList] = useState([])
+    const [refresh, setRefresh] = useState(false)
 
     useEffect(() => {
         const hackerID = localStorage.getItem(localStorage.key("hackerID"));
@@ -56,13 +56,14 @@ export default function Profile() {
                     <p>gender: {userJson.gender}</p>
                     <p>frontOrBackEnd: {userJson.frontOrBackEnd}</p>
                     <p>github: {userJson.github}</p>
-                    <p>linkedin: {userJson.linkedin}</p>
+                    <p>linkedin: {userJson.linkedIn}</p>
                     <p>biography: {userJson.biography}</p>
                     <p>Languages: {languageList}</p>
                 </div>
                 <br />
-                <Link to="/editUser" className="button">Edit</Link>
-
+                <div className="editButton">
+                    <Link to="/EditUser">Edit Profile</Link>
+                </div>
             </div>
         </>
     )

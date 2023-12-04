@@ -12,7 +12,7 @@ import Technologies from './pages/Technologies'
 import Teams from './pages/Teams'
 import OtherProfile from './pages/OtherProfile'
 import TeammateProfile from './pages/TeammateProfile'
-import EditUser from './pages/EditUser'
+import EditUser from './pages/editUser'
 import EditTechnologies from './pages/EditTechnologies'
 
 function App() {
@@ -29,7 +29,8 @@ function App() {
           <Route path="/Dashboard" element={<Dashboard />}/>
           <Route path="/Profile" element={<Profile />}/>
           <Route path="/HackerSearch" element={<HackerSearch/>}/>
-          <Route path="TeamManagement" element={<TeamManagement/>}/>
+          <Route path="/Teams" element={<Teams/>}/>
+          <Route path="/TeamManagement" element={<TeamManagement/>}/>
           <Route path="/Technologies" element={<Technologies/>}/>
           <Route path="/Teams" element={<Teams/>}/>
           <Route path="/OtherProfile" element={<OtherProfile/>}/>
