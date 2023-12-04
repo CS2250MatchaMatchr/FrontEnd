@@ -14,3 +14,17 @@
     padding: 20px;
     color: #fff; 
 }
+
+.updateButton, .createButton {
+    height: 30px;
+    width: 150px;
+    background-color: rgb(144, 175, 131);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    margin: 10px;
+}
+
+.updateButton:hover, .createButton:hover {
+    background-color: rgb(203, 201, 201);
+}

@@ -61,7 +61,9 @@ export default function Profile() {
                     <p>Languages: {languageList}</p>
                 </div>
                 <br />
-                <Link className="editButton" to="/EditUser">Edit Profile</Link>
+                <div className="editButton">
+                    <Link to="/EditUser">Edit Profile</Link>
+                </div>
             </div>
         </>
     )
