@@ -55,7 +55,7 @@ export default function Teams() {
                                     lookingForTeam: 0,
                                     hackerID: hackerID
                                 }
-                                const url4 = "http://localhost:5001/teams/swtichLookingForTeamStatus";
+                                const url4 = "http://localhost:5001/teams/switchLookingForTeamStatus";
                                 axios.put(url4, changeStatus)
                                     .then(res => {
                                         console.log("switched status to " + res);
@@ -68,6 +68,7 @@ export default function Teams() {
                         })
                 }
             })
+        return <Navigate to="/Teams"/>
     })
 
     const initialValue = {

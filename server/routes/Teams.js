@@ -171,7 +171,7 @@ router.get('/getLFTStatus', async (req, res) => {
 router.get('/checkAlreadyInTeam', async (req, res) => {
     const hackerID = req.query.hackerID;
     let teamName = "";
-    const sqlStatement = await sequelize.query("SELECT DISTINCT teamName FROM Teams WHERE member1 = :m1 OR member2 = :m2 OR member3 = :m3 OR owner = :o",
+    const sqlStatement = await sequelize.query("SELECT DISTINCT teamName,id FROM Teams WHERE member1 = :m1 OR member2 = :m2 OR member3 = :m3 OR owner = :o",
         {
             replacements: { m1: hackerID, m2: hackerID, m3: hackerID, o: hackerID },
             types: QueryTypes.SELECT
