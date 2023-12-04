@@ -70,7 +70,7 @@ export default function TeamManagement() {
             urmom = [teamName, owner, member1, member2, member3, passcode, ownerID, member1ID, member2ID, member3ID];
             console.log(urmom);
             console.log("RAHHH");
-            setTeamData([...teamData, urmom]);
+            setTeamData(urmom);
             console.log(teamData);
 
         });
@@ -78,13 +78,16 @@ export default function TeamManagement() {
     
     function removeMember(memberID, ownerID, teamName) {
         console.log("removeMember");
+        console.log(hackerID);
+        console.log(ownerID);
+        console.log(memberID);
         // if a person who isnt an owner 
         if (hackerID != ownerID) {
-            // alert("fuck outta here, you ain't got the power to do that shit");
+            alert("You are not the owner of this team. Come back when you have attained such power.");
         } 
         // if they try to click on a remove member button when that member doesnt fuckin exist
-        else if (memberID == null) {
-            
+        else if (memberID == 'n' || memberID == 'o' || memberID == 'i' || memberID == 'd') {
+            alert("There's no member here, you moron.");
         } 
         //actually doing the removing
         else {
@@ -133,9 +136,9 @@ export default function TeamManagement() {
             <div className='teamManage'>
                 <h1>Home Page For Team: {teamData[0]}</h1>
                 <div>Owner: {teamData[1]} <button className= "manButton" type="button" onClick={() => { viewProfile(teamData[6]) }}>View Profile</button></div>
-                <div>Teammate 1: {teamData[2]}<button className= "removeButton" type="button" onClick={() => {removeMember(teamData[2], teamData[1], teamData[0])}}>Remove Member</button><button className= "manButton" type="button" onClick={makeOwner}>Make Owner</button><button className= "manButton" type="button" onClick={() => { viewProfile(teamData[7]) }}>View Profile</button></div>
-                <div>Teammate 2: {teamData[3]}<button className= "removeButton" type="button" onClick={() => {removeMember(teamData[3], teamData[1], teamData[0])}}>Remove Member</button><button className= "manButton" type="button" onClick={makeOwner}>Make Owner</button><button className= "manButton" type="button" onClick={() => { viewProfile(teamData[8]) }}>View Profile</button></div>
-                <div>Teammate 3: {teamData[4]}<button className= "removeButton" type="button" onClick={() => {removeMember(teamData[4], teamData[1], teamData[0])}}>Remove Member</button><button className= "manButton" type="button" onClick={() => { makeOwner(teamData[7], teamData[6], "member3") }}>Make Owner</button><button className= "manButton" type="button" onClick={() => { viewProfile(teamData[9]) }}>View Profile</button></div>
+                <div>Teammate 1: {teamData[2]}<button className= "removeButton" type="button" onClick={() => {removeMember(teamData[7], teamData[6], teamData[0])}}>Remove Member</button><button className= "manButton" type="button" onClick={makeOwner}>Make Owner</button><button className= "manButton" type="button" onClick={() => { viewProfile(teamData[7]) }}>View Profile</button></div>
+                <div>Teammate 2: {teamData[3]}<button className= "removeButton" type="button" onClick={() => {removeMember(teamData[8], teamData[6], teamData[0])}}>Remove Member</button><button className= "manButton" type="button" onClick={makeOwner}>Make Owner</button><button className= "manButton" type="button" onClick={() => { viewProfile(teamData[8]) }}>View Profile</button></div>
+                <div>Teammate 3: {teamData[4]}<button className= "removeButton" type="button" onClick={() => {removeMember(teamData[9], teamData[6], teamData[0])}}>Remove Member</button><button className= "manButton" type="button" onClick={() => { makeOwner(teamData[7], teamData[6], "member3") }}>Make Owner</button><button className= "manButton" type="button" onClick={() => { viewProfile(teamData[9]) }}>View Profile</button></div>
                 <div>Invite Code: {teamData[5]}</div>
                 <br></br>
                 <br></br>
