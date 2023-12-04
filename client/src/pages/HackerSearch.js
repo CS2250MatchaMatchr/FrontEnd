@@ -6,6 +6,7 @@ import { Button } from 'react-bootstrap'
 import { Dropdown } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import { useNavigate, Link } from 'react-router-dom'
+import "../styles/HackerSearch.css";
 
 export default function HackerSearch() {
 
@@ -72,7 +73,7 @@ export default function HackerSearch() {
                         <Form>
                             <Field className="form-control" name="fullName" placeholder="Search by Name" />
                             <br />
-                            <Button type="submit" className="btn btn-success">Search!</Button>
+                            <button className="searchButton" type="submit" >Search!</button>
                         </Form>
                     </Formik>
                     <br />
@@ -115,8 +116,8 @@ export default function HackerSearch() {
                                     value={values.language}
                                     onChange={(_, { value }) => setFieldValue("language", value)}
                                 />
-                                <br /><br />
-                                <Button type="submit" className="btn btn-success">Search by language</Button>
+                                <br />
+                                <button className="langButton" type="submit">Search by language</button>
                             </Form>
                         )}
                     </Formik>
@@ -125,7 +126,7 @@ export default function HackerSearch() {
                             return (<div>
                                 <br />
                                 <div> {value.fullName}{value.email} </div>
-                                <Button type="button" onClick={viewProfile}>View Profile</Button>
+                                <button className="profileButton" type="button" onClick={viewProfile}>View Profile</button>
                                 <br></br>
                                 <br></br>
                             </div>
