@@ -147,7 +147,7 @@ const errortext = {
             <ErrorMessage name="linkedIn" component="span" style={errortext}/>
             <Field className="form-control" name="biography" placeholder="ex: https://www.linkedin.com/in/yourprofile" />
     
-            <Button type="submit" className="button-success">Update User Profile!</Button>
+            <button type="submit" className="updateButton">Update User Profile!</button>
           </Form>
         </Formik>
       </div>
