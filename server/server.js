@@ -16,15 +16,15 @@ app.use(cors())
 
 //Routers 
 const hackerRouter = require('./routes/Hackers')
-app.use("/hackers",hackerRouter);
+app.use("/hackers", hackerRouter);
 
 const teamRouter = require('./routes/Teams')
-app.use("/teams",teamRouter);
+app.use("/teams", teamRouter);
 
 const techRouter = require('./routes/Technologies')
-app.use("/technologies",techRouter);
+app.use("/technologies", techRouter);
 
 //Running the app + db
 db.sequelize.sync().then(() => {
-    app.listen(5001, () => {console.log("Server started on port 5001")});
+    app.listen(5001, () => { console.log("Server started on port 5001") });
 });

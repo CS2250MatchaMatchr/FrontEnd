@@ -81,7 +81,7 @@ export default function TeamCreation() {
                         <label>Enter desired team name: </label>
                         <Field className="teamName" name="teamName" />
                         <br></br>
-                        <button type="submit">Create new team!</button>
+                        <button className="teamButton">Create new team!</button>
                         <br></br>
                     </Form>
                 </Formik>
