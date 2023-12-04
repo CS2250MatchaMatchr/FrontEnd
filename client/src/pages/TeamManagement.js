@@ -115,6 +115,28 @@ export default function TeamManagement() {
     
     function removeMember(memberID, ownerID, teamName) {
         console.log("removeMember");
+        console.log(hackerID);
+        console.log(ownerID);
+        console.log(memberID);
+        // if a person who isnt an owner 
+        if (hackerID != ownerID) {
+            alert("You are not the owner of this team. Come back when you have attained such power.");
+        } 
+        // if they try to click on a remove member button when that member doesnt fuckin exist
+        else if (memberID == 'n' || memberID == 'o' || memberID == 'i' || memberID == 'd') {
+            alert("There's no member here, you moron.");
+        } 
+        //actually doing the removing
+        else {
+            const info = {
+                memberToRemove: memberID,
+                teamName: teamName
+            }
+            axios.put("http://localhost:5001/teams/removeTeamMember", info)
+                .then(res => {
+                    alert("You have removed this member!")
+                })
+        }
     }
     function makeOwner(memberID, ownerID, memberNumber) {
         if (hackerID != ownerID) {
