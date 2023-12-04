@@ -6,16 +6,39 @@ import sponsor from "../images/sponsor.png"
 
 export default function Dashboard() {
     const [userJson,setUserJson] = useState([]);
+    const [teamOr, setTeamOr] = useState()
+    const [teamJson, setTeamJson] = useState({
+        teamName: ""
+    })
+    const [teamHook, setTeamHook] = useState()
 
     useEffect(() => {
         const hackerID = localStorage.getItem(localStorage.key("hackerID"));
-        console.log(hackerID)
         let url = "http://localhost:5001/hackers?id=" + hackerID
-        axios.get(url).then(async (response) => {
-            console.log(response);
+        axios.get(url).then((response) => {
             setUserJson(response.data[0][0])
-            console.log(userJson)
+    
         });
+        let url2 = "http://localhost:5001/teams/checkAlreadyInTeam?hackerID=" + hackerID
+        axios.get(url2).then((response) => {
+            setTeamOr(response.data[0])
+        })
+
+        if (teamOr === "NOT YET IN TEAM"){
+            setTeamHook(<div class="column">
+             <h1>Join Team You bitch ass loser</h1>
+            </div>)
+        }
+        else{
+            let url3 = "http://localhost:5001/teams/fromUserID?ID=" + hackerID
+            axios.get(url3).then((response) => {
+                setTeamJson(response.data[0])
+            });
+            setTeamHook((<div class="column">
+            <h2>Team: {teamJson.teamName}</h2>
+            </div>))
+              
+        }
     },[]);
 
     const [countdown,setCountdown] = useState('');
@@ -45,6 +68,15 @@ export default function Dashboard() {
 
         return () => clearInterval(interval);
     }, []);
+
+    const teamOrNah = (<div class="column">
+    <h2>Team</h2>
+    <h3>Team name</h3>
+    <p>Team member 1</p>
+    <p>Team member 2</p>
+    <p>Team member 3</p>
+    <p>Team member 4</p>
+    </div>)
     return (
         <>
             <Header />
@@ -60,14 +92,7 @@ export default function Dashboard() {
                     <p>linkedin: {userJson.linkedin}</p>
                     <p>biography: {userJson.biography}</p>
                 </div>
-                <div class="column">
-                    <h2>Team</h2>
-                    <h3>Team name</h3>
-                    <p>Team member 1</p>
-                    <p>Team member 2</p>
-                    <p>Team member 3</p>
-                    <p>Team member 4</p>
-                </div>
+                {teamHook}
                 <div class="column">
                     <h2>Countdown</h2>
                     <p>There are</p>

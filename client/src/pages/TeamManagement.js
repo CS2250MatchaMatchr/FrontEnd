@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Container, } from 'react-bootstrap'
 import axios from "axios";
 import React, { useEffect, useState } from 'react'
+import Header from "../components/Header";
 import "../styles/TeamManagement.css";
 
 
@@ -104,12 +105,14 @@ export default function TeamManagement() {
 
     return (
         <>
+            <Header />
+            <br />
             <div className='teamManage'>
                 <h1>Home Page For Team: {teamData[0]}</h1>
-                <div>Owner: {teamData[1]} <button type="button" onClick={() => { viewProfile(teamData[6]) }}>View Profile</button></div>
-                <div>Teammate 1: {teamData[2]}<button type="button" onClick={removeMember}>Remove Member</button><button type="button" onClick={makeOwner}>Make Owner</button><button type="button" onClick={() => { viewProfile(teamData[7]) }}>View Profile</button></div>
-                <div>Teammate 2: {teamData[3]}<button type="button" onClick={removeMember}>Remove Member</button><button type="button" onClick={makeOwner}>Make Owner</button><button type="button" onClick={() => { viewProfile(teamData[8]) }}>View Profile</button></div>
-                <div>Teammate 3: {teamData[4]}<button type="button" onClick={removeMember}>Remove Member</button><button type="button" onClick={() => { makeOwner(teamData[7], teamData[6], "member3") }}>Make Owner</button><button type="button" onClick={() => { viewProfile(teamData[9]) }}>View Profile</button></div>
+                <div>Owner: {teamData[1]} <button className= "manButton" type="button" onClick={() => { viewProfile(teamData[6]) }}>View Profile</button></div>
+                <div>Teammate 1: {teamData[2]}<button className= "removeButton" type="button" onClick={removeMember}>Remove Member</button><button className= "manButton" type="button" onClick={makeOwner}>Make Owner</button><button className= "manButton" type="button" onClick={() => { viewProfile(teamData[7]) }}>View Profile</button></div>
+                <div>Teammate 2: {teamData[3]}<button className= "removeButton" type="button" onClick={removeMember}>Remove Member</button><button className= "manButton" type="button" onClick={makeOwner}>Make Owner</button><button className= "manButton" type="button" onClick={() => { viewProfile(teamData[8]) }}>View Profile</button></div>
+                <div>Teammate 3: {teamData[4]}<button className= "removeButton" type="button" onClick={removeMember}>Remove Member</button><button className= "manButton" type="button" onClick={() => { makeOwner(teamData[7], teamData[6], "member3") }}>Make Owner</button><button className= "manButton" type="button" onClick={() => { viewProfile(teamData[9]) }}>View Profile</button></div>
                 <div>Invite Code: {teamData[5]}</div>
                 <br></br>
                 <br></br>

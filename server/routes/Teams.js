@@ -173,7 +173,7 @@ router.get('/getLFTStatus', async (req, res) => {
 router.get('/checkAlreadyInTeam', async (req, res) => {
     const hackerID = req.query.hackerID;
     let teamName = "";
-    const sqlStatement = await sequelize.query("SELECT DISTINCT teamName,id FROM Teams WHERE member1 = :m1 OR member2 = :m2 OR member3 = :m3 OR owner = :o",
+    const sqlStatement = await sequelize.query("SELECT DISTINCT * FROM Teams WHERE member1 = :m1 OR member2 = :m2 OR member3 = :m3 OR owner = :o",
         {
             replacements: { m1: hackerID, m2: hackerID, m3: hackerID, o: hackerID },
             types: QueryTypes.SELECT
@@ -181,14 +181,13 @@ router.get('/checkAlreadyInTeam', async (req, res) => {
     if (sqlStatement[0].length < 1) {
         teamName = "NONE"
     } else {
-        teamName = sqlStatement[0][0].teamName;
+        teamName = sqlStatement[0][0].id;
     }
     
-
     if (teamName === "NONE") {
-        res.send("NOT YET IN TEAM");
+        res.send(["NOT YET IN TEAM"]);
     } else {
-        res.send("ALREADY IN TEAM");
+        res.send([teamName]);
     }
 })
 

@@ -57,9 +57,9 @@ export default function Technologies() {
 
             technologies.Other = values.Other
 
-            axios.put("http://localhost:5001/technologies", technologies).then((response) => {
+            axios.put("http://localhost:5001/technologies/checkAlreadyInTeam", technologies).then((response) => {
                 console.log(response.data)
-                if (response.data == "Successfully Created") {
+                if (response.data == "Update Succesful") {
                     navigate("/Profile");
                 }
                 else {
@@ -208,7 +208,7 @@ export default function Technologies() {
                                 </label>
                             </div>
                             <br />
-                            <Button type="submit" className="btn btn-success btn-lg">Submit</Button>
+                            <Button type="submit" className="btn btn-success btn-lg">Update Profile!</Button>
                         </Form>
                     )}
                 </Formik>
