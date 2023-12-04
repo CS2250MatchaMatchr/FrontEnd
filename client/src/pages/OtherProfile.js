@@ -8,6 +8,10 @@ export default function OtherProfile() {
 
     const [userJson,setUserJson] = useState([]);
     const [searchParams, setSearchParams] = useSearchParams();
+    const [hackersLanguage,setHackersLanguage] = useState()
+    const [languageList, setLanguageList] = useState([])
+    const [refresh, setRefresh] = useState(false)
+
     
 
     useEffect(() => {
@@ -19,6 +23,25 @@ export default function OtherProfile() {
             setUserJson(response.data[0][0])
             console.log(userJson)
         });
+
+        let url2 = "http://localhost:5001/Technologies?hackerID=" + hackerID
+        axios.get(url2).then(async (response) => {
+            setHackersLanguage(response.data[0][0])
+            let ihatemylife = []
+            for (let term in hackersLanguage){
+                if (hackersLanguage[term] == 1){
+                    console.log("hi")
+                    ihatemylife.push(term);
+                    ihatemylife.push(", ")
+                }
+            }
+            Promise.all(ihatemylife).then(function(values) {
+                console.log(values);
+                setRefresh(true)
+                setLanguageList(values)
+              });
+        });
+
     },[]);
 
     
@@ -39,6 +62,8 @@ export default function OtherProfile() {
                     <p>github: {userJson.github}</p>
                     <p>linkedin: {userJson.linkedin}</p>
                     <p>biography: {userJson.biography}</p>
+                    <p>Languages: {languageList}</p>
+
                 </div>
                 <br></br>
                 <br></br>

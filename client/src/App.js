@@ -12,7 +12,7 @@ import Technologies from './pages/Technologies'
 import Teams from './pages/Teams'
 import OtherProfile from './pages/OtherProfile'
 import TeammateProfile from './pages/TeammateProfile'
-import EditUser from './pages/EditUser'
+import EditUser from './pages/editUser'
 import EditTechnologies from './pages/EditTechnologies'
 
 function App() {
