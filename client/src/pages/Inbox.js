@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import "../styles/inbox.css";
+import sponsor from "../images/sponsor.png"
 
 export default function Inbox() {
     return (
@@ -21,6 +22,14 @@ export default function Inbox() {
                         </div>
                     </div>
                 </div >
+                <br></br>
+                <br></br>
+                <div style={{fontSize: "45px",textAlign: "center"}}>Second Thank You To Our Sponsors, We Really Appreciate It</div>
+                <br></br>
+                <br></br>
+                <div className="body">
+                    <img className="sponsors" src={sponsor} />
+                </div>
             </div>
         </>
     )
