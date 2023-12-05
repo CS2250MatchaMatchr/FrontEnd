@@ -30,12 +30,17 @@ export default function Incoming() {
             const url = "http://localhost:5001/hackers?id=" + listOfMessages[i].sender
             axios.get(url).then((response) => {
                 const sender = response.data[0][0]
-                htmlResponse.push(<div>
-                                    <div>Time Sent: {listOfMessages[i].createdAt}</div>
-                                    <div>{sender.fullName} sent the following message: {listOfMessages[i].message}</div>
-                                    <br></br>
-                                    <br></br>
-                                  </div>)
+                let url2 = "http://localhost:5001/pfp?hackerID=" + listOfMessages[i].sender
+                    axios.get(url2).then((response) => {
+                        console.log(response)
+                        htmlResponse.push(<div>
+                            <div>Time Sent: {listOfMessages[i].createdAt}</div>
+                                <div><b>{sender.fullName}Sent You A Message</b>: {listOfMessages[i].message}</div>
+                                <br></br>
+                                <br></br>
+                                <img src={response.data}></img>
+                            </div>)
+                    });
             });
         }
         setprepareHTML(htmlResponse);
