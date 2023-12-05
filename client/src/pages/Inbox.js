@@ -9,22 +9,22 @@ export default function Inbox() {
     return (
         <>
             <Header></Header>
-            <div className="container mt-5">
                 <div className="box">
-                    <h1>Inbox</h1>
-                    <div className="containerD">
+                    <div className="inboxBox">
+                         <h1 className="inboxHead">Inbox</h1>
+                    <div className="inboxButtonContainer">
                         <div className="checkButton">
                             <Link to="../Incoming">Check Incoming Messages</Link>
                         </div>
-                        <br></br>
                         <div className="sentButton">
                             <Link to="../Sent">Revist Messages Sent</Link>
                         </div>
                     </div>
-                </div >
+                    </div>
+                   
                 <br></br>
                 <br></br>
-                <div style={{fontSize: "45px",textAlign: "center"}}>Second Thank You To Our Sponsors, We Really Appreciate It</div>
+                <h1 className="tySponsors">Second Thank You To Our Sponsors, We Really Appreciate It</h1>
                 <br></br>
                 <br></br>
                 <div className="body">

@@ -79,10 +79,10 @@ export default function OtherProfile() {
         <>
             <Header />
             <br />
-            <div className="profile">
+            <div className="profileContainer">
                 <h2 className="profileHead">Profile</h2>
 
-                <div className="profileImage">
+                <div className="infoImage">
                     <img src={pfp} style={{ width: 300, height: 300 }} />
                 </div>
 
@@ -97,9 +97,6 @@ export default function OtherProfile() {
                     <p>Biography: {userJson.biography}</p>
                     <p>Languages: {languageList}</p>
 
-                    <Link to="/TeamManagement">Back to Team Management</Link>
-
-                    <br /> <br />
                     <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
                         <Form>
                             <div className>
@@ -109,11 +106,17 @@ export default function OtherProfile() {
                             <button type="submit" className="sendButton">Send</button>
                         </Form>
                     </Formik>
+                    <br />
+                    <Link to="/TeamManagement">Back to Team Management</Link>
+
                 </div>
+
 
                 <br></br>
                 <br></br>
                 <br />
+
+
             </div>
         </>
     )

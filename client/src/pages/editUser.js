@@ -74,19 +74,19 @@ export function User() {
               <ErrorMessage name="classStanding" component="span" />
               <div role="group" aria-labelledby="class-standing-label">
                 <label id="class-standing-label">
-                  <Field type="radio" name="classStanding" value="freshman" />
+                  <Field type="radio" name="classStanding" value="Freshman" />
                   Freshman
                 </label>
                 <label>
-                  <Field type="radio" name="classStanding" value="sophomore" />
+                  <Field type="radio" name="classStanding" value="Sophomore" />
                   Sophomore
                 </label>
                 <label>
-                  <Field type="radio" name="classStanding" value="junior" />
+                  <Field type="radio" name="classStanding" value="Junior" />
                   Junior
                 </label>
                 <label>
-                  <Field type="radio" name="classStanding" value="senior" />
+                  <Field type="radio" name="classStanding" value="Senior" />
                   Senior
                 </label>
               </div>
@@ -96,15 +96,15 @@ export function User() {
               <ErrorMessage name="gender" component="span" />
               <div role="group" aria-labelledby="gender-label">
                 <label id="gender-label">
-                  <Field type="radio" name="gender" value="male" />
+                  <Field type="radio" name="gender" value="Male" />
                   Male
                 </label>
                 <label>
-                  <Field type="radio" name="gender" value="female" />
+                  <Field type="radio" name="gender" value="Female" />
                   Female
                 </label>
                 <label>
-                  <Field type="radio" name="gender" value="other" />
+                  <Field type="radio" name="gender" value="Other" />
                   Other
                 </label>
               </div>
@@ -118,15 +118,15 @@ export function User() {
               <ErrorMessage name="frontOrBackEnd" component="span" />
               <div role="group" aria-labelledby="front-back-label">
                 <label id="front-back-label">
-                  <Field type="radio" name="frontOrBackEnd" value="frontend" />
+                  <Field type="radio" name="frontOrBackEnd" value="Frontend" />
                   Frontend
                 </label>
                 <label>
-                  <Field type="radio" name="frontOrBackEnd" value="backend" />
+                  <Field type="radio" name="frontOrBackEnd" value="Backend" />
                   Backend
                 </label>
                 <label>
-                  <Field type="radio" name="frontOrBackEnd" value="fullstack" />
+                  <Field type="radio" name="frontOrBackEnd" value="Fullstack" />
                   Fullstack
                 </label>
               </div>
@@ -142,7 +142,7 @@ export function User() {
             <ErrorMessage name="linkedIn" component="span" />
             <Field className="form-control" name="biography" placeholder="ex: https://www.linkedin.com/in/yourprofile" />
 
-            <Button type="submit" className="button-success">Publish Changes</Button>
+            <button type="submit" className="updateButton">Publish Changes</button>
           </Form>
         </Formik>
       </div>

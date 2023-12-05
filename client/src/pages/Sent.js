@@ -6,7 +6,7 @@ import { Button } from 'react-bootstrap'
 import { Dropdown } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import { useNavigate, Link } from 'react-router-dom'
-import "../styles/HackerSearch.css";
+import "../styles/Sent.css";
 
 export default function Sent() {
 
@@ -53,7 +53,7 @@ export default function Sent() {
     }
     return (
         <>
-            <Header></Header>
+            <Header />
             <br />
             <div className="incomingMessages">
                 <h1>Sent Messages</h1>

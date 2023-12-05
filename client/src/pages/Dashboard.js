@@ -35,7 +35,7 @@ export default function Dashboard() {
         })
 
         if (teamJson == "NOT YET IN TEAM" || teamJson == undefined){
-            setTeamHook(<div class="column">
+            setTeamHook(<div class="teamHead">
             <h1>Join a Team Loser You Can't Win This Alone!</h1>
             </div>)
         } 
@@ -95,6 +95,7 @@ export default function Dashboard() {
                     <p>until the hackaton.</p>
                 </div>
             </div>
+            <br />
             <div style={{fontSize: "45px",textAlign: "center"}}>Thank You To Our Sponsors</div>
             <br></br>
             <br></br>
