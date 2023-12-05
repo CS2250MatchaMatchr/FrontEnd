@@ -49,13 +49,12 @@ export default function Technologies() {
                 NoSQL: false,
                 Rust: false,
                 Perl: false,
-                Other: ""
+                Other: " "
             }
             for (let tech in values.Technologies) {
                 technologies[values.Technologies[tech]] = true
             }
 
-            technologies.Other = values.Other
 
             axios.put("http://localhost:5001/technologies", technologies).then((response) => {
                 console.log(response.data)

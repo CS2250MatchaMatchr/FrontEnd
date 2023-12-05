@@ -29,12 +29,16 @@ export default function Sent() {
             const url = "http://localhost:5001/hackers?id=" + listOfMessages[i].sender
             axios.get(url).then((response) => {
                 const sender = response.data[0][0]
-                htmlResponse.push(<div>
-                                    <div>Time Sent: {listOfMessages[i].createdAt}</div>
-                                    <div>You sent the following message to <b>{sender.fullName}</b>: {listOfMessages[i].message}</div>
-                                    <br></br>
-                                    <br></br>
-                                  </div>)
+                const url2 = "http://localhost:5001/hackers?id=" + listOfMessages[i].receiver
+                axios.get(url2).then((response) => {
+                    const receiver = response.data[0][0]
+                    htmlResponse.push(<div>
+                        <div>Time Sent: {listOfMessages[i].createdAt}</div>
+                        <div>You sent the following message to <b>{receiver.fullName}</b>: {listOfMessages[i].message}</div>
+                        <br></br>
+                        <br></br>
+                      </div>)
+                });
             });
         }
         setprepareHTML(htmlResponse);

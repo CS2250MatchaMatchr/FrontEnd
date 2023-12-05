@@ -19,11 +19,10 @@ export default function TeamManagement() {
     const [isNone2,setIsNone2] = useState()
     const [isNone3,setIsNone3] = useState()
     const [theButton, setTheButton] = useState()
-    const hackerID = localStorage.getItem(localStorage.key("hackerID"));
+    const hackerID = localStorage.getItem(localStorage.key("hackerID"))
 
     //Fetching all the variables from the DB
     useEffect(() => {
-        const hackerID = localStorage.getItem(localStorage.key("hackerID"));
         let url = "http://localhost:5001/teams/fromUserID?ID=" + hackerID;
         let urmom = [];
         axios.get(url).then(async (response) => {
@@ -78,10 +77,10 @@ export default function TeamManagement() {
                 setTeamData(urmom);
                 setTheButton(<button className="leaveButton" type="button" onClick={() => {leaveTeam(hackerID,teamData[0])}}>Leave Team</button>)
                 if (ownerID==Number(hackerID)){
-                    setIsOwner1(<><button className= "removeButton" type="button" onClick={() => {removeMember(member1ID,ownerID,teamData[0])}}>Remove Member</button><button className= "manButton" type="button" onClick={ ()=> {makeOwner(teamData[7], teamData[6], "member1")} }>Make Owner</button></>);
-                    setIsOwner2(<><button className= "removeButton" type="button" onClick={() => {removeMember(member2ID,ownerID,teamData[0])}}>Remove Member</button><button className= "manButton" type="button" onClick={ ()=> {makeOwner(teamData[8], teamData[6], "member2")} }>Make Owner</button></>);
-                    setIsOwner3(<><button className= "removeButton" type="button" onClick={() => {removeMember(member3ID,ownerID,teamData[0])}}>Remove Member</button><button className= "manButton" type="button" onClick={ ()=> {makeOwner(teamData[9], teamData[6], "member3")} }>Make Owner</button></>);
-                    setTheButton(<button className="deleteButton" button="type" onClick={() =>{deleteTeam(hackerID,ownerID,teamData[7])}}>Delete Team</button>)
+                    setIsOwner1(<><button className= "removeButton" type="button" onClick={() => {removeMember(teamData[2],teamData[6],teamData[0])}}>Remove Member</button><button className= "manButton" type="button" onClick={ ()=> {makeOwner(teamData[7], teamData[6], "member1")} }>Make Owner</button></>);
+                    setIsOwner2(<><button className= "removeButton" type="button" onClick={() => {removeMember(teamData[3],teamData[6],teamData[0])}}>Remove Member</button><button className= "manButton" type="button" onClick={ ()=> {makeOwner(teamData[8], teamData[6], "member2")} }>Make Owner</button></>);
+                    setIsOwner3(<><button className= "removeButton" type="button" onClick={() => {removeMember(teamData[4],teamData[6],teamData[0])}}>Remove Member</button><button className= "manButton" type="button" onClick={ ()=> {makeOwner(teamData[9], teamData[6], "member3")} }>Make Owner</button></>);
+                    setTheButton(<button className="deleteButton" button="type" onClick={() =>{deleteTeam(hackerID,teamData[6],teamData[7])}}>Delete Team</button>)
                 }
                 console.log(member3ID)
                 if (member1ID == undefined || member1ID == "None"){
@@ -114,6 +113,7 @@ export default function TeamManagement() {
     
                 urmom = [teamName, owner, member1, member2, member3, passcode, ownerID, member1ID, member2ID, member3ID];
                 setTeamData(urmom)
+                console.log("Data Set :)")
                 }
             catch{
                 console.log("Will Catch in Next Run Through")
@@ -184,11 +184,10 @@ export default function TeamManagement() {
 
     function deleteTeam(hackerID,ownerID,member1) {
         if (Number(hackerID) != Number(ownerID)){
-            alert("You tryna homewreck? Only Owners otta do this")
+            alert("Ayo what you doin my mans? Only Owners otta do this")
         }
         else if (member1 != undefined || member1 != "None"){
             const urmom = {teamID: teamID, ownerID: ownerID}
-            console.log(urmom)
             axios.delete("http://localhost:5001/teams", urmom)
             .then(res => {
                 console.log(res)

@@ -409,7 +409,7 @@ router.put('/leaveTeam', async (req, res) => {
     res.send(resultingStatement);
 })
 
-router.delete('', async (req, res) => {
+router.delete('/', async (req, res) => {
     try{
         const ownerID = req.body.ownerID;
         const teamID = req.body.teamID;
