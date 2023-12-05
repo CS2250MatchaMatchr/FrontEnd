@@ -82,7 +82,7 @@ export default function HackerSearch() {
                     <div>Search by Skills:</div>
                     <Formik
                         initialValues={{
-                            language: ""
+                            language: "Javascript"
                         }}
                         onSubmit={onSubmitByLanguage}
                     >

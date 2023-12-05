@@ -89,7 +89,7 @@ export default function TeamCreation() {
                     Passcode used to invite hackers to your team: <b>{passcodeTeam}</b>
                 </div>
                 <div className="link">
-                    <Link to="/Dashboard" >Back</Link>
+                    <Link to="/Teams" >Back</Link>
                 </div>
             </div>
         </>

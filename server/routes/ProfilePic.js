@@ -9,7 +9,7 @@ router.post("/", async (req, res) => {
 
     const pfp = {
         hackerID: hackerID,
-        imageAddress: ""
+        imageAddress: "https://media.tenor.com/wy2zHeWyf2gAAAAd/side-eye-dog-suspicious-look.gif"
     }
     await ProfilePic.create(pfp);
     res.send("PFP Created Succesfully");
@@ -25,12 +25,16 @@ router.put("/", async (req, res) => {
 //Gets image from hackerID
 router.get("/", async (req, res) => {
     const hackerID = req.query.hackerID
-    let sqlStatement = await sequelize.query("SELECT * FROM `ProfilePics` WHERE hackerID = :hackerID",
-    {
-        replacements: {hackerID: hackerID},
-        type: QueryTypes.SELECT
-    });
-    res.send(sqlStatement[0].imageAddress);
+    try{
+        let sqlStatement = await sequelize.query("SELECT * FROM `ProfilePics` WHERE hackerID = :hackerID",
+        {
+            replacements: {hackerID: hackerID},
+            type: QueryTypes.SELECT
+        });
+        res.send(sqlStatement[0].imageAddress);
+    }catch (error){
+        res.send("Failed"); 
+    }
 
 });
 

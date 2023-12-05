@@ -4,13 +4,17 @@ import axios from "axios";
 import React, {useEffect,useState} from 'react'
 import { useSearchParams, Link, useNavigate} from 'react-router-dom'
 
-export default function TeammateProfile() {
+
+export default function OtherProfile() {
 
     const [userJson,setUserJson] = useState([]);
     const [searchParams, setSearchParams] = useSearchParams();
     const [hackersLanguage,setHackersLanguage] = useState()
     const [languageList, setLanguageList] = useState([])
     const [refresh, setRefresh] = useState(false)
+    const [pfp,setPFP] = useState()
+
+    
 
     useEffect(() => {
         const hackerID = searchParams.get("id");
@@ -40,8 +44,17 @@ export default function TeammateProfile() {
               });
         });
 
+    },[refresh]);
 
-    },[]);
+    useEffect(() => {
+        const hackerID = searchParams.get("id");
+        console.log(hackerID)
+        let url = "http://localhost:5001/pfp?hackerID=" + hackerID
+        axios.get(url).then(async (response) => {
+            setPFP(response.data)
+            console.log(pfp)
+        });
+    },[pfp]);
 
     
 
@@ -59,10 +72,12 @@ export default function TeammateProfile() {
                     <p>gender: {userJson.gender}</p>
                     <p>frontOrBackEnd: {userJson.frontOrBackEnd}</p>
                     <p>github: {userJson.github}</p>
-                    <p>linkedin: {userJson.linkedin}</p>
+                    <p>linkedin: {userJson.linkedIn}</p>
                     <p>biography: {userJson.biography}</p>
                     <p>Languages: {languageList}</p>
+
                 </div>
+                <img src={pfp} style={{width: 300, height: 300}}/>
                 <br></br>
                 <br></br>
                 <Link to="/TeamManagement">Back to Team Management</Link>
