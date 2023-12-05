@@ -7,6 +7,7 @@ import { Dropdown } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import { useNavigate, Link } from 'react-router-dom'
 import "../styles/HackerSearch.css";
+import "../styles/incomingMessage.css";
 
 export default function Incoming() {
 
@@ -41,14 +42,20 @@ export default function Incoming() {
     }
     return(
         <>
-            <Header></Header>
-            <h1>Incoming Messages</h1>
-            <button onClick={onSubmit}>Load Data</button>
-            <Link to="/Inbox" >Back</Link>
-            <div className="results">
-                {prepareHTML.map((value, key) => {
-                    return (<>{value}</>)
-                })}
+            
+            <Header />
+            <br />
+            <div classname="profile">
+                <h1>Incoming Messages</h1>
+                <div classname="editButton">
+                    <button onClick={onSubmit}>Load Data</button>
+                </div>
+                <Link to="/Inbox" >Back</Link>
+                <div className="results">
+                    {prepareHTML.map((value, key) => {
+                        return (<>{value}</>)
+                    })}
+                </div>
             </div>
         </>
     )
