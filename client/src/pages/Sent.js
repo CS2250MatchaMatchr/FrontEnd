@@ -42,7 +42,7 @@ export default function Sent() {
                                 Time Sent: {listOfMessages[i].createdAt}
                             </div>
                             <div>
-                                You sent the following message to <b>{receiver.fullName}</b>: {listOfMessages[i].message}
+                                You sent the following message to <b>{receiver.fullName}</b>: <p className="messageText">{listOfMessages[i].message}</p>
                             </div>
                         </div>)
                     });

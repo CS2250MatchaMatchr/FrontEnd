@@ -60,3 +60,11 @@
     border: 1px solid #e5e5e5;
     box-shadow: 0px 0px 10px rgb(233, 233, 233);
 }
+
+.messageText {
+    font-size: 20px;
+}
+
+.defaultSentText {
+    font-size: 12px;
+}
