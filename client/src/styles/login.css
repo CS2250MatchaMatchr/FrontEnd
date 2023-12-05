@@ -9,3 +9,7 @@
     color: white;
     margin-top: 10px;
 }
+
+.loginButton:hover {
+    background-color: rgb(203, 201, 201);
+}

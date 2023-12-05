@@ -36,14 +36,12 @@ export default function Dashboard() {
 
         if (teamJson == "NOT YET IN TEAM" || teamJson == undefined){
             setTeamHook(<div class="column">
-            <h1>Join a Team You bitch ass loser</h1>
+            <h1>Join a Team You Bitch Ass Loser</h1>
             </div>)
         } 
         else{
             setTeamHook(
-                <div class="column">
-                    <h2>Team: {teamJson.teamName}</h2>
-                </div>
+                    <h2 className='teamHead'>Team: {teamJson.teamName}</h2>
                 ); 
         }
         
@@ -79,15 +77,17 @@ export default function Dashboard() {
             <div class="containerD">
                 <div class="column">
                     <h2>Profile</h2>
-                    <p>FullName: {userJson.fullName}</p>
-                    <p>classStanding: {userJson.classStanding}</p>
-                    <p>gender: {userJson.gender}</p>
-                    <p>frontOrBackEnd: {userJson.frontOrBackEnd}</p>
-                    <p>github: <a href={userJson.github}>{userJson.github}</a></p>
-                    <p>linkedin:<a href={userJson.linkedIn}>{userJson.linkedIn}</a></p>
-                    <p>biography: {userJson.biography}</p>
+                    <p>Full Name: {userJson.fullName}</p>
+                    <p>Class Standing: {userJson.classStanding}</p>
+                    <p>Gender: {userJson.gender}</p>
+                    <p>Front Or BackEnd: {userJson.frontOrBackEnd}</p>
+                    <p>Github: <a href={userJson.github}>{userJson.github}</a></p>
+                    <p>Linkedin:<a href={userJson.linkedIn}>{userJson.linkedIn}</a></p>
+                    <p>Biography: {userJson.biography}</p>
                 </div>
-                {teamHook}
+                <div class="teamHook">
+                    {teamHook}
+                </div>
                 <div class="column">
                     <h2>Countdown</h2>
                     <p>There are</p>
