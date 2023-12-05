@@ -1,6 +1,6 @@
 .profile {
-    width: 80%;
-    height: 500px;
+    width: 50%;
+    height: 800px;
     border-radius: 30px;
     display: block;
     margin-left: auto;
@@ -12,13 +12,33 @@
     box-shadow: 0px 0px 10px rgb(233, 233, 233);
 }
 
-.editButton {
+.profile h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.editButton button, .backButton button{
     height: 30px;
     width: 120px;
     background-color: rgb(144, 175, 131);
+    color: #fff;
     border: none;
-    border-radius: 10px;
-    color: white;
-    text-align: center;
-    padding-top: 5px;
+    border-radius: 6px;
+    cursor: pointer;
 }
+
+
+.editButton button:hover, .backButton button:hover {
+  background-color:  rgb(144, 175, 131);
+  color: #fff;
+}
+
+.results {
+  margin-top: 20px;
+}
+
+.message {
+  margin-bottom: 15px;
+  font-size: 23px
+}
+
