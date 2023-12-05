@@ -126,7 +126,7 @@ export default function HackerSearch() {
                             return (<div>
                                 <br />
                                 <div> {value.fullName}</div>
-                                <button className="profileButton" type="button" onClick={()=>{viewProfile(value.id)}}>View Profile</button>
+                                <button className="profileButton" type="button" onClick={() => { viewProfile(value.id) }}>View Profile</button>
                                 <br></br>
                                 <br></br>
                             </div>
