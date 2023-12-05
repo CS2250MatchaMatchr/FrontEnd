@@ -32,12 +32,17 @@ export default function Sent() {
                 const url2 = "http://localhost:5001/hackers?id=" + listOfMessages[i].receiver
                 axios.get(url2).then((response) => {
                     const receiver = response.data[0][0]
-                    htmlResponse.push(<div>
-                        <div>Time Sent: {listOfMessages[i].createdAt}</div>
-                        <div>You sent the following message to <b>{receiver.fullName}</b>: {listOfMessages[i].message}</div>
-                        <br></br>
-                        <br></br>
-                    </div>)
+                    let url3 = "http://localhost:5001/pfp?hackerID=" + listOfMessages[i].receiver
+                    axios.get(url3).then((response) => {
+                        console.log(response)
+                        htmlResponse.push(<div>
+                            <div>Time Sent: {listOfMessages[i].createdAt}</div>
+                                <div>You sent the following message to <b>{receiver.fullName}</b>: {listOfMessages[i].message}</div>
+                                <br></br>
+                                <br></br>
+                                <img src={response.data}></img>
+                            </div>)
+                    });
                 });
             });
         }
@@ -54,7 +59,7 @@ export default function Sent() {
                         return (<>{value}</>)
                     })}
                 </div>
-                
+
                 <button className="loadButton" onClick={onSubmit}>Load Data</button>
                 <br />
                 <div className="backLink">
