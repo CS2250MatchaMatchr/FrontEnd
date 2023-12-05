@@ -223,7 +223,8 @@ router.put('/removeTeamMember', async (req, res) => {
     console.log(mem1);
     console.log(mem2);
     console.log(mem3);
-    console.log(memberToRemove)
+    console.log(memberToRemove);
+    console.log(teamName);
     
     //mem1 is the member that needs to be removed
     if (memberToRemove == mem1) {
@@ -409,16 +410,38 @@ router.put('/leaveTeam', async (req, res) => {
     res.send(resultingStatement);
 })
 
-router.delete('/', async (req, res) => {
-    try{
+router.delete('/balls', async (req, res) => {
         const ownerID = req.body.ownerID;
-        const teamID = req.body.teamID;
-        await sequelize.query("DELETE FROM Teams WHERE id = " + teamID);
+        const teamName = req.body.teamName;
+        console.log(ownerID + " " + teamName)
+        const delStatement = await sequelize.query("DELETE FROM Teams WHERE teamName = :teamName",
+        {
+            replacements: { teamName: teamName},
+            type: QueryTypes.DELETE
+        });
+        
         await sequelize.query("UPDATE Hackers SET lookingForTeam = 1 WHERE id = " + ownerID);
         res.send("Success")
-    } catch (error){
-        res.send("Error")
-    }
+
 });
+
+router.put('/makeTeamNull', async (req, res) => {
+    const ownerID = req.body.ownerID;
+    const teamName = req.body.teamName;
+    console.log(ownerID + " " + teamName);
+    //sets everything to null
+    const updateStatement = await sequelize.query("UPDATE Teams SET id = NULL, teamName = NULL, owner = NULL, passcode = NULL WHERE teamName = :teamName",
+    {
+        replacements: { teamName: teamName },
+        type: QueryTypes.UPDATE
+    })
+    //set owner lftStatus to 1
+    const upd2Statement = await sequelize.query("UPDATE Hackers SET lookingForTeam = 1 WHERE id = :id",
+    {
+        replacements: { id: ownerID },
+        type: QueryTypes.UPDATE
+    })
+    res.send("IT WORKS");
+})
 
 module.exports = router

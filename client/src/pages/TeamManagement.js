@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { Container, } from 'react-bootstrap'
 import axios from "axios";
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import Header from "../components/Header";
 import "../styles/TeamManagement.css";
 
@@ -20,6 +20,11 @@ export default function TeamManagement() {
     const [isNone3,setIsNone3] = useState()
     const [theButton, setTheButton] = useState()
     const hackerID = localStorage.getItem(localStorage.key("hackerID"))
+
+    let teamIDv2 = useRef(0);
+    let a = useRef(0);
+    let b = useRef(0);
+    let c = useRef(0);
 
     //Fetching all the variables from the DB
     useEffect(() => {
@@ -77,10 +82,10 @@ export default function TeamManagement() {
                 setTeamData(urmom);
                 setTheButton(<button className="leaveButton" type="button" onClick={() => {leaveTeam(hackerID,teamData[0])}}>Leave Team</button>)
                 if (ownerID==Number(hackerID)){
-                    setIsOwner1(<><button className= "removeButton" type="button" onClick={() => {removeMember(teamData[2],teamData[6],teamData[0])}}>Remove Member</button><button className= "manButton" type="button" onClick={ ()=> {makeOwner(teamData[7], teamData[6], "member1")} }>Make Owner</button></>);
-                    setIsOwner2(<><button className= "removeButton" type="button" onClick={() => {removeMember(teamData[3],teamData[6],teamData[0])}}>Remove Member</button><button className= "manButton" type="button" onClick={ ()=> {makeOwner(teamData[8], teamData[6], "member2")} }>Make Owner</button></>);
-                    setIsOwner3(<><button className= "removeButton" type="button" onClick={() => {removeMember(teamData[4],teamData[6],teamData[0])}}>Remove Member</button><button className= "manButton" type="button" onClick={ ()=> {makeOwner(teamData[9], teamData[6], "member3")} }>Make Owner</button></>);
-                    setTheButton(<button className="deleteButton" button="type" onClick={() =>{deleteTeam(hackerID,teamData[6],teamData[7])}}>Delete Team</button>)
+                    setIsOwner1(<><button className= "removeButton" type="button" onClick={() => {removeMember(teamData[7],teamData[6],teamData[0])}}>Remove Member</button><button className= "manButton" type="button" onClick={ ()=> {makeOwner(teamData[7], teamData[6], "member1")} }>Make Owner</button></>);
+                    setIsOwner2(<><button className= "removeButton" type="button" onClick={() => {removeMember(teamData[8],teamData[6],teamData[0])}}>Remove Member</button><button className= "manButton" type="button" onClick={ ()=> {makeOwner(teamData[8], teamData[6], "member2")} }>Make Owner</button></>);
+                    setIsOwner3(<><button className= "removeButton" type="button" onClick={() => {removeMember(teamData[9],teamData[6],teamData[0])}}>Remove Member</button><button className= "manButton" type="button" onClick={ ()=> {makeOwner(teamData[9], teamData[6], "member3")} }>Make Owner</button></>);
+                    setTheButton(<button className="deleteButton" button="type" onClick={() =>{deleteTeam(hackerID,teamData[6],teamData[7], teamData[0])}}>Delete Team</button>)
                 }
                 console.log(member3ID)
                 if (member1ID == undefined || member1ID == "None"){
@@ -123,6 +128,10 @@ export default function TeamManagement() {
     }, [teamData]);
     
     function removeMember(memberID, ownerID, teamName) {
+        console.log(memberID + " " + ownerID + " " + teamName);
+        a.current = memberID;
+        b.current = ownerID;
+        c.current = teamName;
         // if a person who isnt an owner 
         if (hackerID != ownerID) {
             alert("You are not the owner of this team. Come back when you have attained such power.");
@@ -134,9 +143,11 @@ export default function TeamManagement() {
         //actually doing the removing
         else {
             const info = {
-                memberToRemove: memberID,
-                teamName: teamName
+                memberToRemove: a.current,
+                teamName: c.current
             }
+            console.log(a.current + " " + c.current);
+            console.log(info);
             axios.put("http://localhost:5001/teams/removeTeamMember", info)
                 .then(res => {
                     alert("You have removed this member!")
@@ -182,18 +193,20 @@ export default function TeamManagement() {
             })
     }
 
-    function deleteTeam(hackerID,ownerID,member1) {
+    function deleteTeam(hackerID,ownerID,member1, teamName) {
+        teamIDv2.current = 11;
         if (Number(hackerID) != Number(ownerID)){
             alert("Ayo what you doin my mans? Only Owners otta do this")
         }
         else if (member1 != undefined || member1 != "None"){
-            const urmom = {teamID: teamID, ownerID: ownerID}
-            axios.delete("http://localhost:5001/teams", urmom)
-            .then(res => {
-                console.log(res)
-                alert("Yall weren't gonna win anyways")
-                navigate("/Teams")
-            })
+            const urmom = {teamName: teamName, ownerID: ownerID}
+            console.log(urmom);
+            axios.put("http://localhost:5001/teams/makeTeamNull", urmom)
+                .then(res => {
+                    console.log(res);
+                    alert("Yall weren't gonna win anyways");
+                    navigate("/Teams");
+                })
         }
         else{
             alert("Dont bail on your teammates my man! You gotta kick them out first before deleting this team")
