@@ -3,7 +3,8 @@ import "../styles/profile.css";
 import axios from "axios";
 import React, {useEffect,useState} from 'react'
 import { useSearchParams, Link, useNavigate} from 'react-router-dom'
-
+import { Formik, Form, Field} from 'formik';
+import * as Yup from 'yup'
 
 export default function OtherProfile() {
 
@@ -18,12 +19,9 @@ export default function OtherProfile() {
 
     useEffect(() => {
         const hackerID = searchParams.get("id");
-        console.log(hackerID)
         let url = "http://localhost:5001/hackers?id=" + hackerID
         axios.get(url).then(async (response) => {
-            console.log(response);
             setUserJson(response.data[0][0])
-            console.log(userJson)
         });
 
         let url2 = "http://localhost:5001/Technologies?hackerID=" + hackerID
@@ -32,13 +30,11 @@ export default function OtherProfile() {
             let ihatemylife = []
             for (let term in hackersLanguage){
                 if (hackersLanguage[term] == 1){
-                    console.log("hi")
                     ihatemylife.push(term);
                     ihatemylife.push(", ")
                 }
             }
             Promise.all(ihatemylife).then(function(values) {
-                console.log(values);
                 setRefresh(true)
                 setLanguageList(values)
               });
@@ -48,14 +44,35 @@ export default function OtherProfile() {
 
     useEffect(() => {
         const hackerID = searchParams.get("id");
-        console.log(hackerID)
         let url = "http://localhost:5001/pfp?hackerID=" + hackerID
         axios.get(url).then(async (response) => {
             setPFP(response.data)
-            console.log(pfp)
         });
     },[pfp]);
 
+    const initialValues = {
+        message: ""
+    }
+
+    const onSubmit = (data => {
+        let hackerID = localStorage.getItem(localStorage.key("hackerID"));
+        const newMessage = {
+            sender: Number(hackerID),
+            receiver: userJson.id,
+            message: data.message
+        }
+        console.log(newMessage)
+        axios.post("http://localhost:5001/messages", newMessage).then((response) => {
+            console.log(response)
+            alert("Message Sent!")
+            window.location.reload(false);
+        });
+           
+    });
+
+    const validationSchema = Yup.object().shape({
+        message: Yup.string()
+    })
     
 
     return (
@@ -72,11 +89,20 @@ export default function OtherProfile() {
                     <p>gender: {userJson.gender}</p>
                     <p>frontOrBackEnd: {userJson.frontOrBackEnd}</p>
                     <p>github: {userJson.github}</p>
-                    <p>linkedin: {userJson.linkedIn}</p>
-                    <p>biography: {userJson.biography}</p>
+                    <p>github: <a href={userJson.github}>{userJson.github}</a></p>
+                    <p>linkedin: <a href={userJson.linkedIn}>{userJson.linkedIn}</a></p>
                     <p>Languages: {languageList}</p>
 
                 </div>
+                <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
+                    <Form>
+                        <div className="mb-3">
+                            <label>Send a message to {userJson.fullName}!</label>
+                            <Field className="form-control" name="message"/>
+                        </div>
+                        <button type="submit" className="loginButton">Send</button>
+                    </Form>
+                </Formik>
                 <img src={pfp} style={{width: 300, height: 300}}/>
                 <br></br>
                 <br></br>

@@ -84,8 +84,8 @@ export default function Profile() {
                     <p>classStanding: {userJson.classStanding}</p>
                     <p>gender: {userJson.gender}</p>
                     <p>frontOrBackEnd: {userJson.frontOrBackEnd}</p>
-                    <p>github: {userJson.github}</p>
-                    <p>linkedin: {userJson.linkedIn}</p>
+                    <p>github: <a href={userJson.github}>{userJson.github}</a></p>
+                    <p>linkedin: <a href={userJson.linkedIn}>{userJson.linkedIn}</a></p>
                     <p>biography: {userJson.biography}</p>
                     <p>Languages: {languageList}</p>
                 </div>
@@ -94,15 +94,15 @@ export default function Profile() {
                     <Link to="/EditUser">Edit Profile</Link>
                 </div>
                 <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
-                        <Form>
-                            <div className="mb-3">
-                                <label>Enter in a image url to set PFP</label>
-                                <ErrorMessage name="imageAddress" component="span" />
-                                <Field className="form-control" name="imageAddress"/>
-                            </div>
-                            <button type="submit" className="loginButton">Upload Photo</button>
-                        </Form>
-                    </Formik>
+                    <Form>
+                        <div className="mb-3">
+                            <label>Enter in a image url to set PFP</label>
+                            <ErrorMessage name="imageAddress" component="span" />
+                            <Field className="form-control" name="imageAddress"/>
+                        </div>
+                        <button type="submit" className="loginButton">Upload Photo</button>
+                    </Form>
+                </Formik>
                 <img src={pfp} style={{width: 300, height: 300}}/>
             </div>
         </>

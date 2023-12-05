@@ -27,6 +27,9 @@ app.use("/technologies", techRouter);
 const pfpRouter = require('./routes/ProfilePic')
 app.use("/pfp", pfpRouter);
 
+const messageRouter = require('./routes/Messages')
+app.use("/messages", messageRouter);
+
 //Running the app + db
 db.sequelize.sync().then(() => {
     app.listen(5001, () => { console.log("Server started on port 5001") });

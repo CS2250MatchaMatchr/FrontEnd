@@ -83,8 +83,8 @@ export default function Dashboard() {
                     <p>classStanding: {userJson.classStanding}</p>
                     <p>gender: {userJson.gender}</p>
                     <p>frontOrBackEnd: {userJson.frontOrBackEnd}</p>
-                    <p>github: {userJson.github}</p>
-                    <p>linkedin: {userJson.linkedIn}</p>
+                    <p>github: <a href={userJson.github}>{userJson.github}</a></p>
+                    <p>linkedin:<a href={userJson.linkedIn}>{userJson.linkedIn}</a></p>
                     <p>biography: {userJson.biography}</p>
                 </div>
                 {teamHook}
