@@ -13,11 +13,11 @@ export default function Inbox() {
                 <div className="box">
                     <h1>Inbox</h1>
                     <div className="containerD">
-                        <div className="inboxButton">
+                        <div className="checkButton">
                             <Link to="../Incoming">Check Incoming Messages</Link>
                         </div>
                         <br></br>
-                        <div className="inboxButton">
+                        <div className="sentButton">
                             <Link to="../Sent">Revist Messages Sent</Link>
                         </div>
                     </div>

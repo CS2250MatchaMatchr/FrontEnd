@@ -73,7 +73,7 @@ export default function CreateAccount() {
     //Form Validation: NON DB Related
     const validationSchema = Yup.object().shape({
         email: Yup.string().required("You must enter an email!"),
-        hackerPassword: Yup.string().required().min(5)
+        hackerPassword: Yup.string().required().min(8)
     })
 
     return (
