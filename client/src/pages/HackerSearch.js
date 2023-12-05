@@ -82,7 +82,7 @@ export default function HackerSearch() {
                     <div>Search by Skills:</div>
                     <Formik
                         initialValues={{
-                            language: ""
+                            language: "Javascript"
                         }}
                         onSubmit={onSubmitByLanguage}
                     >
@@ -125,8 +125,8 @@ export default function HackerSearch() {
                         {listOfHackers.map((value, key) => {
                             return (<div>
                                 <br />
-                                <div> {value.fullName}{value.email} </div>
-                                <button className="profileButton" type="button" onClick={viewProfile}>View Profile</button>
+                                <div> {value.fullName}</div>
+                                <button className="profileButton" type="button" onClick={()=>{viewProfile(value.id)}}>View Profile</button>
                                 <br></br>
                                 <br></br>
                             </div>

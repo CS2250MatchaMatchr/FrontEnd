@@ -14,6 +14,9 @@ import OtherProfile from './pages/OtherProfile'
 import TeammateProfile from './pages/TeammateProfile'
 import EditUser from './pages/EditUser'
 import EditTechnologies from './pages/EditTechnologies'
+import Inbox from './pages/Inbox'
+import Incoming from './pages/Incoming'
+import Sent from './pages/Sent'
 
 function App() {
   return (
@@ -38,6 +41,9 @@ function App() {
           <Route path="/User" element={<User/>}/>
           <Route path="/EditUser" element={<EditUser/>}/>
           <Route path="/EditTechnologies" element={<EditTechnologies/>}/>
+          <Route path="/Inbox" element={<Inbox/>}/>
+          <Route path="/Incoming" element={<Incoming/>}/>
+          <Route path="/Sent" element={<Sent/>}/>
           <Route path="*" element={<NoPage />}/>
         </Routes>
       </BrowserRouter>

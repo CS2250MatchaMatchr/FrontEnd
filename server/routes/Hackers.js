@@ -122,5 +122,27 @@ router.put("/", async (req, res) => {
     res.send("Update Succesful")
 });
 
+router.put("/edit", async (req, res) => {
+    const sqlStatement = await sequelize.query("UPDATE `Hackers` SET fullName = :fullName, classStanding = :classStanding, gender = :gender, school = :school," +
+    "frontOrBackEnd = :frontOrBackEnd, github = :github, linkedIn = :linkedIn, biography = :biography " +
+    "WHERE id = :id",
+
+    {
+        replacements: {
+            id: req.body.id,
+            fullName: req.body.fullName,
+            classStanding: req.body.classStanding,
+            gender: req.body.gender,
+            school: req.body.school,
+            frontOrBackEnd: req.body.frontOrBackEnd,
+            github: req.body.github,
+            linkedIn: req.body.linkedIn,
+            biography: req.body.biography,
+        },
+        type: QueryTypes.INSERT
+    });
+    res.send("Update Succesful")
+});
+
 
 module.exports = router

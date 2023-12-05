@@ -29,20 +29,20 @@ export function User() {
     linkedIn: '',
   };
 
-  const onSubmit = (data => {
-    data["lookingForTeam"] = true
-    data["id"] = hackerID
-    console.log(data);
-    axios.put("http://localhost:5001/hackers", data).then((response) => {
-      if (response.data == "Update Succesful") {
-        navigate("/EditTechnologies")
-      }
-      else {
-        alert("An error has occured, please try again with a different email")
-        navigate("/")
-      }
-    })
-  });
+    const onSubmit = (data => {
+      data["lookingForTeam"] = true
+      data["id"] = hackerID
+      console.log(data);
+      axios.put("http://localhost:5001/hackers/edit",data).then((response) => {
+        if (response.data == "Update Succesful"){
+          navigate("/EditTechnologies")
+        }
+        else{
+          alert("An error has occured, please try again with a different email")
+          navigate("/")
+        }
+      })
+    });
 
   const validationSchema = Yup.object().shape({
     fullName: Yup.string().required('Full Name is required'),

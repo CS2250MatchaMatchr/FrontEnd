@@ -19,6 +19,10 @@ export default function Header() {
         navigate("/Profile");
     }
 
+    function goInbox() {
+        navigate("/Inbox");
+    }
+
     function goLogout() {
         localStorage.setItem("hackerID", -1);
         navigate("/Login");
@@ -34,6 +38,7 @@ export default function Header() {
                         <Nav.Link onClick={goHome}>Home</Nav.Link>
                         <Nav.Link onClick={goTeam}>Team</Nav.Link>
                         <Nav.Link onClick={goProfile}>Profile</Nav.Link>
+                        <Nav.Link onClick={goInbox}>Inbox</Nav.Link>
                         <Nav.Link onClick={goLogout}>Logout</Nav.Link>
                     </Nav>
                 </Container>

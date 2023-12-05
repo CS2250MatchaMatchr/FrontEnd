@@ -16,6 +16,7 @@ export default function Teams() {
     const [goToTeamManagement, setGoToTeamManagement] = React.useState(false);
     const [lftStatus, setLFTStatus] = React.useState(false);
     let hackerID = localStorage.getItem(localStorage.key("hackerID"));
+    const navigate = useNavigate()
 
     useEffect(() => {
         hackerID = localStorage.getItem(localStorage.key("hackerID"));
@@ -28,46 +29,51 @@ export default function Teams() {
     }, []);
 
     const onSubmit = (data => {
-        const datas = document.getElementById('txtbox').value;
-        console.log(datas);
-        const url = "http://localhost:5001/teams/findTeamByPasscode?passcode=" + datas;
-        axios.get(url)
-            .then(res => {
-                console.log(res);
-                const teamId = res.data.teamId;
-                console.log(teamId);
-                if (teamId === "Cannot find team") {
-                    alert("Team Does Not Exist");
-                } else {
-                    const joinJSON = {
-                        hackerID: hackerID,
-                        passcode: datas
-                    }
-                    const newUrl = "http://localhost:5001/teams/usePasscodeToJoinTeam";
-                    axios.put(newUrl, joinJSON)
-                        .then(res => {
-                            const response = res.data;
-                            if (response === "Team is full") {
-                                alert("Team is already full!");
-                                <Navigate to="/Teams" />
-                            } else {
-                                const changeStatus = {
-                                    lookingForTeam: 0,
-                                    hackerID: hackerID
+        if (lftStatus == false){
+            alert("Youre already in a team dodo head");
+        }
+        else{
+            const datas = document.getElementById('txtbox').value;
+            console.log(datas);
+            const url = "http://localhost:5001/teams/findTeamByPasscode?passcode=" + datas;
+            axios.get(url)
+                .then(res => {
+                    console.log(res);
+                    const teamId = res.data.teamId;
+                    console.log(teamId);
+                    if (teamId === "Cannot find team") {
+                        alert("Team Does Not Exist");
+                    } else {
+                        const joinJSON = {
+                            hackerID: hackerID,
+                            passcode: datas
+                        }
+                        const newUrl = "http://localhost:5001/teams/usePasscodeToJoinTeam";
+                        axios.put(newUrl, joinJSON)
+                            .then(res => {
+                                const response = res.data;
+                                if (response === "Team is full") {
+                                    alert("Team is already full!");
+                                    <Navigate to="/Teams" />
+                                } else {
+                                    const changeStatus = {
+                                        lookingForTeam: 0,
+                                        hackerID: hackerID
+                                    }
+                                    const url4 = "http://localhost:5001/teams/switchLookingForTeamStatus";
+                                    axios.put(url4, changeStatus)
+                                        .then(res => {
+                                            console.log("switched status to " + res);
+                                        })
+
+                                    alert("You have been added to the team!");
+                                    window.location.reload(false);
                                 }
-                                const url4 = "http://localhost:5001/teams/switchLookingForTeamStatus";
-                                axios.put(url4, changeStatus)
-                                    .then(res => {
-                                        console.log("switched status to " + res);
-                                    })
 
-                                alert("You have been added to the team!");
-                                <Navigate to="/Teams" />
-                            }
-
-                        })
-                }
-            })
+                            })
+                    }
+                })
+            }
         return <Navigate to="/Teams" />
     })
 
@@ -108,7 +114,7 @@ export default function Teams() {
                     <button name="btn2" className='manageButton' onClick={() => { setGoToTeamManagement(true) }}>Manage Team</button>
 
                 {/* FORM THAT CAN SEARCH FOR OTHER TEAMS IN DB */}
-                    <button name="btn3" className="searchButton" onClick={() => { setGoToHackerSearch(true); }}>Search for Teams</button>
+                    <button name="btn3" className="searchButton" onClick={() => { setGoToHackerSearch(true); }}>Search for Hackers</button>
 
             </div>
 
