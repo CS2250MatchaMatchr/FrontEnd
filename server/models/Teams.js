@@ -8,7 +8,6 @@ module.exports = (sequelize, DataTypes) => {
 
         owner: {
             type: DataTypes.INTEGER,
-            allowNull: false
         },
 
         member1: {

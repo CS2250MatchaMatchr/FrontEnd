@@ -56,7 +56,7 @@ export default function Sent() {
             <Header></Header>
             <br />
             <div className="incomingMessages">
-                <h1>Incoming Messages</h1>
+                <h1>Sent Messages</h1>
 
                 <div className="results">
                     {prepareHTML.map((value, key) => {

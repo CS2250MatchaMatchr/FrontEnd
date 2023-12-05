@@ -145,7 +145,7 @@ const errortext = {
             <Field className="form-control" name="linkedIn" placeholder="ex: https://www.linkedin.com/in/yourprofile" />
             <label className="form-label">Tell us about yourself:</label>
             <ErrorMessage name="linkedIn" component="span" style={errortext}/>
-            <Field className="form-control" name="biography" placeholder="ex: https://www.linkedin.com/in/yourprofile" />
+            <Field className="form-control" name="biography" placeholder="I have been coding since I was 2" />
     
             <button type="submit" className="updateButton">Update User Profile!</button>
           </Form>
