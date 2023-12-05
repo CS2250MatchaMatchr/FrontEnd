@@ -35,13 +35,16 @@ export default function Sent() {
                     let url3 = "http://localhost:5001/pfp?hackerID=" + listOfMessages[i].receiver
                     axios.get(url3).then((response) => {
                         console.log(response)
-                        htmlResponse.push(<div>
-                            <div>Time Sent: {listOfMessages[i].createdAt}</div>
-                                <div>You sent the following message to <b>{receiver.fullName}</b>: {listOfMessages[i].message}</div>
-                                <br></br>
-                                <br></br>
-                                <img src={response.data}></img>
-                            </div>)
+                        htmlResponse.push(
+                        <div className="sentBox">
+                            <img className="sentImage" src={response.data}></img>
+                            <div>
+                                Time Sent: {listOfMessages[i].createdAt}
+                            </div>
+                            <div>
+                                You sent the following message to <b>{receiver.fullName}</b>: {listOfMessages[i].message}
+                            </div>
+                        </div>)
                     });
                 });
             });
@@ -54,6 +57,7 @@ export default function Sent() {
             <br />
             <div className="incomingMessages">
                 <h1>Incoming Messages</h1>
+
                 <div className="results">
                     {prepareHTML.map((value, key) => {
                         return (<>{value}</>)
