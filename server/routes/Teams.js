@@ -430,7 +430,7 @@ router.put('/makeTeamNull', async (req, res) => {
     const teamName = req.body.teamName;
     console.log(ownerID + " " + teamName);
     //sets everything to null
-    const updateStatement = await sequelize.query("UPDATE Teams SET id = NULL, teamName = NULL, owner = NULL, passcode = NULL WHERE teamName = :teamName",
+    const updateStatement = await sequelize.query("UPDATE Teams SET teamName = NULL, owner = NULL, passcode = NULL WHERE teamName = :teamName",
     {
         replacements: { teamName: teamName },
         type: QueryTypes.UPDATE

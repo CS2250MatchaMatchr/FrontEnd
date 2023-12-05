@@ -39,13 +39,14 @@ export default function TeamManagement() {
               4: member3
               5: passcode
               */
-            setTeamID(response.data[0].id)
-            let teamName = response.data[0].teamName;
-            let owner = await axios.get("http://localhost:5001/hackers/fullNameFromID?id=" + response.data[0].owner)
-            let member1 = await axios.get("http://localhost:5001/hackers/fullNameFromID?id=" + response.data[0].member1)
-            let member2 = await axios.get("http://localhost:5001/hackers/fullNameFromID?id=" + response.data[0].member2)
-            let member3 = await axios.get("http://localhost:5001/hackers/fullNameFromID?id=" + response.data[0].member3)
-            let passcode = response.data[0].passcode;
+            try{
+                setTeamID(response.data[0].id)
+                let teamName = response.data[0].teamName;
+                let owner = await axios.get("http://localhost:5001/hackers/fullNameFromID?id=" + response.data[0].owner)
+                let member1 = await axios.get("http://localhost:5001/hackers/fullNameFromID?id=" + response.data[0].member1)
+                let member2 = await axios.get("http://localhost:5001/hackers/fullNameFromID?id=" + response.data[0].member2)
+                let member3 = await axios.get("http://localhost:5001/hackers/fullNameFromID?id=" + response.data[0].member3)
+                let passcode = response.data[0].passcode;
 
                 let ownerID, member1ID, member2ID, member3ID = "None"
                 try {
@@ -124,7 +125,7 @@ export default function TeamManagement() {
             }
 
         });
-    },);
+    }, [teamData]);
     
     function removeMember(memberID, ownerID, teamName) {
         console.log(memberID + " " + ownerID + " " + teamName);
@@ -186,10 +187,10 @@ export default function TeamManagement() {
         }
         axios.put("http://localhost:5001/teams/removeTeamMember", info)
             .then(res => {
+                alert("Bye Bye Bitch")
+                setTimeout(3000);
                 navigate("/Teams")
-            }).catch ((error) => {
-                console.log(error);
-            });
+            })
     }
 
     function deleteTeam(hackerID,ownerID,member1, teamName) {

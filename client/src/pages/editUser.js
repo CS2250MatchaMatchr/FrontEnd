@@ -45,7 +45,7 @@ import "../styles/user.css";
     });
 
   const validationSchema = Yup.object().shape({
-    fullName: Yup.string().matches(/^[a-zA-Z]+([ '-][a-zA-Z]+)*$/, 'Invalid full name format').required('Full Name is required'),
+    fullName: Yup.string().required('Full Name is required'),
     classStanding: Yup.string().required('Class Standing is required'),
     gender: Yup.string().required('Gender is required'),
     school: Yup.string().required('School is required'),
