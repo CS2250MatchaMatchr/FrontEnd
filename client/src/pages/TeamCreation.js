@@ -75,7 +75,7 @@ export default function TeamCreation() {
             <Header></Header>
             <br />
             <div className="urmom">
-                <h2 className="createTeam">Create Your Team!</h2>
+                <h2 className="createTeamHead">Create Your Team!</h2>
                 <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
                     <Form className="teamForm">
                         <label>Enter desired team name: </label>

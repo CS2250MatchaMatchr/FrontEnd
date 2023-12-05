@@ -1,21 +1,21 @@
 import Header from "../components/Header";
 import "../styles/profile.css";
 import axios from "axios";
-import React, {useEffect,useState} from 'react'
-import { useSearchParams, Link, useNavigate} from 'react-router-dom'
-import { Formik, Form, Field} from 'formik';
+import React, { useEffect, useState } from 'react'
+import { useSearchParams, Link, useNavigate } from 'react-router-dom'
+import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup'
 
 export default function OtherProfile() {
 
-    const [userJson,setUserJson] = useState([]);
+    const [userJson, setUserJson] = useState([]);
     const [searchParams, setSearchParams] = useSearchParams();
-    const [hackersLanguage,setHackersLanguage] = useState()
+    const [hackersLanguage, setHackersLanguage] = useState()
     const [languageList, setLanguageList] = useState([])
     const [refresh, setRefresh] = useState(false)
-    const [pfp,setPFP] = useState()
+    const [pfp, setPFP] = useState()
 
-    
+
 
     useEffect(() => {
         const hackerID = searchParams.get("id");
@@ -28,19 +28,19 @@ export default function OtherProfile() {
         axios.get(url2).then(async (response) => {
             setHackersLanguage(response.data[0][0])
             let ihatemylife = []
-            for (let term in hackersLanguage){
-                if (hackersLanguage[term] == 1){
+            for (let term in hackersLanguage) {
+                if (hackersLanguage[term] == 1) {
                     ihatemylife.push(term);
                     ihatemylife.push(", ")
                 }
             }
-            Promise.all(ihatemylife).then(function(values) {
+            Promise.all(ihatemylife).then(function (values) {
                 setRefresh(true)
                 setLanguageList(values)
-              });
+            });
         });
 
-    },[refresh]);
+    }, [refresh]);
 
     useEffect(() => {
         const hackerID = searchParams.get("id");
@@ -48,7 +48,7 @@ export default function OtherProfile() {
         axios.get(url).then(async (response) => {
             setPFP(response.data)
         });
-    },[pfp]);
+    }, [pfp]);
 
     const initialValues = {
         message: ""
@@ -67,46 +67,52 @@ export default function OtherProfile() {
             alert("Message Sent!")
             window.location.reload(false);
         });
-           
+
     });
 
     const validationSchema = Yup.object().shape({
         message: Yup.string()
     })
-    
+
 
     return (
         <>
             <Header />
             <br />
             <div className="profile">
-                <h2>Profile</h2>
-                
+                <h2 className="profileHead">Profile</h2>
+
+                <div className="profileImage">
+                    <img src={pfp} style={{ width: 300, height: 300 }} />
+                </div>
+
                 <div className="info">
-                    <p>email: {userJson.email}</p>
-                    <p>fullName: {userJson.fullName}</p>
-                    <p>classStanding: {userJson.classStanding}</p>
-                    <p>gender: {userJson.gender}</p>
-                    <p>frontOrBackEnd: {userJson.frontOrBackEnd}</p>
-                    <p>github: {userJson.github}</p>
-                    <p>github: <a href={userJson.github}>{userJson.github}</a></p>
-                    <p>linkedin: <a href={userJson.linkedIn}>{userJson.linkedIn}</a></p>
+                    <p>Email: {userJson.email}</p>
+                    <p>Full Name: {userJson.fullName}</p>
+                    <p>Class Standing: {userJson.classStanding}</p>
+                    <p>Gender: {userJson.gender}</p>
+                    <p>Front Or BackEnd: {userJson.frontOrBackEnd}</p>
+                    <p>Github: <a href={userJson.github}>{userJson.github}</a></p>
+                    <p>Linkedin: <a href={userJson.linkedIn}>{userJson.linkedIn}</a></p>
+                    <p>Biography: {userJson.biography}</p>
                     <p>Languages: {languageList}</p>
 
+                    <Link to="/TeamManagement">Back to Team Management</Link>
+
+                    <br /> <br />
+                    <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
+                        <Form>
+                            <div className>
+                                <label>Send a message to {userJson.fullName}!</label>
+                                <Field className="send-form-control" name="message" />
+                            </div>
+                            <button type="submit" className="sendButton">Send</button>
+                        </Form>
+                    </Formik>
                 </div>
-                <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
-                    <Form>
-                        <div className="mb-3">
-                            <label>Send a message to {userJson.fullName}!</label>
-                            <Field className="form-control" name="message"/>
-                        </div>
-                        <button type="submit" className="loginButton">Send</button>
-                    </Form>
-                </Formik>
-                <img src={pfp} style={{width: 300, height: 300}}/>
+
                 <br></br>
                 <br></br>
-                <Link to="/TeamManagement">Back to Team Management</Link>
                 <br />
             </div>
         </>

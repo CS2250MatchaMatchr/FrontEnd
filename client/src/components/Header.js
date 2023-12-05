@@ -35,11 +35,11 @@ export default function Header() {
                 <Container>
                     <Navbar.Brand></Navbar.Brand>
                     <Nav>
-                        <Nav.Link onClick={goHome}>Home</Nav.Link>
-                        <Nav.Link onClick={goTeam}>Team</Nav.Link>
-                        <Nav.Link onClick={goProfile}>Profile</Nav.Link>
-                        <Nav.Link onClick={goInbox}>Inbox</Nav.Link>
-                        <Nav.Link onClick={goLogout}>Logout</Nav.Link>
+                        <Nav.Link className="navLink" onClick={goHome}>Home</Nav.Link>
+                        <Nav.Link className="navLink" onClick={goTeam}>Team</Nav.Link>
+                        <Nav.Link className="navLink" onClick={goProfile}>Profile</Nav.Link>
+                        <Nav.Link className="navLink" onClick={goInbox}>Inbox</Nav.Link>
+                        <Nav.Link className="navLink" onClick={goLogout}>Logout</Nav.Link>
                     </Nav>
                 </Container>
             </Navbar>

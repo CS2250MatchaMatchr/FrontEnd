@@ -36,3 +36,26 @@
     border: 1px solid #e5e5e5;
     box-shadow: 0px 0px 10px rgb(233, 233, 233);
 }
+
+.navLink {
+    color: white;
+}
+
+.teamHook {
+    display: flex;
+    flex: 1;
+    margin: 10px;
+    background-color: rgb(245, 245, 245);
+    border-radius: 10px;
+    border: 1px solid #e5e5e5;
+    box-shadow: 0px 0px 10px rgb(233, 233, 233);
+    align-items: center;
+    justify-content: center;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.teamHead {
+    font-size: 50px;
+    text-align: center;
+}
