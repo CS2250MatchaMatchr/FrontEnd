@@ -73,7 +73,7 @@ export default function HackerSearch() {
                         <Form>
                             <Field className="form-control" name="fullName" placeholder="Search by Name" />
                             <br />
-                            <button className="searchButton" type="submit" >Search!</button>
+                            <button className="searchHackButton" type="submit" >Search!</button>
                         </Form>
                     </Formik>
                     <br />

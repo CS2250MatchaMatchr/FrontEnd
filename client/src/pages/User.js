@@ -27,6 +27,7 @@ import "../styles/user.css";
       frontOrBackEnd: "",
       github: '',
       linkedIn: '',
+      biography: ''
     };
 
     const onSubmit = (data => {
@@ -45,14 +46,15 @@ import "../styles/user.css";
     });
 
   const validationSchema = Yup.object().shape({
-    fullName: Yup.string().required('Full Name is required'),
+    fullName: Yup.string().matches(/^[a-zA-Z]+([ '-][a-zA-Z]+)*$/, 'Invalid full name format').required('Full Name is required'),
     classStanding: Yup.string().required('Class Standing is required'),
     gender: Yup.string().required('Gender is required'),
     school: Yup.string().required('School is required'),
     lookingForTeam: Yup.boolean().required('Looking for Team is required'),
     frontOrBackEnd: Yup.string().required('Frontend/Backend selection is required'),
     github: Yup.string().required('Github link is required'),
-    linkedIn: Yup.string()
+    linkedIn: Yup.string().required('linkedIn is required'),
+    biography: Yup.string()
 });
   return (
     <div className="container mt-5">
@@ -135,12 +137,13 @@ import "../styles/user.css";
             <ErrorMessage name="Github" component="span" />
             <Field className="form-control" name="github" placeholder="ex: https://github.com/username" />
 
-            <label className="form-label">LinkedIn Profile:</label>
+            <label className="form-label">LinkedIn Profile: </label>
             <ErrorMessage name="linkedIn" component="span" />
             <Field className="form-control" name="linkedIn" placeholder="ex: https://www.linkedin.com/in/yourprofile" />
+            
             <label className="form-label">Tell us about yourself:</label>
-            <ErrorMessage name="linkedIn" component="span" />
-            <Field className="form-control" name="biography" placeholder="ex: https://www.linkedin.com/in/yourprofile" />
+            <ErrorMessage name="biography" component="span" />
+            <Field className="form-control" name="biography" placeholder="ex: Hi, I wish to be experienced in docker and stuff" />
     
             <button type="submit" className="createButton">Create User Profile!</button>
           </Form>

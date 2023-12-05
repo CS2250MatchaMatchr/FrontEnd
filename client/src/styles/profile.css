@@ -1,12 +1,10 @@
 .profile {
-    width: 80%;
-    height: 500px;
+    width: 90%;
+    height: 550px;
     border-radius: 30px;
     display: block;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 20px;
-    padding-top: 20px;
     background-color: rgb(245, 245, 245);
     border: 1px solid #e5e5e5;
     box-shadow: 0px 0px 10px rgb(233, 233, 233);
@@ -28,6 +26,28 @@
     text-decoration: none;
 }
 
+.photoButton {
+    height: 30px;
+    width: 120px;
+    background-color: rgb(144, 175, 131);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    margin-left: 10px;
+}
+
+.sendButton {
+    height: 25px;
+    width: 100px;
+    background-color: rgb(144, 175, 131);
+    border: none;
+    border-radius: 10px;
+    color: white;
+}
+
+.photoButton:hover, .sendButton:hover {
+    background-color: rgb(203, 201, 201);
+}
 
 
 .box {
@@ -45,4 +65,35 @@
     background-color: rgb(144, 175, 131);
     padding: 20px;
     color: #fff; 
+}
+
+.profile {
+    display: flex;
+    align-items: flex-start;
+  }
+  
+.profile .info {
+    flex-grow: 1;
+    order: 0;
+    margin-top: 60px;
+    margin-left: -45px;
+}
+
+.profileHead {
+    padding-top: 20px;
+    padding-left: 30px;
+}
+
+.profile .profileImage {
+    order: 1;
+    margin-top: 30px;
+    margin-right: 30px;
+}
+
+.image-form-control {
+    margin-top: 5px;
+}
+
+.send-form-control {
+    margin-left: 5px;
 }

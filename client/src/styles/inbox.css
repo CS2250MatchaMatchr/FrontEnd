@@ -1,0 +1,33 @@
+.checkButton {
+    height: 55px;
+    width: 200px;
+    background-color: rgb(144, 175, 131);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    margin: 10px;
+    font-size: large;
+    padding: 5px;
+}
+
+.sentButton {
+    height: 55px;
+    width: 200px;
+    background-color: rgb(144, 175, 131);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    margin: 10px;
+    font-size: large;
+    padding: 15px;
+}
+
+.sentButton a, .checkButton a {
+    color: white;
+    text-decoration: none;
+}
+
+.sentButton a:hover, .checkButton a:hover {
+    color: grey;
+    text-decoration: none;
+}

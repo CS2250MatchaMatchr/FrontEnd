@@ -26,3 +26,7 @@
     color: white;
     margin-top: 10px;
 }
+
+.createAccButton:hover {
+    background-color: rgb(203, 201, 201);
+}
