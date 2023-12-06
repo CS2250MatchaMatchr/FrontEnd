@@ -15,7 +15,7 @@ export default function Sent() {
 
     useEffect(() => {
         const hackerID = localStorage.getItem(localStorage.key("hackerID"));
-        const url = "http://localhost:5001/messages/sent?sender=" + hackerID
+        const url = "http://54.221.32.155:5001/messages/sent?sender=" + hackerID
         axios.get(url).then(async (response) => {
             getListOfMessages(response.data[0])
         });
@@ -26,13 +26,13 @@ export default function Sent() {
     function onSubmit() {
         let htmlResponse = []
         for (let i in listOfMessages) {
-            const url = "http://localhost:5001/hackers?id=" + listOfMessages[i].sender
+            const url = "http://54.221.32.155:5001/hackers?id=" + listOfMessages[i].sender
             axios.get(url).then((response) => {
                 const sender = response.data[0][0]
-                const url2 = "http://localhost:5001/hackers?id=" + listOfMessages[i].receiver
+                const url2 = "http://54.221.32.155:5001/hackers?id=" + listOfMessages[i].receiver
                 axios.get(url2).then((response) => {
                     const receiver = response.data[0][0]
-                    let url3 = "http://localhost:5001/pfp?hackerID=" + listOfMessages[i].receiver
+                    let url3 = "http://54.221.32.155:5001/pfp?hackerID=" + listOfMessages[i].receiver
                     axios.get(url3).then((response) => {
                         console.log(response)
                         htmlResponse.push(

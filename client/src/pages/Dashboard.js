@@ -16,20 +16,20 @@ export default function Dashboard() {
     const [countdown,setCountdown] = useState('');
     useEffect(() => {
         const hackerID = localStorage.getItem(localStorage.key("hackerID"));
-        let url = "http://localhost:5001/hackers?id=" + hackerID
+        let url = "http://54.221.32.155:5001/hackers?id=" + hackerID
         let promise1 = axios.get(url).then(async (response) => {
             const data = await response.data[0][0]
             setUserJson(data)
     
         });
-        let url2 = "http://localhost:5001/teams/checkAlreadyInTeam?hackerID=" + hackerID
+        let url2 = "http://54.221.32.155:5001/teams/checkAlreadyInTeam?hackerID=" + hackerID
         let promise2 = axios.get(url2).then(async (response) => {
             const data = await response.data[0]
             console.log(data)
             setTeamOr(data)
         })
         
-        let url3 = "http://localhost:5001/teams/fromUserID?ID=" + hackerID
+        let url3 = "http://54.221.32.155:5001/teams/fromUserID?ID=" + hackerID
         let promise3 = axios.get(url3).then((response) => {
             setTeamJson(response.data[0]);
         })

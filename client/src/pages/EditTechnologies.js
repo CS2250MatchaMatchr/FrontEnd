@@ -56,7 +56,7 @@ export default function Technologies() {
             }
 
 
-            axios.put("http://localhost:5001/technologies", technologies).then((response) => {
+            axios.put("http://54.221.32.155:5001/technologies", technologies).then((response) => {
                 console.log(response.data)
                 if (response.data == "Update Successful") {
                     navigate("/Dashboard");

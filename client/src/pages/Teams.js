@@ -20,7 +20,7 @@ export default function Teams() {
 
     useEffect(() => {
         hackerID = localStorage.getItem(localStorage.key("hackerID"));
-        axios.get("http://localhost:5001/teams/getLFTStatus?hackerID=" + hackerID)
+        axios.get("http://54.221.32.155:5001/teams/getLFTStatus?hackerID=" + hackerID)
             .then(res => {
                 if (res.data.lookingForTeam === 1) {
                     setLFTStatus(true);
@@ -35,7 +35,7 @@ export default function Teams() {
         else{
             const datas = document.getElementById('txtbox').value;
             console.log(datas);
-            const url = "http://localhost:5001/teams/findTeamByPasscode?passcode=" + datas;
+            const url = "http://54.221.32.155:5001/teams/findTeamByPasscode?passcode=" + datas;
             axios.get(url)
                 .then(res => {
                     console.log(res);
@@ -48,7 +48,7 @@ export default function Teams() {
                             hackerID: hackerID,
                             passcode: datas
                         }
-                        const newUrl = "http://localhost:5001/teams/usePasscodeToJoinTeam";
+                        const newUrl = "http://54.221.32.155:5001/teams/usePasscodeToJoinTeam";
                         axios.put(newUrl, joinJSON)
                             .then(res => {
                                 const response = res.data;
@@ -60,7 +60,7 @@ export default function Teams() {
                                         lookingForTeam: 0,
                                         hackerID: hackerID
                                     }
-                                    const url4 = "http://localhost:5001/teams/switchLookingForTeamStatus";
+                                    const url4 = "http://54.221.32.155:5001/teams/switchLookingForTeamStatus";
                                     axios.put(url4, changeStatus)
                                         .then(res => {
                                             console.log("switched status to " + res);
