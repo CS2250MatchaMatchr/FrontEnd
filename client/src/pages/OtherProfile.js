@@ -19,12 +19,12 @@ export default function OtherProfile() {
 
     useEffect(() => {
         const hackerID = searchParams.get("id");
-        let url = "http://localhost:5001/hackers?id=" + hackerID
+        let url = "http://54.221.32.155:5001/hackers?id=" + hackerID
         axios.get(url).then(async (response) => {
             setUserJson(response.data[0][0])
         });
 
-        let url2 = "http://localhost:5001/Technologies?hackerID=" + hackerID
+        let url2 = "http://54.221.32.155:5001/Technologies?hackerID=" + hackerID
         axios.get(url2).then(async (response) => {
             setHackersLanguage(response.data[0][0])
             let ihatemylife = []
@@ -44,7 +44,7 @@ export default function OtherProfile() {
 
     useEffect(() => {
         const hackerID = searchParams.get("id");
-        let url = "http://localhost:5001/pfp?hackerID=" + hackerID
+        let url = "http://54.221.32.155:5001/pfp?hackerID=" + hackerID
         axios.get(url).then(async (response) => {
             setPFP(response.data)
         });
@@ -62,7 +62,7 @@ export default function OtherProfile() {
             message: data.message
         }
         console.log(newMessage)
-        axios.post("http://localhost:5001/messages", newMessage).then((response) => {
+        axios.post("http://54.221.32.155:5001/messages", newMessage).then((response) => {
             console.log(response)
             alert("Message Sent!")
             window.location.reload(false);

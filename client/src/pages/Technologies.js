@@ -58,11 +58,11 @@ export default function Technologies() {
             technologies.Other = values.Other
 
             const pfp = {hackerID: hackerID, imageAddress: ""}
-            axios.post("http://localhost:5001/pfp", pfp).then((response) => {
+            axios.post("http://54.221.32.155:5001/pfp", pfp).then((response) => {
                 console.log(response.data)
             });
             
-            axios.post("http://localhost:5001/technologies", technologies).then((response) => {
+            axios.post("http://54.221.32.155:5001/technologies", technologies).then((response) => {
                 console.log(response.data)
                 if (response.data == "Update Succesful") {
                     navigate("/Dashboard");

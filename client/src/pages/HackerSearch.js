@@ -18,7 +18,7 @@ export default function HackerSearch() {
     }
 
     const onSubmitByName = (data => {
-        let url = "http://localhost:5001/hackers/fullName?fullName=" + data.fullName
+        let url = "http://54.221.32.155:5001/hackers/fullName?fullName=" + data.fullName
         axios.get(url).then((response) => {
             if (response.data.length == 0) {
                 alert("Couldn't find users");
@@ -31,12 +31,12 @@ export default function HackerSearch() {
     });
 
     const onSubmitByLanguage = (data => {
-        let url = "http://localhost:5001/technologies/HackerIDFromLanguage?language=" + data.language
+        let url = "http://54.221.32.155:5001/technologies/HackerIDFromLanguage?language=" + data.language
         let hackerPromises = []
         axios.get(url).then((response) => {
             // Response.data is an array of ID's
             for (let id in response.data.listOfID) {
-                let url = "http://localhost:5001/hackers/fullNameFromID?id=" + response.data.listOfID[id];
+                let url = "http://54.221.32.155:5001/hackers/fullNameFromID?id=" + response.data.listOfID[id];
 
                 // Push the axios.get promise to the array
                 hackerPromises.push(axios.get(url));

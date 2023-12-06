@@ -53,7 +53,7 @@ export default function CreateAccount() {
                                 "biography": "",
                                 "lookingForTeam": true
                                 };
-            axios.post("http://localhost:5001/hackers", newHacker).then((response) => {
+            axios.post("http://54.221.32.155:5001/hackers", newHacker).then((response) => {
                 if (response.data === "Fail") {
 
                     alert("Email already exits.");

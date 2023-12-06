@@ -18,7 +18,7 @@ export default function Incoming() {
 
     useEffect(() => {
         const hackerID = localStorage.getItem(localStorage.key("hackerID"));
-        const url = "http://localhost:5001/messages/received?receiver=" + hackerID
+        const url = "http://54.221.32.155:5001/messages/received?receiver=" + hackerID
         axios.get(url).then(async (response) => {
             getListOfMessages(response.data[0])
         });
@@ -29,10 +29,10 @@ export default function Incoming() {
     function onSubmit(){
         let htmlResponse = []
         for (let i in listOfMessages){
-            const url = "http://localhost:5001/hackers?id=" + listOfMessages[i].sender
+            const url = "http://54.221.32.155:5001/hackers?id=" + listOfMessages[i].sender
             axios.get(url).then((response) => {
                 const sender = response.data[0][0]
-                let url2 = "http://localhost:5001/pfp?hackerID=" + listOfMessages[i].sender
+                let url2 = "http://54.221.32.155:5001/pfp?hackerID=" + listOfMessages[i].sender
                     axios.get(url2).then((response) => {
                         console.log(response)
                         htmlResponse.push(<div>

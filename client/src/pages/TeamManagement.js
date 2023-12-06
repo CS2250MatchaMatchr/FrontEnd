@@ -28,7 +28,7 @@ export default function TeamManagement() {
 
     //Fetching all the variables from the DB
     useEffect(() => {
-        let url = "http://localhost:5001/teams/fromUserID?ID=" + hackerID;
+        let url = "http://54.221.32.155:5001/teams/fromUserID?ID=" + hackerID;
         let urmom = [];
         axios.get(url).then(async (response) => {
             /*Array Index Meaning 
@@ -42,10 +42,10 @@ export default function TeamManagement() {
             try{
                 setTeamID(response.data[0].id)
                 let teamName = response.data[0].teamName;
-                let owner = await axios.get("http://localhost:5001/hackers/fullNameFromID?id=" + response.data[0].owner)
-                let member1 = await axios.get("http://localhost:5001/hackers/fullNameFromID?id=" + response.data[0].member1)
-                let member2 = await axios.get("http://localhost:5001/hackers/fullNameFromID?id=" + response.data[0].member2)
-                let member3 = await axios.get("http://localhost:5001/hackers/fullNameFromID?id=" + response.data[0].member3)
+                let owner = await axios.get("http://54.221.32.155:5001/hackers/fullNameFromID?id=" + response.data[0].owner)
+                let member1 = await axios.get("http://54.221.32.155:5001/hackers/fullNameFromID?id=" + response.data[0].member1)
+                let member2 = await axios.get("http://54.221.32.155:5001/hackers/fullNameFromID?id=" + response.data[0].member2)
+                let member3 = await axios.get("http://54.221.32.155:5001/hackers/fullNameFromID?id=" + response.data[0].member3)
                 let passcode = response.data[0].passcode;
 
                 let ownerID, member1ID, member2ID, member3ID = "None"
@@ -148,7 +148,7 @@ export default function TeamManagement() {
             }
             console.log(a.current + " " + c.current);
             console.log(info);
-            axios.put("http://localhost:5001/teams/removeTeamMember", info)
+            axios.put("http://54.221.32.155:5001/teams/removeTeamMember", info)
                 .then(res => {
                     alert("You have removed this member!")
                     window.location.reload(false);
@@ -167,7 +167,7 @@ export default function TeamManagement() {
                 memberNumber: memberNumber
             }
             
-            axios.put("http://localhost:5001/teams/switchOwnerAndMember", id).then((response) => {
+            axios.put("http://54.221.32.155:5001/teams/switchOwnerAndMember", id).then((response) => {
                 alert("Ownership changed");
                 window.location.reload(false);
             }).catch ((error) => {
@@ -185,7 +185,7 @@ export default function TeamManagement() {
             memberToRemove: memberID,
             teamName: teamName
         }
-        axios.put("http://localhost:5001/teams/removeTeamMember", info)
+        axios.put("http://54.221.32.155:5001/teams/removeTeamMember", info)
             .then(res => {
                 alert("Bye Bye Bitch")
                 setTimeout(3000);
@@ -201,7 +201,7 @@ export default function TeamManagement() {
         else if (member1 != undefined || member1 != "None"){
             const urmom = {teamName: teamName, ownerID: ownerID}
             console.log(urmom);
-            axios.put("http://localhost:5001/teams/makeTeamNull", urmom)
+            axios.put("http://54.221.32.155:5001/teams/makeTeamNull", urmom)
                 .then(res => {
                     console.log(res);
                     alert("Yall weren't gonna win anyways");

@@ -34,7 +34,7 @@ import "../styles/user.css";
       data["lookingForTeam"] = true
       data["id"] = hackerID
       console.log(data);
-      axios.put("http://localhost:5001/hackers",data).then((response) => {
+      axios.put("http://54.221.32.155:5001/hackers",data).then((response) => {
         if (response.data == "Update Succesful"){
           navigate("/Technologies")
         }

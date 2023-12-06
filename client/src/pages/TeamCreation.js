@@ -44,7 +44,7 @@ export default function TeamCreation() {
             passcode: passcode
         }
 
-        axios.post("http://localhost:5001/teams", team).then((response) => {
+        axios.post("http://54.221.32.155:5001/teams", team).then((response) => {
             if (response.data === "You can not create an account whilst a member of a team" || response.data === "Error: Team Name Already Exists") {
 
                 alert(response.data);
@@ -57,7 +57,7 @@ export default function TeamCreation() {
                     lookingForTeam: 0,
                     hackerID: hackerID
                 }
-                axios.put("http://localhost:5001/teams/switchLookingForTeamStatus", changeStatus).then((response) => {
+                axios.put("http://54.221.32.155:5001/teams/switchLookingForTeamStatus", changeStatus).then((response) => {
                     console.log(response.data)
                 });
 
